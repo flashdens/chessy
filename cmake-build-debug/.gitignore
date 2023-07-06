@@ -1,0 +1,20 @@
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+
+# Generated executables
+my_application
+my_tests
+
+# Compiler-specific files
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+
+# the actual executable
+milochess
