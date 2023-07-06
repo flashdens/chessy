@@ -1,0 +1,12 @@
+# ninja log v5
+1	3653	1688635016791297990	lib/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o	82fca8414fcdc7cf
+1	45	1688635139632827303	lib/libgtest.a	592c9ac8d37df296
+850	963	1688635354459501784	lib/google_tests_run	2d4980527c780fdb
+0	61	1688635898274278380	build.ninja	b568c07d8db7ba26
+17	38	1688634932178244600	milochess	33d6d1d42c5ec4f4
+1	885	1688635014031263629	lib/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o	c86acfc98f9cb45d
+0	17	1688634932158244352	CMakeFiles/milochess.dir/src/main.c.o	a3191965d48236b7
+46	55	1688635139640827402	lib/libgtest_main.a	fcb6e22f42da3adf
+1	850	1688635354347500390	lib/CMakeFiles/google_tests_run.dir/__/tests/test1.cpp.o	6f0d6a31e17d9137
+0	18	1688636069348416669	CMakeFiles/milochess.dir/src/main.c.o	c3f02ccd79195b19
+18	34	1688636069364416870	milochess	33d6d1d42c5ec4f4
