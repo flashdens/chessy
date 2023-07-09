@@ -3,10 +3,7 @@ CMakeCache.txt
 CMakeFiles/
 Makefile
 cmake_install.cmake
-
-# Generated executables
-my_application
-my_tests
+.ninja_log
 
 # Compiler-specific files
 *.o

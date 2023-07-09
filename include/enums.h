@@ -1,5 +1,5 @@
-#ifndef MILOCHESS_ENUM_H
-#define MILOCHESS_ENUM_H
+#ifndef MILOCHESS_ENUMS_H
+#define MILOCHESS_ENUMS_H
 
 enum {EMPTY, wP, wN, wB, wR, wQ, wK, bP, bN, bB, bR, bQ, bK};
 
@@ -26,4 +26,4 @@ enum {  wKCastle = 1,
 };
 
 
-#endif //MILOCHESS_ENUM_H
+#endif //MILOCHESS_ENUMS_H

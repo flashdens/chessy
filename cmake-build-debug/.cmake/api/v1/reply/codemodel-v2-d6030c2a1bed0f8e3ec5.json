@@ -111,7 +111,7 @@
 				{
 					"directoryIndex" : 1,
 					"id" : "google_tests_run::@306ed2d68c6501e8728f",
-					"jsonFile" : "target-google_tests_run-Debug-bb6e2a41a038d4346310.json",
+					"jsonFile" : "target-google_tests_run-Debug-0d7f978180289b6307e5.json",
 					"name" : "google_tests_run",
 					"projectIndex" : 1
 				},
@@ -132,7 +132,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "milochess::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-milochess-Debug-2eb1748e0b73973c3c85.json",
+					"jsonFile" : "target-milochess-Debug-270b26b0b83773d52a4d.json",
 					"name" : "milochess",
 					"projectIndex" : 0
 				}
