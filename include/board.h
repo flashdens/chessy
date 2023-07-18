@@ -7,17 +7,15 @@
 #include "macros.h"
 
 typedef struct {
-
     int move;
     int castlePermission;
     int enPassant;
     int fiftyMove;
-    unsigned long long positionKey;
+    U64 positionKey;
 
 } HISTORY;
 
 typedef struct {
-
     HISTORY history[MAX_MOVES];
     int pieces[BOARD_SQUARES];
 
@@ -30,11 +28,11 @@ typedef struct {
     int ply;
     int hisPly;
 
-    unsigned long long posKey;
+    U64 posKey;
 
     int pieceNumber[13];
 
-    unsigned long long pawns[3];
+    U64 pawns[3];
     int minorPieces[3];
     int majorPieces[3];
     int bigPieces[3];
@@ -42,8 +40,6 @@ typedef struct {
     int castlePermission;
 
     int pieceList[13][10];
-
-
 
 } BOARD;
 

@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/miloszek/projekty/milochess/cmake-build-debug"
+			"value" : "/home/miloszek/projects/CLionProjects/milochess/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -115,7 +115,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/231.9161.40/bin/cmake/linux/x64/bin/cmake"
+			"value" : "/home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/231.9225.21/bin/cmake/linux/x64/bin/cmake"
 		},
 		{
 			"name" : "CMAKE_CPACK_COMMAND",
@@ -127,7 +127,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/231.9161.40/bin/cmake/linux/x64/bin/cpack"
+			"value" : "/home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/231.9225.21/bin/cmake/linux/x64/bin/cpack"
 		},
 		{
 			"name" : "CMAKE_CTEST_COMMAND",
@@ -139,7 +139,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/231.9161.40/bin/cmake/linux/x64/bin/ctest"
+			"value" : "/home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/231.9225.21/bin/cmake/linux/x64/bin/ctest"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER",
@@ -171,7 +171,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/gcc-ar-11"
+			"value" : "/usr/bin/gcc-ar"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER_RANLIB",
@@ -187,7 +187,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/gcc-ranlib-11"
+			"value" : "/usr/bin/gcc-ranlib"
 		},
 		{
 			"name" : "CMAKE_CXX_FLAGS",
@@ -299,7 +299,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/gcc-ar-11"
+			"value" : "/usr/bin/gcc-ar"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER_RANLIB",
@@ -315,7 +315,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "/usr/bin/gcc-ranlib-11"
+			"value" : "/usr/bin/gcc-ranlib"
 		},
 		{
 			"name" : "CMAKE_C_FLAGS",
@@ -543,7 +543,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/miloszek/projekty/milochess/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "/home/miloszek/projects/CLionProjects/milochess/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -615,7 +615,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/miloszek/projekty/milochess"
+			"value" : "/home/miloszek/projects/CLionProjects/milochess"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -639,7 +639,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "1"
+			"value" : "0"
 		},
 		{
 			"name" : "CMAKE_LINKER",
@@ -667,7 +667,7 @@
 				}
 			],
 			"type" : "UNINITIALIZED",
-			"value" : "/home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/231.9161.40/bin/ninja/linux/x64/ninja"
+			"value" : "/home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/231.9225.21/bin/ninja/linux/x64/ninja"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS",
@@ -959,7 +959,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/231.9161.40/bin/cmake/linux/x64/share/cmake-3.25"
+			"value" : "/home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/231.9225.21/bin/cmake/linux/x64/share/cmake-3.25"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
@@ -1207,7 +1207,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "[/usr/bin/python3.10][cfound components: Interpreter ][v3.10.6()]"
+			"value" : "[/usr/bin/python3.11][cfound components: Interpreter ][v3.11.3()]"
 		},
 		{
 			"name" : "FIND_PACKAGE_MESSAGE_DETAILS_Threads",
@@ -1267,7 +1267,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "/usr/bin/python3.10"
+			"value" : "/usr/bin/python3.11"
 		},
 		{
 			"name" : "_Python3_INTERPRETER_PROPERTIES",
@@ -1279,7 +1279,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "Python;3;10;6;64;;cpython-310-x86_64-linux-gnu;/usr/lib/python3.10;/usr/lib/python3.10;/usr/lib/python3/dist-packages;/usr/lib/python3/dist-packages"
+			"value" : "Python;3;11;3;64;;cpython-311-x86_64-linux-gnu;/usr/lib/python3.11;/usr/lib/python3.11;/usr/lib/python3.11/site-packages;/usr/lib/python3.11/site-packages"
 		},
 		{
 			"name" : "_Python3_INTERPRETER_SIGNATURE",
@@ -1291,7 +1291,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "b91b4035ecb3bb3f5760d35922531bcd"
+			"value" : "c5ea8e56613f13ab5e55239a52af8d00"
 		},
 		{
 			"name" : "_Python3_Interpreter_REASON_FAILURE",
@@ -1339,7 +1339,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/miloszek/projekty/milochess/cmake-build-debug/lib"
+			"value" : "/home/miloszek/projects/CLionProjects/milochess/cmake-build-debug/lib"
 		},
 		{
 			"name" : "google_tests_IS_TOP_LEVEL",
@@ -1363,7 +1363,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/miloszek/projekty/milochess/lib"
+			"value" : "/home/miloszek/projects/CLionProjects/milochess/lib"
 		},
 		{
 			"name" : "gtest_BINARY_DIR",
@@ -1375,7 +1375,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/miloszek/projekty/milochess/cmake-build-debug/lib/googletest"
+			"value" : "/home/miloszek/projects/CLionProjects/milochess/cmake-build-debug/lib/googletest"
 		},
 		{
 			"name" : "gtest_IS_TOP_LEVEL",
@@ -1399,7 +1399,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/miloszek/projekty/milochess/lib/googletest"
+			"value" : "/home/miloszek/projects/CLionProjects/milochess/lib/googletest"
 		},
 		{
 			"name" : "gtest_build_samples",
@@ -1491,7 +1491,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/miloszek/projekty/milochess/cmake-build-debug"
+			"value" : "/home/miloszek/projects/CLionProjects/milochess/cmake-build-debug"
 		},
 		{
 			"name" : "milochess_IS_TOP_LEVEL",
@@ -1515,7 +1515,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "/home/miloszek/projekty/milochess"
+			"value" : "/home/miloszek/projects/CLionProjects/milochess"
 		}
 	],
 	"kind" : "cache",

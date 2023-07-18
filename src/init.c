@@ -1,17 +1,16 @@
+#include <stdio.h>
+
 #include "globals.h"
 #include "macros.h"
 #include "init.h"
 #include "enums.h"
-
-#include <stdio.h>
 
 int Sq64ToSq120[64];
 int Sq120ToSq64[BOARD_SQUARES];
 
 void initSq120To64() {
 
-    int file;
-    int rank;
+
     int square;
     int square64 = 0;
 
@@ -23,8 +22,8 @@ void initSq120To64() {
         Sq64ToSq120[i] = 120;
     }
 
-    for (rank = RANK_1; rank <= RANK_8; ++rank) {
-        for (file = FILE_A; file <= FILE_H; ++file) {
+    for (int rank = RANK_1; rank <= RANK_8; ++rank) {
+        for (int file = FILE_A; file <= FILE_H; ++file) {
             square = FR2SQ(file, rank);
             Sq64ToSq120[square64] = square;
             Sq120ToSq64[square] = square64;

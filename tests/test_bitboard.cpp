@@ -1,3 +1,5 @@
-//
-// Created by miloszek on 18.07.23.
-//
+#include <gtest/gtest.h>
+
+#include "enums.h"
+#include "macros.h"
+#include "bitboards.h"

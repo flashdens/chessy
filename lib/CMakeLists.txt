@@ -3,7 +3,7 @@ project(google_tests)
 add_subdirectory(googletest)
 
 
-add_executable(google_tests_run ${CMAKE_SOURCE_DIR}/tests/test1.cpp ../tests/test_macros.cpp ../tests/test_init.cpp)
+add_executable(google_tests_run ${CMAKE_SOURCE_DIR}/tests/test1.cpp ../tests/test_macros.cpp ../tests/test_init.cpp ../tests/test_bitboard.cpp)
 
 target_link_libraries(google_tests_run gtest gtest_main)
 

@@ -68,11 +68,11 @@
 			[
 				{
 					"backtrace" : 4,
-					"path" : "/home/miloszek/projekty/milochess/lib/googletest/include"
+					"path" : "/home/miloszek/projects/CLionProjects/milochess/lib/googletest/include"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "/home/miloszek/projekty/milochess/lib/googletest"
+					"path" : "/home/miloszek/projects/CLionProjects/milochess/lib/googletest"
 				}
 			],
 			"language" : "CXX",

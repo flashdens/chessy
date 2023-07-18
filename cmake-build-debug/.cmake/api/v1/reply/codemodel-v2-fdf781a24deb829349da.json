@@ -111,28 +111,28 @@
 				{
 					"directoryIndex" : 1,
 					"id" : "google_tests_run::@306ed2d68c6501e8728f",
-					"jsonFile" : "target-google_tests_run-Debug-0d7f978180289b6307e5.json",
+					"jsonFile" : "target-google_tests_run-Debug-db42ad98466e263e2a1f.json",
 					"name" : "google_tests_run",
 					"projectIndex" : 1
 				},
 				{
 					"directoryIndex" : 2,
 					"id" : "gtest::@919d8671e5e914cdef54",
-					"jsonFile" : "target-gtest-Debug-c6281769bc0299b52f57.json",
+					"jsonFile" : "target-gtest-Debug-93a384836cbe3e894f5d.json",
 					"name" : "gtest",
 					"projectIndex" : 2
 				},
 				{
 					"directoryIndex" : 2,
 					"id" : "gtest_main::@919d8671e5e914cdef54",
-					"jsonFile" : "target-gtest_main-Debug-e213b1c244ad142afc27.json",
+					"jsonFile" : "target-gtest_main-Debug-ea696ca0d09ad145c404.json",
 					"name" : "gtest_main",
 					"projectIndex" : 2
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "milochess::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-milochess-Debug-270b26b0b83773d52a4d.json",
+					"jsonFile" : "target-milochess-Debug-2c8d19faccfe5ff6dae4.json",
 					"name" : "milochess",
 					"projectIndex" : 0
 				}
@@ -142,8 +142,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/miloszek/projekty/milochess/cmake-build-debug",
-		"source" : "/home/miloszek/projekty/milochess"
+		"build" : "/home/miloszek/projects/CLionProjects/milochess/cmake-build-debug",
+		"source" : "/home/miloszek/projects/CLionProjects/milochess"
 	},
 	"version" : 
 	{

@@ -69,17 +69,17 @@
 			[
 				{
 					"backtrace" : 4,
-					"path" : "/home/miloszek/projekty/milochess/include"
+					"path" : "/home/miloszek/projects/CLionProjects/milochess/include"
 				},
 				{
 					"backtrace" : 5,
 					"isSystem" : true,
-					"path" : "/home/miloszek/projekty/milochess/lib/googletest/include"
+					"path" : "/home/miloszek/projects/CLionProjects/milochess/lib/googletest/include"
 				},
 				{
 					"backtrace" : 5,
 					"isSystem" : true,
-					"path" : "/home/miloszek/projekty/milochess/lib/googletest"
+					"path" : "/home/miloszek/projects/CLionProjects/milochess/lib/googletest"
 				}
 			],
 			"language" : "CXX",
@@ -87,7 +87,8 @@
 			[
 				0,
 				1,
-				2
+				2,
+				3
 			]
 		}
 	],
@@ -95,11 +96,11 @@
 	[
 		{
 			"backtrace" : 3,
-			"id" : "gtest::@919d8671e5e914cdef54"
+			"id" : "gtest_main::@919d8671e5e914cdef54"
 		},
 		{
 			"backtrace" : 3,
-			"id" : "gtest_main::@919d8671e5e914cdef54"
+			"id" : "gtest::@919d8671e5e914cdef54"
 		}
 	],
 	"id" : "google_tests_run::@306ed2d68c6501e8728f",
@@ -117,11 +118,11 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-L/home/miloszek/projekty/milochess/include",
+				"fragment" : "-L/home/miloszek/projects/CLionProjects/milochess/include",
 				"role" : "libraryPath"
 			},
 			{
-				"fragment" : "-Wl,-rpath,/home/miloszek/projekty/milochess/include",
+				"fragment" : "-Wl,-rpath,/home/miloszek/projects/CLionProjects/milochess/include",
 				"role" : "libraries"
 			},
 			{
@@ -157,7 +158,8 @@
 			[
 				0,
 				1,
-				2
+				2,
+				3
 			]
 		}
 	],
@@ -179,6 +181,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "tests/test_init.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "tests/test_bitboard.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],
