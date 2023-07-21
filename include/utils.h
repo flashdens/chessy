@@ -1,20 +1,22 @@
+#ifndef MILOCHESS_UTIL_H
+#define MILOCHESS_UTIL_H
+
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "init.h"
-#include "globals.h"
-
-#ifndef MILOCHESS_MACROS_H
-#define MILOCHESS_MACROS_H
+#include <stdint.h>
+#include <time.h>
 
 #define U64 unsigned long long
 
-#define FR2SQ(f, r) (( 21 + f ) + ( 10 * r ))
+#include "globals.h"
+#include "init.h"
 
+
+#define FR2SQ(f, r) (( 21 + f ) + ( 10 * r ))
 #define SQ64(sq120) Sq120ToSq64[sq120]
 
-#define DEBUG
 
+#define DEBUG
 #ifndef DEBUG
 #define ASSERT(n)
 #else
@@ -29,4 +31,6 @@ exit(1);          \
 }
 #endif
 
-#endif //MILOCHESS_MACROS_H
+U64
+
+#endif //MILOCHESS_UTIL_H
