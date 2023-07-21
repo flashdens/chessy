@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "enums.h"
-#include "macros.h"
+#include "utils.h"
 
 const int bitTable[64] = {
         63, 30, 3, 32, 25, 41, 22, 33, 15, 50, 42, 13, 11, 53, 19, 34, 61, 29, 2,
@@ -23,8 +23,15 @@ int countBits (U64 bb) {
     return r;
 }
 
-void printBitboard (unsigned long long board) {
+void clearBit(U64 *bb, U64 sq) {
+    *bb &= clearMask[sq];
+}
 
+void setBit(U64 *bb, U64 sq) {
+    *bb |= setMask[sq];
+}
+
+void printBitboard (unsigned long long board) {
     U64 shifter = 1ULL;
 
     int square;

@@ -19,6 +19,8 @@ enum {
 
 enum {FALSE, TRUE};
 
+enum {WHITE, BLACK, BOTH};
+
 enum {  wKCastle = 1,
         wQCastle = 2,
         bKCastle = 4,

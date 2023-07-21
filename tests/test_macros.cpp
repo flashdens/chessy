@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "enums.h"
-#include "macros.h"
+#include "utils.h"
 
 // Test macros.
 TEST(MacroTest, FR2SQ) {

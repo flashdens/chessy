@@ -63,8 +63,22 @@ build CMakeFiles/milochess.dir/src/init.c.o: C_COMPILER__milochess_Debug /home/m
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
-build CMakeFiles/milochess.dir/src/bitboard.c.o: C_COMPILER__milochess_Debug /home/miloszek/projects/CLionProjects/milochess/src/bitboard.c || cmake_object_order_depends_target_milochess
-  DEP_FILE = CMakeFiles/milochess.dir/src/bitboard.c.o.d
+build CMakeFiles/milochess.dir/src/bitboards.c.o: C_COMPILER__milochess_Debug /home/miloszek/projects/CLionProjects/milochess/src/bitboards.c || cmake_object_order_depends_target_milochess
+  DEP_FILE = CMakeFiles/milochess.dir/src/bitboards.c.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
+  OBJECT_DIR = CMakeFiles/milochess.dir
+  OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
+
+build CMakeFiles/milochess.dir/src/hashkeys.c.o: C_COMPILER__milochess_Debug /home/miloszek/projects/CLionProjects/milochess/src/hashkeys.c || cmake_object_order_depends_target_milochess
+  DEP_FILE = CMakeFiles/milochess.dir/src/hashkeys.c.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
+  OBJECT_DIR = CMakeFiles/milochess.dir
+  OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
+
+build CMakeFiles/milochess.dir/src/utils.c.o: C_COMPILER__milochess_Debug /home/miloszek/projects/CLionProjects/milochess/src/utils.c || cmake_object_order_depends_target_milochess
+  DEP_FILE = CMakeFiles/milochess.dir/src/utils.c.o.d
   FLAGS = -g -fdiagnostics-color=always
   INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
@@ -78,7 +92,7 @@ build CMakeFiles/milochess.dir/src/bitboard.c.o: C_COMPILER__milochess_Debug /ho
 #############################################
 # Link the executable milochess
 
-build milochess: C_EXECUTABLE_LINKER__milochess_Debug CMakeFiles/milochess.dir/src/main.c.o CMakeFiles/milochess.dir/src/init.c.o CMakeFiles/milochess.dir/src/bitboard.c.o
+build milochess: C_EXECUTABLE_LINKER__milochess_Debug CMakeFiles/milochess.dir/src/main.c.o CMakeFiles/milochess.dir/src/init.c.o CMakeFiles/milochess.dir/src/bitboards.c.o CMakeFiles/milochess.dir/src/hashkeys.c.o CMakeFiles/milochess.dir/src/utils.c.o
   FLAGS = -g
   LINK_PATH = -L/home/miloszek/projects/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir

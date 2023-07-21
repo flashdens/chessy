@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #include "globals.h"
-#include "macros.h"
+#include "utils.h"
 
 typedef struct {
     int move;

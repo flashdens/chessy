@@ -6,6 +6,10 @@ cmake_install.cmake
 .ninja_log
 .cmake
 
+# Test cache
+Testing
+lib
+
 # Compiler-specific files
 *.o
 *.obj
