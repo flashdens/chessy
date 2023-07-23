@@ -12,8 +12,8 @@ typedef struct {
     int enPassant;
     int fiftyMove;
     U64 positionKey;
-
-} HISTORY;
+}
+HISTORY;
 
 typedef struct {
     HISTORY history[MAX_MOVES];
@@ -40,7 +40,9 @@ typedef struct {
     int castlePermission;
 
     int pieceList[13][10];
+}
+BOARD;
 
-} BOARD;
+void resetBoard (BOARD *pos);
 
 #endif //MILOCHESS_BOARD_H

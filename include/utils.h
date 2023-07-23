@@ -46,6 +46,15 @@ exit(1);          \
 #define SQ64(sq120) Sq120ToSq64[sq120]
 
 /**
+ * @brief obtain the corresponding value of a 120-square based on a 64-square.
+ *
+ * @var Sq120ToSq64 (int[]) array of 120sq to 64sq values
+ *
+ * @return the corresponding 120-square based square.
+ */
+#define SQ120(sq64) Sq64ToSq120[sq64]
+
+/**
  * @brief convert a 64 square-based square to its corresponding 120-based square.
  *
  * @param f (int) the file number
