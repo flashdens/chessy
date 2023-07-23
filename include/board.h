@@ -43,6 +43,24 @@ typedef struct {
 }
 BOARD;
 
+/**
+ * @brief reset the board to its initial state.
+ *
+ * @param pos (*BOARD) the board be reset.
+ *
+ * @return void
+*/
 void resetBoard (BOARD *pos);
+
+/**
+ * @brief parse a fen.
+ *
+ * @param fen (*const char) FEN notation string to be parsed (https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation)
+ * @param pos (*BOARD) the board to store the parsing result
+ *
+ * @return 0 on success.
+ * @return 1 on fail with a relevant message.
+ */
+int parseFen (const char *fen, BOARD *pos);
 
 #endif //MILOCHESS_BOARD_H

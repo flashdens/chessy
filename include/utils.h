@@ -19,6 +19,8 @@
 #include "globals.h"
 #include "init.h"
 
+#define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+
 /**
  * @brief a supporting testing function to assure things don't bug.
  */
