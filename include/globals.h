@@ -21,4 +21,10 @@ extern char sideChar[];
 extern char rankChar[];
 extern char fileChar[];
 
+extern int pieceMin[13];
+extern int pieceBig[13];
+extern int pieceMaj[13];
+extern int pieceVal[13];
+extern int pieceCol[13];
+
 #endif

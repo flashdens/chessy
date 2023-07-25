@@ -4,7 +4,7 @@
 #include "globals.h"
 
 /**
- * @brief reset the board to its initial state.
+ * @brief reset the board to its default state.
  *
  * @param pos (*BOARD) the board be reset.
  *
@@ -20,15 +20,15 @@ void resetBoard (BOARD *pos) {
         pos->pieces[SQ120(i)] = EMPTY;
     }
 
-    for (int i = 0; i < 3; ++i) {
+    for (int i = 0; i < 2; ++i) {
         pos->bigPieces[i] = 0;
-        pos->majorPieces[i] = 0;
-        pos->minorPieces[i] = 0;
+        pos->majPieces[i] = 0;
+        pos->minPieces[i] = 0;
         pos->pawns[i] = 0LL;
     }
 
     for (int i = 0; i < 13; ++i) {
-        pos->pieceNumber[i] = 0;
+        pos->numOfPieces[i] = 0;
     }
 
     pos->kingSquare[WHITE] = pos->kingSquare[BLACK] = SQ_NONE;
@@ -60,7 +60,6 @@ void resetBoard (BOARD *pos) {
  *
  * @return 0 on success.
  * @return 1 on fail with a relevant message.
- * TODO - doesn't work! prints bullshit
  */
 int parseFen (const char *fen, BOARD *pos) {
 
@@ -181,7 +180,7 @@ int parseFen (const char *fen, BOARD *pos) {
 }
 
 /**
- * @brief print the board to the screen.
+ * @brief print the board and other important information to stdout.
  *
  * @param pos (*BOARD) the board to be printed
  *
@@ -218,4 +217,47 @@ void printBoard (const BOARD *pos) {
     );
     printf("position key: %llX\n",pos->posKey);
     printf("\n");
+}
+
+/**
+ * @brief update material piece lists.
+ *
+ * @param pos (*BOARD) the position to have the lists updated.
+ *
+ * @return void
+ */
+void updateMaterialLists (BOARD *pos) {
+
+    int square;
+    int piece;
+    int colour;
+
+    for (int i = 0; i < BOARD_SQUARES; ++i) {
+        square = i;
+        piece = pos->pieces[i];
+        if (piece != OFF_BOARD && piece != EMPTY) {
+            colour = pieceCol[piece];
+
+            // update the according lists
+            if (pieceMin[piece] == TRUE)
+                pos->minPieces[colour]++;
+            if (pieceMaj[piece] == TRUE)
+                pos->majPieces[colour]++;
+            if (pieceBig[piece] == TRUE)
+                pos->bigPieces[colour]++;
+
+            // update the material counter
+            pos->material[colour] += pieceVal[piece];
+
+            // update the main piece list
+            pos->pieceList[piece][pos->numOfPieces[piece]] = square;
+            pos->numOfPieces[piece]++;
+
+            // update the king square
+            if (piece == K)
+                pos->kingSquare[WHITE] = square;
+            if (piece == k)
+                pos->kingSquare[BLACK] = square;
+        }
+    }
 }

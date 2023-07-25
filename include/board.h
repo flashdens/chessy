@@ -30,12 +30,13 @@ typedef struct {
 
     U64 posKey;
 
-    int pieceNumber[13];
+    int numOfPieces[13];
 
     U64 pawns[3];
-    int minorPieces[3];
-    int majorPieces[3];
-    int bigPieces[3];
+    int minPieces[2];
+    int majPieces[2];
+    int bigPieces[2];
+    int material[2];
 
     int castlePermission;
 
@@ -67,10 +68,19 @@ int parseFen (const char *fen, BOARD *pos);
 /**
  * @brief print board to the screen.
  *
- * @param pos (*BOARD) the board to be printed
+ * @param pos (const *BOARD) the board to be printed
  *
  * @return void
  */
 void printBoard (const BOARD *pos);
+
+/**
+ * @brief update material piece lists.
+ *
+ * @param pos (*BOARD) the position to have the lists updated.
+ *
+ * @return void
+ */
+void updateMaterialLists (BOARD *pos);
 
 #endif //MILOCHESS_BOARD_H
