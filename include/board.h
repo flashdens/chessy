@@ -1,3 +1,8 @@
+/**
+ * @file board.h
+ * @brief contains the BOARD and HISTORY structure and functions which modify them.
+ */
+
 #ifndef MILOCHESS_BOARD_H
 #define MILOCHESS_BOARD_H
 
@@ -25,11 +30,6 @@ typedef struct {
     int enPassant;
     int fiftyMove;
 
-    int ply;
-    int hisPly;
-
-    U64 posKey;
-
     int numOfPieces[13];
 
     U64 pawns[3];
@@ -38,9 +38,14 @@ typedef struct {
     int bigPieces[2];
     int material[2];
 
+    int ply;
+    int hisPly;
+
     int castlePermission;
 
     int pieceList[13][10];
+
+    U64 posKey;
 }
 BOARD;
 
@@ -82,5 +87,15 @@ void printBoard (const BOARD *pos);
  * @return void
  */
 void updateMaterialLists (BOARD *pos);
+
+/**
+* @brief assert if the board structure contains correct information about the board.
+*
+* @param pos (*const BOARD) the position to be checked.
+*
+* @return 0 on success
+* @return program exit with code 1 on failure
+*/
+int checkBoard (const BOARD *pos);
 
 #endif //MILOCHESS_BOARD_H

@@ -17,7 +17,16 @@ int popBit (U64 *bb) {
     return bitTable[(fold * 0x783a9b23) >> 26];
 }
 
-int countBits (U64 bb) {
+/**
+ * @brief count the number of set bits in a bitboard.
+ *
+ * @param bb (U64) the bitboard to be processed.
+ *
+ * the function uses Kernighan's algorithm (pretty clever) - https://qnaplus.com/brian-kernighans-algorithm-to-count-the-set-bits-of-a-number/.
+ *
+ * @return the number of set bits in the given bitboard.
+ */
+int countSetBits (U64 bb) {
     int r;
     for (r = 0; bb; r++, bb &= bb - 1);
     return r;

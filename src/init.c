@@ -15,6 +15,9 @@ U64 pieceKeys[13][120];
 U64 sideKey;
 U64 castleKeys[16];
 
+int boardFiles[BOARD_SQUARES];
+int boardRanks[BOARD_SQUARES];
+
 /**
  * @brief fill key arrays with random values.
  *
@@ -28,6 +31,7 @@ void initHashKeys () {
     }
 
     sideKey = generateRandomU64();
+
     for (int i = 0; i < 16; ++i) {
         castleKeys[i] = generateRandomU64();
     }
@@ -77,6 +81,17 @@ void initSq120To64() {
     }
 }
 
+void initBoardFilesRanks () {
+
+    int square = A1;
+    int square64 =  0;
+
+    for (int i = 0; i < BOARD_SQUARES; ++i) {
+        boardFiles[i] = OFF_BOARD;
+        boardRanks[i] = OFF_BOARD;
+    }
+}
+
 /**
  * @brief initialize the engine.
  *
@@ -86,4 +101,5 @@ void initAll() {
     initBitMasks();
     initHashKeys();
     initSq120To64();
+    initBoardFilesRanks();
 }

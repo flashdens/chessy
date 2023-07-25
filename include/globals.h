@@ -27,4 +27,7 @@ extern int pieceMaj[13];
 extern int pieceVal[13];
 extern int pieceCol[13];
 
+extern int boardFiles[BOARD_SQUARES];
+extern int boardRanks[BOARD_SQUARES];
+
 #endif

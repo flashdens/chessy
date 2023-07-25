@@ -7,18 +7,25 @@
 #include "bitboards.h"
 #include "utils.h"
 
-int main() {
+#define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+#define FEN4 "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
 
+int main() {
     initAll();
 
     BOARD board[1];
 
-    parseFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", board);
+    parseFen(START_FEN, board);
     printBoard(board);
-    parseFen("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1", board);
-    printBoard(board);
-    parseFen("4k2r/6r1/8/8/8/8/3R4/R3K3 w Qk - 0 1", board);
-    printBoard(board);
-    printf("it works!");
+    printf("\nwhite pawns\n");
+    printBitboard(board->pawns[WHITE]);
+    printf("\nblack pawns\n");
+    printBitboard(board->pawns[BLACK]);
+    printf("\nboth pawns\n");
+    printBitboard(board->pawns[BOTH]);
+
+
+    ASSERT(checkBoard(board) == 0);
+
     return 0;
 }

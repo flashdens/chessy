@@ -1,7 +1,13 @@
+/**
+ * @file board.c
+ * @brief contains functions which modify the BOARD structure defined in board.h.
+ */
+
 #include "board.h"
 #include "enums.h"
 #include "hashkeys.h"
 #include "globals.h"
+#include "bitboards.h"
 
 /**
  * @brief reset the board to its default state.
@@ -20,22 +26,24 @@ void resetBoard (BOARD *pos) {
         pos->pieces[SQ120(i)] = EMPTY;
     }
 
-    for (int i = 0; i < 2; ++i) {
-        pos->bigPieces[i] = 0;
-        pos->majPieces[i] = 0;
-        pos->minPieces[i] = 0;
-        pos->pawns[i] = 0LL;
-    }
-
-    for (int i = 0; i < 13; ++i) {
-        pos->numOfPieces[i] = 0;
-    }
-
     pos->kingSquare[WHITE] = pos->kingSquare[BLACK] = SQ_NONE;
 
     pos->sideToMove = BOTH;
     pos->enPassant = SQ_NONE;
     pos->fiftyMove = 0;
+
+    for (int i = 0; i < 13; ++i) {
+        pos->numOfPieces[i] = 0;
+    }
+
+    for (int i = 0; i < 2; ++i) {
+        pos->pawns[i] = 0LL;
+        pos->bigPieces[i] = 0;
+        pos->majPieces[i] = 0;
+        pos->minPieces[i] = 0;
+        pos->material[i] = 0;
+    }
+    pos->pawns[2] = 0LL;
 
     pos->ply = 0;
     pos->hisPly = 0;
@@ -79,18 +87,42 @@ int parseFen (const char *fen, BOARD *pos) {
     while ((rank >= RANK_1) && *fen) {
         count = 1;
         switch (*fen) {
-            case 'p': piece = p; break;
-            case 'r': piece = r; break;
-            case 'n': piece = n; break;
-            case 'b': piece = b; break;
-            case 'k': piece = k; break;
-            case 'q': piece = q; break;
-            case 'P': piece = P; break;
-            case 'R': piece = R; break;
-            case 'N': piece = N; break;
-            case 'B': piece = B; break;
-            case 'K': piece = K; break;
-            case 'Q': piece = Q; break;
+            case 'p':
+                piece = p;
+                break;
+            case 'r':
+                piece = r;
+                break;
+            case 'n':
+                piece = n;
+                break;
+            case 'b':
+                piece = b;
+                break;
+            case 'k':
+                piece = k;
+                break;
+            case 'q':
+                piece = q;
+                break;
+            case 'P':
+                piece = P;
+                break;
+            case 'R':
+                piece = R;
+                break;
+            case 'N':
+                piece = N;
+                break;
+            case 'B':
+                piece = B;
+                break;
+            case 'K':
+                piece = K;
+                break;
+            case 'Q':
+                piece = Q;
+                break;
 
             case '1':
             case '2':
@@ -173,8 +205,9 @@ int parseFen (const char *fen, BOARD *pos) {
         pos->enPassant = FR2SQ(file, rank);
     }
 
-    // generate the position key
     pos->posKey = generatePositionKey(pos);
+
+    updateMaterialLists(pos);
 
     return 0;
 }
@@ -232,6 +265,7 @@ void updateMaterialLists (BOARD *pos) {
     int piece;
     int colour;
 
+
     for (int i = 0; i < BOARD_SQUARES; ++i) {
         square = i;
         piece = pos->pieces[i];
@@ -258,6 +292,121 @@ void updateMaterialLists (BOARD *pos) {
                 pos->kingSquare[WHITE] = square;
             if (piece == k)
                 pos->kingSquare[BLACK] = square;
+
+            if (piece == P) {
+                setBit(&pos->pawns[WHITE], SQ64(square));
+                setBit(&pos->pawns[BOTH], SQ64(square));
+            }
+            else if (piece == p) {
+                setBit(&pos->pawns[BLACK], SQ64(square));
+                setBit(&pos->pawns[BOTH], SQ64(square));
+            }
         }
     }
+}
+
+/**
+ * @brief assert if the board structure contains correct information about the board.
+ *
+ * @param pos (*const BOARD) the position to be checked.
+ *
+ * @return 0 on success
+ * @return program exit with code 1 on failure
+ */
+int checkBoard (const BOARD *pos) {
+   int square;
+   int square64;
+   int checkNumOfPieces2;
+   int colour;
+   int pawnCount;
+   int tempPiece;
+
+   int tempNumOfPieces[13] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+   int tempMinPieces[2] = {0, 0};
+   int tempBigPieces[2] = {0, 0};
+   int tempMajPieces[2] = {0, 0};
+   int tempMaterial[2] = {0, 0};
+
+   U64 tempPawns[3] = {0ULL, 0ULL, 0ULL};
+
+   tempPawns[WHITE] = pos->pawns[WHITE];
+   tempPawns[BLACK] = pos->pawns[BLACK];
+   tempPawns[BOTH] = pos->pawns[BOTH];
+   // check piece lists
+    for (tempPiece = 0; tempPiece < 13; ++tempPiece) {
+        for (int pieceNumber = 0; pieceNumber < pos->numOfPieces[tempPiece]; ++pieceNumber) {
+            square = pos->pieceList[tempPiece][pieceNumber];
+            ASSERT(pos->pieces[square] == tempPiece);
+        }
+    }
+
+   // count the actual number of pieces...
+    for (square64 = 0; square64 < 64; ++square64) {
+        square = SQ120(square64);
+        tempPiece = pos->pieces[square];
+        tempNumOfPieces[tempPiece]++;
+        colour = pieceCol[tempPiece];
+        if (pieceMin[tempPiece] == TRUE)
+            tempMinPieces[colour]++;
+        if (pieceMaj[tempPiece] == TRUE)
+            tempMajPieces[colour]++;
+        if (pieceBig[tempPiece] == TRUE)
+            tempBigPieces[colour]++;
+
+        tempMaterial[colour] += pieceVal[tempPiece];
+    }
+
+    // ...and compare with the position!
+    for (int i = 1; i < 13; ++i) {
+        ASSERT(tempNumOfPieces[i] == pos->numOfPieces[i]);
+    }
+
+    // check pawn count
+    pawnCount = countSetBits(tempPawns[WHITE]);
+    ASSERT(pawnCount == pos->numOfPieces[P]);
+    pawnCount = countSetBits(tempPawns[BLACK]);
+    ASSERT(pawnCount == pos->numOfPieces[p]);
+    pawnCount = countSetBits(tempPawns[BOTH]);
+    ASSERT(pawnCount == pos->numOfPieces[P] + pos->numOfPieces[p]);
+
+    // check pawns' position on bitboards
+    while (tempPawns[WHITE]) {
+        square64 = popBit(&tempPawns[WHITE]);
+        ASSERT(pos->pieces[SQ120(square64)] == P);
+    }
+    while (tempPawns[BLACK]) {
+        square64 = popBit(&tempPawns[BLACK]);
+        ASSERT(pos->pieces[SQ120(square64)] == p);
+    }
+    while (tempPawns[BOTH]) {
+        square64 = popBit(&tempPawns[BOTH]);
+        ASSERT(pos->pieces[SQ120(square64)] == P || pos->pieces[SQ120(square64)] == p);
+    }
+
+    // check material
+    ASSERT(tempMaterial[WHITE] == pos->material[WHITE] && tempMaterial[BLACK] == pos->material[BLACK]);
+    ASSERT(tempMinPieces[WHITE] == pos->minPieces[WHITE] && tempMinPieces[BLACK] == pos->minPieces[BLACK]);
+    ASSERT(tempBigPieces[WHITE] == pos->bigPieces[WHITE] && tempBigPieces[BLACK] == pos->bigPieces[BLACK]);
+    ASSERT(tempMajPieces[WHITE] == pos->majPieces[WHITE] && tempMajPieces[BLACK] == pos->majPieces[BLACK]);
+
+
+    // check the rest:
+    // side to move
+    ASSERT(!(pos->sideToMove == WHITE) != !(pos->sideToMove == BLACK));
+
+
+
+    // en passant square
+    ASSERT((pos->enPassant == SQ_NONE) ||
+            ((boardRanks[pos->enPassant] == RANK_6 && pos->sideToMove == WHITE)||
+            (boardRanks[pos->enPassant] == RANK_3 && pos->sideToMove == BLACK)));
+
+    // king position
+    ASSERT(pos->pieces[pos->kingSquare[WHITE]] == K);
+    ASSERT(pos->pieces[pos->kingSquare[BLACK]] == k);
+
+    // position key
+    ASSERT(generatePositionKey(pos) == pos->posKey);
+
+    return 0;
 }
