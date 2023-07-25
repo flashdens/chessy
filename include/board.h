@@ -96,6 +96,6 @@ void updateMaterialLists (BOARD *pos);
 * @return 0 on success
 * @return program exit with code 1 on failure
 */
-int checkBoard (const BOARD *pos);
+int assertBoard (const BOARD *pos);
 
 #endif //MILOCHESS_BOARD_H

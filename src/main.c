@@ -25,7 +25,7 @@ int main() {
     printBitboard(board->pawns[BOTH]);
 
 
-    ASSERT(checkBoard(board) == 0);
+    ASSERT(assertBoard(board) == 0);
 
     return 0;
 }
