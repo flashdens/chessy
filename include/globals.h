@@ -16,4 +16,9 @@ extern U64 pieceKeys[13][120];
 extern U64 sideKey;
 extern U64 castleKeys[16];
 
+extern char pieceChar[];
+extern char sideChar[];
+extern char rankChar[];
+extern char fileChar[];
+
 #endif

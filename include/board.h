@@ -63,4 +63,14 @@ void resetBoard (BOARD *pos);
  */
 int parseFen (const char *fen, BOARD *pos);
 
+
+/**
+ * @brief print board to the screen.
+ *
+ * @param pos (*BOARD) the board to be printed
+ *
+ * @return void
+ */
+void printBoard (const BOARD *pos);
+
 #endif //MILOCHESS_BOARD_H

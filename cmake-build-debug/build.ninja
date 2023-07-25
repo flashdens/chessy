@@ -91,6 +91,13 @@ build CMakeFiles/milochess.dir/src/board.c.o: C_COMPILER__milochess_Debug /home/
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
+build CMakeFiles/milochess.dir/src/data.c.o: C_COMPILER__milochess_Debug /home/miloszek/CLionProjects/milochess/src/data.c || cmake_object_order_depends_target_milochess
+  DEP_FILE = CMakeFiles/milochess.dir/src/data.c.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
+  OBJECT_DIR = CMakeFiles/milochess.dir
+  OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target milochess
@@ -99,7 +106,7 @@ build CMakeFiles/milochess.dir/src/board.c.o: C_COMPILER__milochess_Debug /home/
 #############################################
 # Link the executable milochess
 
-build milochess: C_EXECUTABLE_LINKER__milochess_Debug CMakeFiles/milochess.dir/src/main.c.o CMakeFiles/milochess.dir/src/init.c.o CMakeFiles/milochess.dir/src/bitboards.c.o CMakeFiles/milochess.dir/src/hashkeys.c.o CMakeFiles/milochess.dir/src/utils.c.o CMakeFiles/milochess.dir/src/board.c.o
+build milochess: C_EXECUTABLE_LINKER__milochess_Debug CMakeFiles/milochess.dir/src/main.c.o CMakeFiles/milochess.dir/src/init.c.o CMakeFiles/milochess.dir/src/bitboards.c.o CMakeFiles/milochess.dir/src/hashkeys.c.o CMakeFiles/milochess.dir/src/utils.c.o CMakeFiles/milochess.dir/src/board.c.o CMakeFiles/milochess.dir/src/data.c.o
   FLAGS = -g
   LINK_PATH = -L/home/miloszek/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
@@ -143,21 +150,14 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 #############################################
 # Order-only phony target for google_tests_run
 
-build cmake_object_order_depends_target_google_tests_run: phony || cmake_object_order_depends_target_gtest cmake_object_order_depends_target_gtest_main
+build cmake_object_order_depends_target_google_tests_run: phony || cmake_object_order_depends_target_gtest
 
-build lib/CMakeFiles/google_tests_run.dir/__/tests/test1.cpp.o: CXX_COMPILER__google_tests_run_Debug /home/miloszek/CLionProjects/milochess/tests/test1.cpp || cmake_object_order_depends_target_google_tests_run
-  DEP_FILE = lib/CMakeFiles/google_tests_run.dir/__/tests/test1.cpp.o.d
+build lib/CMakeFiles/google_tests_run.dir/__/tests/utils/FR2SQ.cpp.o: CXX_COMPILER__google_tests_run_Debug /home/miloszek/CLionProjects/milochess/tests/utils/FR2SQ.cpp || cmake_object_order_depends_target_google_tests_run
+  DEP_FILE = lib/CMakeFiles/google_tests_run.dir/__/tests/utils/FR2SQ.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
   INCLUDES = -I/home/miloszek/CLionProjects/milochess/include -isystem /home/miloszek/CLionProjects/milochess/lib/googletest/include -isystem /home/miloszek/CLionProjects/milochess/lib/googletest
   OBJECT_DIR = lib/CMakeFiles/google_tests_run.dir
-  OBJECT_FILE_DIR = lib/CMakeFiles/google_tests_run.dir/__/tests
-
-build lib/CMakeFiles/google_tests_run.dir/__/tests/test_macros.cpp.o: CXX_COMPILER__google_tests_run_Debug /home/miloszek/CLionProjects/milochess/tests/test_macros.cpp || cmake_object_order_depends_target_google_tests_run
-  DEP_FILE = lib/CMakeFiles/google_tests_run.dir/__/tests/test_macros.cpp.o.d
-  FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include -isystem /home/miloszek/CLionProjects/milochess/lib/googletest/include -isystem /home/miloszek/CLionProjects/milochess/lib/googletest
-  OBJECT_DIR = lib/CMakeFiles/google_tests_run.dir
-  OBJECT_FILE_DIR = lib/CMakeFiles/google_tests_run.dir/__/tests
+  OBJECT_FILE_DIR = lib/CMakeFiles/google_tests_run.dir/__/tests/utils
 
 build lib/CMakeFiles/google_tests_run.dir/__/tests/test_init.cpp.o: CXX_COMPILER__google_tests_run_Debug /home/miloszek/CLionProjects/milochess/tests/test_init.cpp || cmake_object_order_depends_target_google_tests_run
   DEP_FILE = lib/CMakeFiles/google_tests_run.dir/__/tests/test_init.cpp.o.d
@@ -173,6 +173,20 @@ build lib/CMakeFiles/google_tests_run.dir/__/tests/test_bitboard.cpp.o: CXX_COMP
   OBJECT_DIR = lib/CMakeFiles/google_tests_run.dir
   OBJECT_FILE_DIR = lib/CMakeFiles/google_tests_run.dir/__/tests
 
+build lib/CMakeFiles/google_tests_run.dir/__/tests/test_board.cpp.o: CXX_COMPILER__google_tests_run_Debug /home/miloszek/CLionProjects/milochess/tests/test_board.cpp || cmake_object_order_depends_target_google_tests_run
+  DEP_FILE = lib/CMakeFiles/google_tests_run.dir/__/tests/test_board.cpp.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include -isystem /home/miloszek/CLionProjects/milochess/lib/googletest/include -isystem /home/miloszek/CLionProjects/milochess/lib/googletest
+  OBJECT_DIR = lib/CMakeFiles/google_tests_run.dir
+  OBJECT_FILE_DIR = lib/CMakeFiles/google_tests_run.dir/__/tests
+
+build lib/CMakeFiles/google_tests_run.dir/__/src/utils.c.o: C_COMPILER__google_tests_run_Debug /home/miloszek/CLionProjects/milochess/src/utils.c || cmake_object_order_depends_target_google_tests_run
+  DEP_FILE = lib/CMakeFiles/google_tests_run.dir/__/src/utils.c.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include -isystem /home/miloszek/CLionProjects/milochess/lib/googletest/include -isystem /home/miloszek/CLionProjects/milochess/lib/googletest
+  OBJECT_DIR = lib/CMakeFiles/google_tests_run.dir
+  OBJECT_FILE_DIR = lib/CMakeFiles/google_tests_run.dir/__/src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target google_tests_run
@@ -181,10 +195,10 @@ build lib/CMakeFiles/google_tests_run.dir/__/tests/test_bitboard.cpp.o: CXX_COMP
 #############################################
 # Link the executable lib/google_tests_run
 
-build lib/google_tests_run: CXX_EXECUTABLE_LINKER__google_tests_run_Debug lib/CMakeFiles/google_tests_run.dir/__/tests/test1.cpp.o lib/CMakeFiles/google_tests_run.dir/__/tests/test_macros.cpp.o lib/CMakeFiles/google_tests_run.dir/__/tests/test_init.cpp.o lib/CMakeFiles/google_tests_run.dir/__/tests/test_bitboard.cpp.o | lib/libgtest.a lib/libgtest_main.a lib/libgtest.a || lib/libgtest.a lib/libgtest_main.a
+build lib/google_tests_run: CXX_EXECUTABLE_LINKER__google_tests_run_Debug lib/CMakeFiles/google_tests_run.dir/__/tests/utils/FR2SQ.cpp.o lib/CMakeFiles/google_tests_run.dir/__/tests/test_init.cpp.o lib/CMakeFiles/google_tests_run.dir/__/tests/test_bitboard.cpp.o lib/CMakeFiles/google_tests_run.dir/__/tests/test_board.cpp.o lib/CMakeFiles/google_tests_run.dir/__/src/utils.c.o | lib/libgtest.a || lib/libgtest.a
   FLAGS = -g
-  LINK_LIBRARIES = -Wl,-rpath,/home/miloszek/CLionProjects/milochess/include  lib/libgtest.a  lib/libgtest_main.a  lib/libgtest.a
-  LINK_PATH = -L/home/miloszek/CLionProjects/milochess/include
+  LINK_LIBRARIES = -Wl,-rpath,/home/miloszek/CLionProjects/milochess/lib/../include  lib/libgtest.a
+  LINK_PATH = -L/home/miloszek/CLionProjects/milochess/lib/../include
   OBJECT_DIR = lib/CMakeFiles/google_tests_run.dir
   POST_BUILD = :
   PRE_LINK = :

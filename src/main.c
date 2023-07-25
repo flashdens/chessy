@@ -8,23 +8,17 @@
 #include "utils.h"
 
 int main() {
+
     initAll();
 
-    U64 piece = generateRandomU64();
-    U64 piece2 = generateRandomU64();
+    BOARD board[1];
 
-    printf("Piece 1: %llx \n", piece);
-    printf("Piece 2: %llx \n", piece2);
-
-    int key = piece ^ piece2;
-    int temp = piece;
-    printf("%d\n",temp);
-    temp ^= piece2;
-    printf("%d\n",temp);
-    temp ^= piece2;
-    printf("%d\n",temp);
-    temp ^= piece2;
-    printf("%d\n",key);
+    parseFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", board);
+    printBoard(board);
+    parseFen("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1", board);
+    printBoard(board);
+    parseFen("4k2r/6r1/8/8/8/8/3R4/R3K3 w Qk - 0 1", board);
+    printBoard(board);
     printf("it works!");
     return 0;
 }

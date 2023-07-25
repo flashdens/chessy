@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 
-#include "enums.h"
 #include "utils.h"
+#include "enums.h"
 
 // Test macros.
-TEST(MacroTest, FR2SQ) {
+TEST(utils, FR2SQ) {
     // Test case 1: File 3, Rank 6 (2,5)
     EXPECT_EQ(FR2SQ(FILE_D, RANK_6), 74);
 

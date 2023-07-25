@@ -21,10 +21,10 @@ enum {FALSE, TRUE};
 
 enum {WHITE, BLACK, BOTH};
 
-enum {  wKCastle = 1,
-        wQCastle = 2,
-        bKCastle = 4,
-        bQCastle = 8
+enum {  WKCA = 1,
+        WQCA = 2,
+        BKCA = 4,
+        BQCA = 8
 };
 
 

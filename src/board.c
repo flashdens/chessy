@@ -1,5 +1,6 @@
 #include "board.h"
 #include "enums.h"
+#include "hashkeys.h"
 #include "globals.h"
 
 /**
@@ -52,8 +53,14 @@ void resetBoard (BOARD *pos) {
  * @param fen (*const char) FEN notation string to be parsed (https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation)
  * @param pos (*BOARD) the board to store the parsing result
  *
+ * the operation loads the data into the board structure step by step.
+ *
+ * first the board setup is loaded into the piece array,
+ * then side to move, castle permissions, en passant square and ply.
+ *
  * @return 0 on success.
  * @return 1 on fail with a relevant message.
+ * TODO - doesn't work! prints bullshit
  */
 int parseFen (const char *fen, BOARD *pos) {
 
@@ -62,16 +69,17 @@ int parseFen (const char *fen, BOARD *pos) {
 
     int rank = RANK_8;
     int file = FILE_A;
-    int count = 0;
+    int count = 1;
     int piece = 0;
     int sq64;
     int sq120;
 
     resetBoard(pos);
 
+    // process pieces
     while ((rank >= RANK_1) && *fen) {
+        count = 1;
         switch (*fen) {
-            count = 1;
             case 'p': piece = p; break;
             case 'r': piece = r; break;
             case 'n': piece = n; break;
@@ -118,5 +126,96 @@ int parseFen (const char *fen, BOARD *pos) {
         }
         fen++;
     }
+
+    ASSERT(*fen == 'w' || *fen == 'b');
+
+    // process side to move
+    pos->sideToMove = (*fen == 'w') ?
+            WHITE
+            : BLACK;
+
+    fen += 2;
+
+    // process castle permissions
+    for (int i = 0; i < 4; ++i) {
+        if (*fen == ' ')
+            break;
+
+        switch (*fen) {
+            case 'K':
+                pos->castlePermission |= WKCA;
+                break;
+            case 'Q':
+                pos->castlePermission |= WQCA;
+                break;
+            case 'k':
+                pos->castlePermission |= BKCA;
+                break;
+            case 'q':
+                pos->castlePermission |= BQCA;
+                break;
+            default:
+                break;
+        }
+        fen++;
+    }
+    fen++;
+
+    ASSERT(pos->castlePermission >= 0 && pos->castlePermission <= 15);
+
+    // process the en passant square
+    if (*fen != '-') {
+        file = fen[0] - 'a';
+        rank = fen[1] - '1';
+
+        ASSERT(file >= FILE_A && file <= FILE_H);
+        ASSERT(rank >= RANK_1 && rank <= RANK_8);
+
+        pos->enPassant = FR2SQ(file, rank);
+    }
+
+    // generate the position key
+    pos->posKey = generatePositionKey(pos);
+
     return 0;
+}
+
+/**
+ * @brief print the board to the screen.
+ *
+ * @param pos (*BOARD) the board to be printed
+ *
+ * @return void
+ */
+void printBoard (const BOARD *pos) {
+
+    int square;
+    int piece;
+
+    for (int rank = RANK_8; rank >= RANK_1; --rank) {
+        printf("%d ", rank + 1);
+        for (int file = FILE_A; file <= FILE_H; ++file) {
+          square = FR2SQ(file, rank);
+          piece = pos->pieces[square];
+          printf("%3c", pieceChar[piece]);
+        }
+        printf("\n");
+    }
+
+    printf("\n  ");
+    for (int file = FILE_A; file <= FILE_H; ++file) {
+        printf("%3c",'a' + file);
+    }
+    printf("\n\n");
+
+    printf("side to move:%c\n",sideChar[pos->sideToMove]);
+    printf("en passant square: %d\n",pos->enPassant);
+    printf("castle permissions: %c%c%c%c\n",
+           pos->castlePermission & WKCA ? 'K' : '-',
+           pos->castlePermission & WQCA ? 'Q' : '-',
+           pos->castlePermission & BKCA ? 'k' : '-',
+           pos->castlePermission & BQCA ? 'q' : '-'
+    );
+    printf("position key: %llX\n",pos->posKey);
+    printf("\n");
 }

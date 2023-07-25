@@ -6,18 +6,18 @@
 /**
  * @brief generate a hash key for a given position.
  *
- * @param pos [*BOARD] a pointer to the given board state.
+ * @param pos [*BOARD] a pointer to the given board structure.
  *
  * @return [U64] the hash key of the position.
  */
 U64 generatePositionKey (const BOARD *pos) {
     U64 finalKey = 0;
-    int piece;
+    int piece = OFF_BOARD;
 
     for (int i = 0; i < BOARD_SQUARES; ++i) {
         piece = pos->pieces[i];
-        if (piece != SQ_NONE && piece != EMPTY) {
-            ASSERT(piece >= wP && piece <= bK);
+        if (piece != SQ_NONE && piece != OFF_BOARD) {
+            ASSERT(piece >= P && piece <= k);
             finalKey ^= pieceKeys[piece][i];
         }
     }
