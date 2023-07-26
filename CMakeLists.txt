@@ -4,7 +4,17 @@ project(milochess LANGUAGES C CXX)
 set(CMAKE_C_STANDARD 17)
 
 add_subdirectory(lib)
-add_executable(milochess src/main.c src/init.c src/bitboards.c include/bitboards.h include/hashkeys.h src/hashkeys.c src/utils.c src/board.c src/data.c include/data.h src/attack.c include/attack.h)
+
+add_executable(milochess
+        src/main.c
+        src/init.c
+        src/bitboards.c
+        src/hashkeys.c
+        src/utils.c
+        src/board.c
+        src/data.c
+        src/attack.c
+        )
 
 target_include_directories(milochess PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
-target_link_directories(milochess PUBLIC include)
+

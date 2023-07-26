@@ -89,6 +89,15 @@ bool attackedByKing(int square, int side, const BOARD *pos);
  * @return true if the square is attacked
  * @return false otherwise
  */
-bool isSquareAttacked(int square, int side, const BOARD *pos);
+extern bool isSquareAttacked(int square, int side, const BOARD *pos);
 
+/**
+ * Print all squares attacked by the given side.
+ *
+ * @param side (const int) the attacking side
+ * @param pos (const *BOARD) the position to be checked
+ *
+ * @return void
+ */
+__attribute__((unused)) void showAttacks (int side, const BOARD *pos);
 #endif // MILOCHESS_ATTACK_H

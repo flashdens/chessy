@@ -12,7 +12,7 @@
  * @brief check the square for pawn attacks.
  *
  * @param square (const int) the analyzed square
- * @param side (const int) the side whose turn it is
+ * @param side (const int) the attacking side
  * @param pos (const *BOARD) the current position
  *
  * @return true if the square is attacked
@@ -35,7 +35,7 @@ bool attackedByPawn (const int square, const int side, const BOARD *pos) {
  * @brief check the square for knight attacks.
  *
  * @param square (const int) the analyzed square
- * @param side (const int) the side whose turn it is
+ * @param side (const int) the attacking side
  * @param pos (const *BOARD) the current position
  *
  * @return true if the square is attacked
@@ -46,8 +46,8 @@ bool attackedByKnight (const int square, const int side, const BOARD *pos) {
     int piece;
 
     for (int i = 0; i < 8; ++i) {
-        piece = pos->pieces[square] + knightDir[i];
-        if (isPieceKnight[piece] && pieceCol[piece] == side)
+        piece = pos->pieces[square + knightDir[i]];
+        if (piece != OFF_BOARD && isPieceKnight[piece] && pieceCol[piece] == side)
             return true;
     }
 
@@ -62,7 +62,7 @@ bool attackedByKnight (const int square, const int side, const BOARD *pos) {
  * if a piece is found such way and it's a rook/queen, the square is considered attacked.
  *
  * @param square (const int) the analyzed square
- * @param side (const int) the side whose turn it is
+ * @param side (const int) the attacking side
  * @param pos (const *BOARD) the current position
  *
  * @return true if the square is attacked
@@ -79,7 +79,7 @@ bool attackedByRookOrQueen (const int square, const int side, const BOARD *pos) 
         tempSquare = square + dir;
         piece = pos->pieces[tempSquare];
 
-        while (piece != OFF_BOARD) {
+        while (piece != OFF_BOARD && pieceCol[piece] != side) { // TODO: not sure if it works correctly
             if (piece != EMPTY) {
                 if (isPieceRookOrQueen[piece] && pieceCol[piece] == side)
                     return true;
@@ -103,7 +103,7 @@ bool attackedByRookOrQueen (const int square, const int side, const BOARD *pos) 
  * if a piece is found such way and it's a bishop/queen, the square is considered attacked.
  *
  * @param square (const int) the analyzed square
- * @param side (const int) the side whose turn it is
+ * @param side (const int) the attacking side
  * @param pos (const *BOARD) the current position
  *
  * @return true if the square is attacked
@@ -140,7 +140,7 @@ bool attackedByBishopOrQueen (const int square, const int side, const BOARD *pos
  * @brief check the square for king attacks.
  *
  * @param square (const int) the analyzed square
- * @param side (const int) the side whose turn it is
+ * @param side (const int) the attacking side
  * @param pos (const *BOARD) the current position
  *
  * @return true if the square is attacked
@@ -151,8 +151,8 @@ bool attackedByKing (const int square, const int side, const BOARD *pos) {
     int piece;
 
     for (int i = 0; i < 8; ++i) {
-        piece = pos->pieces[square] + kingDir[i];
-        if (isPieceKing[piece] && pieceCol[piece] == side)
+        piece = pos->pieces[square + kingDir[i]];
+        if (piece != OFF_BOARD && isPieceKing[piece] && pieceCol[piece] == side)
             return true;
     }
 
@@ -165,13 +165,13 @@ bool attackedByKing (const int square, const int side, const BOARD *pos) {
  * this is the driver function for attack.c to rule them all.
  *
  * @param square (const int) the analyzed square
- * @param side (const int) the side whose turn it is
+ * @param side (const int) the attacking side
  * @param pos (const *BOARD) the current position
  *
  * @return true if the square is attacked
  * @return false otherwise
  */
-bool isSquareAttacked (const int square, const int side, const BOARD *pos) {
+extern bool isSquareAttacked (const int square, const int side, const BOARD *pos) {
 
     if (attackedByPawn(square, side, pos) ||
     attackedByKnight(square, side, pos) ||
@@ -181,4 +181,29 @@ bool isSquareAttacked (const int square, const int side, const BOARD *pos) {
         return true;
     else
         return false;
+}
+
+/**
+ * (a utility debugging function) print all squares attacked by the given side.
+ * 
+ * @param side (const int) the attacking side
+ * @param pos (const *BOARD) the position to be checked
+ *
+ * @return void
+ */
+__attribute__((unused)) void showAttacks (const int side, const BOARD *pos) {
+
+    int square;
+
+    for (int rank = RANK_8; rank >= RANK_1; --rank) {
+        for (int file = FILE_A; file <= FILE_H; ++file) {
+            square = FR2SQ(file, rank);
+            if (isSquareAttacked(square, side, pos))
+                printf("X");
+            else
+                printf("-");
+        }
+        printf("\n");
+    }
+        printf("\n\n");
 }

@@ -3,10 +3,12 @@
  * @brief contains functions which modify the BOARD structure defined in board.h.
  */
 
+#include <stdbool.h>
+
 #include "board.h"
+#include "globals.h"
 #include "enums.h"
 #include "hashkeys.h"
-#include "globals.h"
 #include "bitboards.h"
 
 /**
@@ -224,6 +226,7 @@ void printBoard (const BOARD *pos) {
     int square;
     int piece;
 
+    printf("Current board state:\n");
     for (int rank = RANK_8; rank >= RANK_1; --rank) {
         printf("%d ", rank + 1);
         for (int file = FILE_A; file <= FILE_H; ++file) {
@@ -273,11 +276,11 @@ void updateMaterialLists (BOARD *pos) {
             colour = pieceCol[piece];
 
             // update the according lists
-            if (pieceMin[piece] == TRUE)
+            if (isPieceMin[piece] == true)
                 pos->minPieces[colour]++;
-            if (pieceMaj[piece] == TRUE)
+            if (isPieceMaj[piece] == true)
                 pos->majPieces[colour]++;
-            if (pieceBig[piece] == TRUE)
+            if (isPieceBig[piece] == true)
                 pos->bigPieces[colour]++;
 
             // update the material counter
@@ -347,11 +350,12 @@ int assertBoard (const BOARD *pos) {
         tempPiece = pos->pieces[square];
         tempNumOfPieces[tempPiece]++;
         colour = pieceCol[tempPiece];
-        if (pieceMin[tempPiece] == TRUE)
+
+        if (isPieceMin[tempPiece] == true)
             tempMinPieces[colour]++;
-        if (pieceMaj[tempPiece] == TRUE)
+        if (isPieceMaj[tempPiece] == true)
             tempMajPieces[colour]++;
-        if (pieceBig[tempPiece] == TRUE)
+        if (isPieceBig[tempPiece] == true)
             tempBigPieces[colour]++;
 
         tempMaterial[colour] += pieceVal[tempPiece];
