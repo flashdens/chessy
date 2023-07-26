@@ -1,8 +1,8 @@
-#include "globals.h"
-#include "utils.h"
-
 #ifndef MILOCHESS_BITBOARD_H
 #define MILOCHESS_BITBOARD_H
+
+#include "globals.h"
+#include "utils.h"
 
 extern void printBitboard(U64 bb);
 

@@ -1,6 +1,8 @@
 #ifndef MILOCHESS_GLOBALS_H
 #define MILOCHESS_GLOBALS_H
 
+#include <stdbool.h>
+
 #include "utils.h"
 
 #define BOARD_SQUARES 120
@@ -29,5 +31,15 @@ extern int pieceCol[13];
 
 extern int boardFiles[BOARD_SQUARES];
 extern int boardRanks[BOARD_SQUARES];
+
+extern const int knightDir[8];
+extern const int rookDir[4];
+extern const int bishopDir[4];
+extern const int kingDir[8];
+
+extern bool isPieceKnight[13];
+extern bool isPieceKing[13];
+extern bool isPieceBishopOrQueen[13];
+extern bool isPieceRookOrQueen[13];
 
 #endif
