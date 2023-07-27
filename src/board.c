@@ -416,6 +416,13 @@ int assertBoard (const BOARD *pos) {
     return 0;
 }
 
+/**
+ * @brief print the coordinates of a square.
+ *
+ * @param sq the square
+ *
+ * @return (*char) the square coordinates to be printed
+ */
 char* printSquare (int sq) {
 
     static char sqString[3];

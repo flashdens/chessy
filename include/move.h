@@ -1,6 +1,8 @@
 #ifndef MILOCHESS_MOVE_H
 #define MILOCHESS_MOVE_H
 
+#include "globals.h"
+
 // macros to help reading the bits from MOVE->info.
 
 /** @brief from square */
@@ -40,7 +42,7 @@
  * @param score the score of the move.
  *
  * the MOVE->info bits correspond to:
-
+ *
  * 0000 0000 0000 0000 0000 0000 0|111 1111| - the square FROM which a move is made (0x7F, bits 1-7)
  * 0000 0000 0000 0000 00|11 1111 1|000 0000 - the square TO which a move is made (7 >> 0x7F, bits 8-14)
  * 0000 0000 0000 00|11 11|00 0000 0000 0000 - the piece captured by the move (if so) (14 >> 0xF, bits 15-18)
@@ -55,6 +57,18 @@ typedef struct {
     int score;
 } MOVE;
 
+/**
+ * @struct MOVELIST
+ *
+ * @param moves (MOVE[MAX_POSITION_MOVES]) the moves available in a position
+ * @param count the number of moves in the movelist
+ *
+ * the list of possible moves.
 
+ */
+typedef struct {
+    MOVE moves[MAX_POSITION_MOVES];
+    int count;
+} MOVELIST;
 
 #endif //MILOCHESS_MOVE_H

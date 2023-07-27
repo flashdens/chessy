@@ -7,6 +7,7 @@
 
 #define BOARD_SQUARES 120
 #define MAX_MOVES 2048
+#define MAX_POSITION_MOVES 256
 
 extern int Sq120ToSq64[BOARD_SQUARES];
 extern int Sq64ToSq120[64];
@@ -47,10 +48,17 @@ extern bool isPieceRookOrQueen[13];
  *
  * @param sq the square
  *
- * @return (*char) printSq
+ * @return (*char) the square coordinates to be printed
  */
 char* printSquare (int sq);
 
+/**
+ * @brief print information about a move.
+ *
+ * @param move the move to be printed @see move.h->MOVE
+ *
+ * @return (*char) the move string to be printed
+ */
 extern char* printMove (int move);
 
 
