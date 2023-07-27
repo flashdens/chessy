@@ -15,7 +15,7 @@ add_executable(milochess
         src/attack.c
         src/move.c
         src/main.c
-        src/io.c include/io.h)
+        src/io.c include/io.h src/generate.c include/generate.h src/validate.c include/validate.h)
 
 target_include_directories(milochess PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 

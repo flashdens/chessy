@@ -50,7 +50,7 @@ extern bool isPieceRookOrQueen[13];
  *
  * @return (*char) the square coordinates to be printed
  */
-char* printSquare (int sq);
+extern char* printSquare (int sq);
 
 /**
  * @brief print information about a move.
@@ -61,5 +61,56 @@ char* printSquare (int sq);
  */
 extern char* printMove (int move);
 
+// validate.c
+
+/**
+ * @brief check if a square is on the board.
+ *
+ * @param sq (const) the square to be checked
+ *
+ * @return (bool) true if true
+ * @return (bool) false otherwise
+ */
+extern bool isSquareOnBoard (int sq);
+
+/**
+ * @brief check if it's either white or black to make a move.
+ *
+ * @param piece (const) the side to move
+ *
+ * @return (bool) true if true
+ * @return (bool) false otherwise
+ */
+extern bool isSideValid (int side);
+
+/**
+ * @brief check if a file or rank is on the board.
+ *
+ * @param piece (const) the file or rank to be checked
+ *
+ * @return (bool) true if true
+ * @return (bool) false otherwise
+ */
+extern bool isFileRankValid (int fr);
+
+/**
+ * @brief check if a piece is valid or empty.
+ *
+ * @param piece (const) the piece to be checked
+ *
+ * @return (bool) true if true
+ * @return (bool) false otherwise
+ */
+extern bool isPieceValidOrEmpty (int piece);
+
+/**
+ * @brief check if a piece is valid (not empty).
+ *
+ * @param piece (const) the piece to be checked
+ *
+ * @return (bool) true if true
+ * @return (bool) false otherwise
+ */
+extern bool isPieceValid (int piece);
 
 #endif
