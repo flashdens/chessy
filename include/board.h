@@ -98,4 +98,6 @@ void updateMaterialLists (BOARD *pos);
 */
 int assertBoard (const BOARD *pos);
 
+
+
 #endif //MILOCHESS_BOARD_H

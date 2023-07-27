@@ -34,17 +34,38 @@
  *
  * @return the corresponding 120-based square.
  */
-int FR2SQ (int f, int r) {
+extern int FR2SQ (int f, int r) {
     return (( 21 + f ) + ( 10 * r ));
 }
 
 /**
- * @brief generate a random unsigned 64-bit integer.
+ * @brief print a binary number to stdout.
  *
- * @return a random 64-bit integer.
+ * @param num the number to be printed
+ *
+ * @return void
  */
-U64 generateRandomU64 () {
-    return ((U64)random() << 32) | random();
+void printBinaryNumber (int num) {
+
+    int numBits = sizeof(num) * 8;
+    unsigned int mask = 1 << (numBits - 1);
+
+    for (int i = 0; i < numBits; i++) {
+        if ((num & mask) != 0)
+            printf("1");
+        else
+            printf("0");
+
+        mask >>= 1;
+
+        if (i % 4 == 3)
+            printf(" ");
+    }
+    printf("\n");
 }
+
+
+
+
 
 #endif //MILOCHESS_UTILS_H

@@ -42,4 +42,16 @@ extern bool isPieceKing[13];
 extern bool isPieceBishopOrQueen[13];
 extern bool isPieceRookOrQueen[13];
 
+/**
+ * @brief print the coordinates of a square.
+ *
+ * @param sq the square
+ *
+ * @return (*char) printSq
+ */
+char* printSquare (int sq);
+
+extern char* printMove (int move);
+
+
 #endif

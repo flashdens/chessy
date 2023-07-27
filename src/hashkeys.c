@@ -1,14 +1,27 @@
+#include <stdlib.h>
+
 #include "hashkeys.h"
 #include "globals.h"
 #include "board.h"
 #include "enums.h"
 
 /**
+ * @brief generate a random unsigned 64-bit integer.
+ *
+ * @return a random 64-bit integer.
+ */
+U64 generateRandomU64 () {
+    return ((U64)random() << 32) | random();
+}
+
+/**
  * @brief generate a hash key for a given position.
  *
- * @param pos [*BOARD] a pointer to the given BOARD structure.
+ * @param pos (*BOARD) the given position.
  *
- * @return [U64] the hash key of the position.
+ * TODO: describe how it works
+ *
+ * @return (U64) the hash key of the position.
  */
 U64 generatePositionKey (const BOARD *pos) {
     U64 finalKey = 0;

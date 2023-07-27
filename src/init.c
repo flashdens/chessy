@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "globals.h"
+#include "hashkeys.h"
 #include "utils.h"
 #include "init.h"
 #include "enums.h"
@@ -83,12 +84,19 @@ void initSq120To64() {
 
 void initBoardFilesRanks () {
 
-    int square = A1;
-    int square64 =  0;
+    int square;
 
     for (int i = 0; i < BOARD_SQUARES; ++i) {
         boardFiles[i] = OFF_BOARD;
         boardRanks[i] = OFF_BOARD;
+    }
+
+    for (int rank = RANK_1; rank <= RANK_8; ++rank) {
+        for (int file = FILE_A; file <= FILE_H; ++file) {
+            square = FR2SQ(file, rank);
+            boardFiles[square] = file;
+            boardRanks[square] = rank;
+        }
     }
 }
 

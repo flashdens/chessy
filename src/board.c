@@ -415,3 +415,15 @@ int assertBoard (const BOARD *pos) {
 
     return 0;
 }
+
+char* printSquare (int sq) {
+
+    static char sqString[3];
+
+    int file = boardFiles[sq];
+    int rank = boardRanks[sq];
+
+    sprintf(sqString, "%c%c", ('a' + file), ('1' + rank));
+
+    return sqString;
+}

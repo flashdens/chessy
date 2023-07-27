@@ -1,8 +1,60 @@
-//
-// Created by miloszek on 27.07.23.
-//
-
 #ifndef MILOCHESS_MOVE_H
 #define MILOCHESS_MOVE_H
+
+// macros to help reading the bits from MOVE->info.
+
+/** @brief from square */
+#define FROMSQ(m) ((m) & 0x7F)
+
+/** @brief to square */
+#define TOSQ(m) (((m)>>7) & 0x7F)
+
+/** @brief captured piece */
+#define CAPTURED(m) (((m)>>14) & 0xF)
+
+/** @brief promoted to piece */
+#define PROMOTED(m) (((m)>>20) & 0xF)
+
+/** @brief is the move en passant? */
+#define ISENPASSANT 0x4000
+
+/** @brief is the move a pawn start? */
+#define ISSTART 0x8000
+
+/** @brief is the move a castle? */
+#define ISCASTLE 0x1000000
+
+/** @brief is the move a capture? */
+#define ISCAPTURE 0x7C000
+
+/** @brief is the move a promotion? */
+#define ISPROMOTION 0xF00000
+
+
+/**
+ * @struct MOVE
+ *
+ * @brief a structure representing moves.
+ *
+ * @param info the information about the move is stored as a 32-bit integer, though only 25 bits are used.
+ * @param score the score of the move.
+ *
+ * the MOVE->info bits correspond to:
+
+ * 0000 0000 0000 0000 0000 0000 0|111 1111| - the square FROM which a move is made (0x7F, bits 1-7)
+ * 0000 0000 0000 0000 00|11 1111 1|000 0000 - the square TO which a move is made (7 >> 0x7F, bits 8-14)
+ * 0000 0000 0000 00|11 11|00 0000 0000 0000 - the piece captured by the move (if so) (14 >> 0xF, bits 15-18)
+ * 0000 0000 0000 0|1|00 0000 0000 0000 0000 - was the capture en passant? (0x4000, bit 19)
+ * 0000 0000 0000 |1|000 0000 0000 0000 0000 - was this move a pawn start? (0x8000, bit 20)
+ * 0000 0000 |1111| 0000 0000 0000 0000 0000 - if it was a promotion move, which piece did the pawn get promoted to? (20 >> 0xF, bits 21-24)
+ * 0000 000|1| 0000 0000 0000 0000 0000 0000 - is this a castle? (0x1000000, bit 25)
+ * |0000 000|1 0000 0000 0000 0000 0000 0000 - free irrelevant space (25 << 0X7F, bitS 26-32)
+ */
+typedef struct {
+    int info;
+    int score;
+} MOVE;
+
+
 
 #endif //MILOCHESS_MOVE_H

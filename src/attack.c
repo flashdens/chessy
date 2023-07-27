@@ -79,10 +79,10 @@ bool attackedByRookOrQueen (const int square, const int side, const BOARD *pos) 
         tempSquare = square + dir;
         piece = pos->pieces[tempSquare];
 
-        while (piece != OFF_BOARD && pieceCol[piece] != side) { // TODO: not sure if it works correctly
+        while (piece != OFF_BOARD) { // TODO: not sure if it works correctly
             if (piece != EMPTY) {
                 if (isPieceRookOrQueen[piece] && pieceCol[piece] == side)
-                    return true;
+                    return true;    
                 else
                     break;
             }

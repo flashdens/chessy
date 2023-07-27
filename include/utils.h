@@ -20,7 +20,7 @@
 
 
 /**
- * @brief a supporting testing function to assure things don't bug.
+ * @brief a supporting testing macro to assure things don't bug.
  */
 #define ASSERT(n) \
 if(!(n)) { \
@@ -58,12 +58,16 @@ exit(1); \
  *
  * @return the corresponding 120-based square.
  */
-int FR2SQ (int f, int r);
+extern int FR2SQ (int f, int r);
 
 /**
- * @brief generate a random unsigned 64-bit integer.
+ * @brief print a number in binary number to stdout.
  *
- * @return a random 64-bit integer.
+ * @param num the number to be printed
+ *
+ * @return void
  */
-U64 generateRandomU64 ();
+void printBinaryNumber (int num);
+
+
 
