@@ -173,6 +173,10 @@ bool attackedByKing (const int square, const int side, const BOARD *pos) {
  */
 extern bool isSquareAttacked (const int square, const int side, const BOARD *pos) {
 
+    ASSERT(isSquareOnBoard(square));
+    ASSERT(isSideValid(side));
+    ASSERT(assertBoard(pos));
+
     if (attackedByPawn(square, side, pos) ||
     attackedByKnight(square, side, pos) ||
     attackedByRookOrQueen(square, side, pos) ||
