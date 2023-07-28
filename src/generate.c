@@ -1,6 +1,7 @@
 #include "generate.h"
 #include "globals.h"
 #include "enums.h"
+#include "attack.h"
 
 /**
  * @brief add a quiet move to the move list.
@@ -271,6 +272,42 @@ void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
     }
 }
 
+void generateWhiteCastlingMoves (const BOARD *pos, MOVELIST *list) {
+
+    if (pos->castlePermission & WKCA) {
+        if (!isSquareAttacked(E1, BLACK, pos) &&
+        (pos->pieces[F1] == EMPTY && !isSquareAttacked(F1, BLACK, pos)) &&
+        (pos->pieces[G1] == EMPTY && !isSquareAttacked(G1, BLACK, pos)))
+            printf("WKCA avaliable\n");
+    }
+
+    if (pos->castlePermission & WQCA) {
+        if (!isSquareAttacked(E1, BLACK, pos) &&
+            (pos->pieces[D1] == EMPTY && !isSquareAttacked(D1, BLACK, pos)) &&
+            (pos->pieces[C1] == EMPTY && !isSquareAttacked(C1, BLACK, pos)))
+            printf("WQCA avaliable\n");
+    }
+
+}
+
+void generateBlackCastlingMoves (const BOARD *pos, MOVELIST *list) {
+
+    if (pos->castlePermission & BKCA) {
+        if (!isSquareAttacked(E8, WHITE, pos) &&
+            (pos->pieces[F8] == EMPTY && !isSquareAttacked(F8, WHITE, pos)) &&
+            (pos->pieces[G8] == EMPTY && !isSquareAttacked(G8, WHITE, pos)))
+            printf("BKCA avaliable\n");
+    }
+
+    if (pos->castlePermission & BQCA) {
+        if (!isSquareAttacked(E8, WHITE, pos) &&
+            (pos->pieces[D8] == EMPTY && !isSquareAttacked(D8, WHITE, pos)) &&
+            (pos->pieces[C8] == EMPTY && !isSquareAttacked(C8, WHITE, pos)))
+            printf("BQCA avaliable\n");
+    }
+
+}
+
 void generateAllMoves (const BOARD *pos, MOVELIST *list) {
 
     ASSERT(assertBoard(pos));
@@ -279,10 +316,12 @@ void generateAllMoves (const BOARD *pos, MOVELIST *list) {
         generateWhitePawnMoves(pos, list);
         generateNonSlidingPieceMoves(pos, list);
         generateSlidingPieceMoves(pos, list);
+        generateWhiteCastlingMoves(pos, list);
     }
     else {
         generateBlackPawnMoves(pos, list);
         generateNonSlidingPieceMoves(pos, list);
         generateSlidingPieceMoves(pos, list);
+        generateBlackCastlingMoves(pos, list);
     }
 }
