@@ -186,14 +186,36 @@ void generateSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
 
 void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
 
-    int nonSlidePieces[2] = {
+    const int nonSlidePieces[2] = {
             (pos->sideToMove == WHITE) ? N : n,
             (pos->sideToMove == WHITE) ? K : k,
     };
+    int square = 0;
+    int dir = 0;
+    int tempSquare = 0;
 
     for (int i = 0; i < 2; ++i) {
-        ASSERT(isPieceValid(nonSlidePieces[i]));
-        printf("slider piece index: %d, piece %d\n", i, nonSlidePieces[i]);
+        for (int piece = 0; piece < pos->numOfPieces[nonSlidePieces[i]]; ++piece) {
+            square = pos->pieceList[nonSlidePieces[i]][piece];
+            ASSERT(isSquareOnBoard(square));
+            printf("Piece %c on %s\n", pieceChar[nonSlidePieces[i]], printSquare(square));
+
+            for (int j = 0; j < 8; ++j) {
+                dir = (nonSlidePieces[i] == N || nonSlidePieces[i] == n) ?  knightDir[j] : kingDir[j];
+                tempSquare = square + dir;
+
+                if (!isSquareOnBoard(tempSquare))
+                    continue;
+
+                if (pos->pieces[tempSquare] != EMPTY) {
+                    if (pieceCol[pos->pieces[tempSquare]] != pos->sideToMove)
+                        printf("\t\tcapture on %s!\n", printSquare(tempSquare));
+                    continue;
+                }
+
+                printf("\t\tquiet on %s\n", printSquare(tempSquare));
+            }
+        }
     }
 }
 

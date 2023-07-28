@@ -54,9 +54,19 @@ void addPawnMove (const BOARD *pos, int from, int to, MOVELIST *list);
  */
 void addPawnCaptureMove (const BOARD *pos, int from, int to, int capture, MOVELIST *list);
 
+/**
+ * @brief generate moves for white pawns.
+ *
+ * @param pos (const *BOARD) the position to generate the moves for
+ * @param list ()
+ */
 void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list);
 
 void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list);
+
+void generateSlidingPieceMoves (const BOARD *pos, MOVELIST *list);
+
+void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list);
 
 void generateAllMoves (const BOARD *pos, MOVELIST *list);
 
