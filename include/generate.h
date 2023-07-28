@@ -58,16 +58,50 @@ void addPawnCaptureMove (const BOARD *pos, int from, int to, int capture, MOVELI
  * @brief generate moves for white pawns.
  *
  * @param pos (const *BOARD) the position to generate the moves for
- * @param list ()
+ * @param list (*MOVELIST) the list append the moves to
+ *
+ * @return void
  */
 void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list);
 
+/**
+ * @brief generate moves for black pawns.
+ *
+ * @param pos (const *BOARD) the position to generate the moves for
+ * @param list (*MOVELIST) the list append the moves to
+ *
+ * @return void
+ */
 void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list);
 
+/**
+ * @brief generate moves for sliding pieces of the side to make a move.
+ *
+ * @param pos (const *BOARD) the position to generate the moves for
+ * @param list (*MOVELIST) the list append the moves to
+ *
+ * @return void
+ */
 void generateSlidingPieceMoves (const BOARD *pos, MOVELIST *list);
 
+/**
+ * @brief generate moves for non-sliding pieces of the side to make a move.
+ *
+ * @param pos (const *BOARD) the position to generate the moves for
+ * @param list (*MOVELIST) the list append the moves to
+ *
+ * @return void
+ */
 void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list);
 
+/**
+ * @brief driver function for move generation. generate moves for the side to make a move.
+ *
+ * @param pos (const *BOARD) the position to generate the moves for
+ * @param list (*MOVELIST) the list append the moves to
+ *
+ * @return void
+ */
 void generateAllMoves (const BOARD *pos, MOVELIST *list);
 
 #endif //MILOCHESS_GENERATE_H

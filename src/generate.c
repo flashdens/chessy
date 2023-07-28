@@ -172,20 +172,67 @@ void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list) {
 
 void generateSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
 
+    /**
+  * 0 is for bishops,
+  * 1 is for rooks,
+  * 2 is for queens
+  * 3 is for beans (there is no 3)
+  */
     int slidePieces[3] = {
             (pos->sideToMove == WHITE) ? B : b,
             (pos->sideToMove == WHITE) ? R : r,
             (pos->sideToMove == WHITE) ? Q : q
     };
 
+    int square = 0;
+    int dir = 0;
+    int processedPiece = 0;
+    int tempSquare;
+
     for (int i = 0; i < 3; ++i) {
-        ASSERT(isPieceValid(slidePieces[i]));
-        printf("slider piece index: %d, piece %d\n", i, slidePieces[i]);
+        processedPiece = slidePieces[i];
+
+        // process all instances of the pieces on the board
+        for (int piece = 0; piece < pos->numOfPieces[processedPiece]; ++piece) {
+            square = pos->pieceList[processedPiece][piece];
+            ASSERT(isSquareOnBoard(square));
+            printf("Piece %c on %s\n", pieceChar[processedPiece], printSquare(square));
+
+            // check in 4 directions if a piece is a bishop or a rook
+            // in 8 if it's a queen
+            for (int j = 0; j < ((processedPiece == Q || processedPiece == q) ? 8 : 4); ++j) {
+                dir = (processedPiece == B || processedPiece == b) ? bishopDir[j] : rookDir[j];
+
+                /* this one is weird, but when analyzing queen directions, first straight (rook) ones are checked,
+                 * and then diagonal (bishop) ones. the code is super unreadable i know right */
+                if ((processedPiece == Q || processedPiece == q) && j > 3)
+                    dir = bishopDir[j-4];
+
+                tempSquare = square + dir;
+
+                while (isSquareOnBoard(tempSquare)) {
+                    // if a piece is met...
+                    if (pos->pieces[tempSquare] != EMPTY) {
+                        // and it's enemy...
+                        if (pieceCol[pos->pieces[tempSquare]] != pos->sideToMove)
+                            printf("\t\tcapture on %s!\n", printSquare(tempSquare));
+                        break;
+                    }
+
+                    printf("\t\tquiet on %s\n", printSquare(tempSquare));
+                    tempSquare += dir;
+                }
+            }
+        }
     }
 }
 
 void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
 
+    /**
+     * 0 is for knights,
+     * 1 is for kings
+     */
     const int nonSlidePieces[2] = {
             (pos->sideToMove == WHITE) ? N : n,
             (pos->sideToMove == WHITE) ? K : k,
@@ -193,15 +240,20 @@ void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
     int square = 0;
     int dir = 0;
     int tempSquare = 0;
+    int processedPiece = 0;
 
     for (int i = 0; i < 2; ++i) {
-        for (int piece = 0; piece < pos->numOfPieces[nonSlidePieces[i]]; ++piece) {
-            square = pos->pieceList[nonSlidePieces[i]][piece];
-            ASSERT(isSquareOnBoard(square));
-            printf("Piece %c on %s\n", pieceChar[nonSlidePieces[i]], printSquare(square));
+        processedPiece = nonSlidePieces[i];
 
+        // process all instances of the pieces on the board
+        for (int piece = 0; piece < pos->numOfPieces[processedPiece]; ++piece) {
+            square = pos->pieceList[processedPiece][piece];
+            ASSERT(isSquareOnBoard(square));
+            printf("Piece %c on %s\n", pieceChar[processedPiece], printSquare(square));
+
+            // check each direction in which a piece can go
             for (int j = 0; j < 8; ++j) {
-                dir = (nonSlidePieces[i] == N || nonSlidePieces[i] == n) ?  knightDir[j] : kingDir[j];
+                dir = (processedPiece == N || processedPiece == n) ?  knightDir[j] : kingDir[j];
                 tempSquare = square + dir;
 
                 if (!isSquareOnBoard(tempSquare))
@@ -225,12 +277,12 @@ void generateAllMoves (const BOARD *pos, MOVELIST *list) {
 
     if (pos->sideToMove == WHITE) {
         generateWhitePawnMoves(pos, list);
-        generateSlidingPieceMoves(pos, list);
         generateNonSlidingPieceMoves(pos, list);
+        generateSlidingPieceMoves(pos, list);
     }
     else {
         generateBlackPawnMoves(pos, list);
-        generateSlidingPieceMoves(pos, list);
         generateNonSlidingPieceMoves(pos, list);
+        generateSlidingPieceMoves(pos, list);
     }
 }
