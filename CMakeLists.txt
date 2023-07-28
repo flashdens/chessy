@@ -3,8 +3,6 @@ project(milochess LANGUAGES C CXX)
 
 set(CMAKE_C_STANDARD 17)
 
-add_subdirectory(lib)
-
 add_executable(milochess
         src/init.c
         src/bitboards.c
