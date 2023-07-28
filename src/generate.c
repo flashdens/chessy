@@ -90,43 +90,83 @@ void addPawnCaptureMove (const BOARD *pos, const int from, const int to, const i
     }
 }
 
-
-void generateAllMoves (const BOARD *pos, MOVELIST *list) {
+void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list) {
 
     int piece = EMPTY;
     int square = 0;
     int tempSquare = 0;
     int numOfPieces = 0;
 
+    for (int i = 0; i < pos->numOfPieces[P]; ++i) {
+        square = pos->pieceList[P][i];
+        ASSERT(isSquareOnBoard(square));
+
+        // consider a quiet move
+        if (pos->pieces[square + 10] == EMPTY) {
+            addPawnMove(pos, square, square + 10, list);
+            // consider a 2-square "jump" from the starting field
+            if (boardRanks[square] == RANK_2 && pos->pieces[square + 20] == EMPTY)
+                addQuietMove(pos, list, MOVE(square, square + 20, EMPTY, EMPTY, ISPAWNSTART));
+        }
+
+        // consider a capture move
+        if (isSquareOnBoard(square + 9) && pos->sideToMove == WHITE, pieceCol[pos->pieces[square + 9]] == BLACK)
+            addPawnCaptureMove(pos, square, square + 9, pos->pieces[square + 9], list);
+
+        if (isSquareOnBoard(square + 11) && pos->sideToMove == WHITE, pieceCol[pos->pieces[square + 11]] == BLACK)
+            addPawnCaptureMove(pos, square, square + 11, pos->pieces[square + 9], list);
+
+        // consider an en passant move
+        if (square + 9 == pos->enPassant)
+            addCaptureMove(pos, list, MOVE(square, square + 9, EMPTY, EMPTY, ISENPASSANT));
+
+        if (square + 11 == pos->enPassant)
+            addCaptureMove(pos, list, MOVE(square, square + 11, EMPTY, EMPTY, ISENPASSANT));
+    }
+}
+
+void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list) {
+
+    int piece = EMPTY;
+    int square = 0;
+    int tempSquare = 0;
+    int numOfPieces = 0;
+
+    for (int i = 0; i < pos->numOfPieces[p]; ++i) {
+        square = pos->pieceList[p][i];
+        ASSERT(isSquareOnBoard(square));
+
+        // consider a quiet move
+        if (pos->pieces[square - 10] == EMPTY) {
+            addPawnMove(pos, square, square - 10, list);
+            // consider a 2-square "jump" from the starting field
+            if (boardRanks[square] == RANK_7 && pos->pieces[square - 20] == EMPTY)
+                addQuietMove(pos, list, MOVE(square, square - 20, EMPTY, EMPTY, ISPAWNSTART));
+        }
+
+        // consider a capture move
+        if (isSquareOnBoard(square - 9) && pos->sideToMove == BLACK, pieceCol[pos->pieces[square - 9]] == WHITE)
+            addPawnCaptureMove(pos, square, square - 9, pos->pieces[square - 9], list);
+
+        if (isSquareOnBoard(square - 11) && pos->sideToMove == BLACK, pieceCol[pos->pieces[square - 11]] == WHITE)
+            addPawnCaptureMove(pos, square, square - 11, pos->pieces[square - 9], list);
+
+        // consider an en passant move
+        if (square - 9 == pos->enPassant)
+            addCaptureMove(pos, list, MOVE(square, square - 9, EMPTY, EMPTY, ISENPASSANT));
+
+        if (square - 11 == pos->enPassant)
+            addCaptureMove(pos, list, MOVE(square, square - 11, EMPTY, EMPTY, ISENPASSANT));
+    }
+}
+
+void generateAllMoves (const BOARD *pos, MOVELIST *list) {
+
     ASSERT(assertBoard(pos));
 
-    if (pos->sideToMove == WHITE) {
+    if (pos->sideToMove == WHITE)
+        generateWhitePawnMoves(pos, list);
+    else
+        generateBlackPawnMoves(pos, list);
 
-        for (int i = 0; i < pos->numOfPieces[P]; ++i) {
-            square = pos->pieceList[P][i];
-            ASSERT(isSquareOnBoard(square));
-
-            // consider a quiet move
-            if (pos->pieces[square + 10] == EMPTY) {
-                addPawnMove(pos, square, square + 10, list);
-                // consider a 2-square "jump" from the starting field
-                if (boardRanks[square] == RANK_2 && pos->pieces[square + 20] == EMPTY)
-                    addQuietMove(pos, list, MOVE(square, square + 20, EMPTY, EMPTY, ISPAWNSTART));
-            }
-
-            // consider a capture move
-            if (isSquareOnBoard(square + 9) && pos->sideToMove == WHITE, pieceCol[pos->pieces[square + 9]] == BLACK)
-                addPawnCaptureMove(pos, square, square + 9, pos->pieces[square + 9], list);
-
-            if (isSquareOnBoard(square + 11) && pos->sideToMove == WHITE, pieceCol[pos->pieces[square + 11]] == BLACK)
-                addPawnCaptureMove(pos, square, square + 11, pos->pieces[square + 9], list);
-
-            // consider an en passant move
-            if (square + 9 == pos->enPassant)
-                addCaptureMove(pos, list, MOVE(square, square + 9, EMPTY, EMPTY, ISENPASSANT));
-            
-            if (square + 11 == pos->enPassant)
-                addCaptureMove(pos, list, MOVE(square, square + 11, EMPTY, EMPTY, ISENPASSANT));
-        }
-    }
 }

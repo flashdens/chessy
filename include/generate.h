@@ -54,9 +54,10 @@ void addPawnMove (const BOARD *pos, int from, int to, MOVELIST *list);
  */
 void addPawnCaptureMove (const BOARD *pos, int from, int to, int capture, MOVELIST *list);
 
+void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list);
+
+void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list);
 
 void generateAllMoves (const BOARD *pos, MOVELIST *list);
-
-
 
 #endif //MILOCHESS_GENERATE_H
