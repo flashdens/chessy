@@ -103,7 +103,7 @@ void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list) {
 
     int piece = EMPTY;
     int square = 0;
-    int tempSquare = 0;
+    int toSquare = 0;
     int numOfPieces = 0;
 
 
@@ -139,7 +139,7 @@ void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list) {
 
     int piece = EMPTY;
     int square = 0;
-    int tempSquare = 0;
+    int toSquare = 0;
     int numOfPieces = 0;
     int dir = 0;
 
@@ -188,7 +188,7 @@ void generateSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
     int square = 0;
     int dir = 0;
     int processedPiece = 0;
-    int tempSquare;
+    int toSquare;
 
     for (int i = 0; i < 3; ++i) {
         processedPiece = slidePieces[i];
@@ -209,19 +209,19 @@ void generateSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
                 if ((processedPiece == Q || processedPiece == q) && j > 3)
                     dir = bishopDir[j-4];
 
-                tempSquare = square + dir;
+                toSquare = square + dir;
 
-                while (isSquareOnBoard(tempSquare)) {
+                while (isSquareOnBoard(toSquare)) {
                     // if a piece is met...
-                    if (pos->pieces[tempSquare] != EMPTY) {
+                    if (pos->pieces[toSquare] != EMPTY) {
                         // and it's enemy...
-                        if (pieceCol[pos->pieces[tempSquare]] != pos->sideToMove)
-                            printf("\t\tcapture on %s!\n", printSquare(tempSquare));
+                        if (pieceCol[pos->pieces[toSquare]] != pos->sideToMove)
+                            addCaptureMove(pos, list, MOVE(square, toSquare, pos->pieces[toSquare], EMPTY, 0));
                         break;
                     }
 
-                    printf("\t\tquiet on %s\n", printSquare(tempSquare));
-                    tempSquare += dir;
+                    addQuietMove(pos, list, MOVE(square, toSquare, EMPTY, EMPTY, 0));
+                    toSquare += dir;
                 }
             }
         }
@@ -240,7 +240,7 @@ void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
     };
     int square = 0;
     int dir = 0;
-    int tempSquare = 0;
+    int toSquare = 0;
     int processedPiece = 0;
 
     for (int i = 0; i < 2; ++i) {
@@ -255,18 +255,18 @@ void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
             // check each direction in which a piece can go
             for (int j = 0; j < 8; ++j) {
                 dir = (processedPiece == N || processedPiece == n) ?  knightDir[j] : kingDir[j];
-                tempSquare = square + dir;
+                toSquare = square + dir;
 
-                if (!isSquareOnBoard(tempSquare))
+                if (!isSquareOnBoard(toSquare))
                     continue;
 
-                if (pos->pieces[tempSquare] != EMPTY) {
-                    if (pieceCol[pos->pieces[tempSquare]] != pos->sideToMove)
-                        printf("\t\tcapture on %s!\n", printSquare(tempSquare));
+                if (pos->pieces[toSquare] != EMPTY) {
+                    if (pieceCol[pos->pieces[toSquare]] != pos->sideToMove)
+                        addCaptureMove(pos, list, MOVE(square, toSquare, pos->pieces[toSquare], EMPTY, 0));
                     continue;
                 }
 
-                printf("\t\tquiet on %s\n", printSquare(tempSquare));
+                addQuietMove(pos, list, MOVE(square, toSquare, EMPTY, EMPTY, 0));
             }
         }
     }
@@ -278,14 +278,19 @@ void generateWhiteCastlingMoves (const BOARD *pos, MOVELIST *list) {
         if (!isSquareAttacked(E1, BLACK, pos) &&
         (pos->pieces[F1] == EMPTY && !isSquareAttacked(F1, BLACK, pos)) &&
         (pos->pieces[G1] == EMPTY && !isSquareAttacked(G1, BLACK, pos)))
-            printf("WKCA avaliable\n");
+        {
+            addQuietMove(pos, list, MOVE(E1, G1, EMPTY, EMPTY, ISCASTLE));
+        }
     }
 
     if (pos->castlePermission & WQCA) {
         if (!isSquareAttacked(E1, BLACK, pos) &&
             (pos->pieces[D1] == EMPTY && !isSquareAttacked(D1, BLACK, pos)) &&
             (pos->pieces[C1] == EMPTY && !isSquareAttacked(C1, BLACK, pos)))
-            printf("WQCA avaliable\n");
+        {
+            addQuietMove(pos, list, MOVE(E1, C1, EMPTY, EMPTY, ISCASTLE));
+        }
+
     }
 
 }
@@ -296,14 +301,14 @@ void generateBlackCastlingMoves (const BOARD *pos, MOVELIST *list) {
         if (!isSquareAttacked(E8, WHITE, pos) &&
             (pos->pieces[F8] == EMPTY && !isSquareAttacked(F8, WHITE, pos)) &&
             (pos->pieces[G8] == EMPTY && !isSquareAttacked(G8, WHITE, pos)))
-            printf("BKCA avaliable\n");
+            addQuietMove(pos, list, MOVE(E8, G8, EMPTY, EMPTY, ISCASTLE));
     }
 
     if (pos->castlePermission & BQCA) {
         if (!isSquareAttacked(E8, WHITE, pos) &&
             (pos->pieces[D8] == EMPTY && !isSquareAttacked(D8, WHITE, pos)) &&
             (pos->pieces[C8] == EMPTY && !isSquareAttacked(C8, WHITE, pos)))
-            printf("BQCA avaliable\n");
+            addQuietMove(pos, list, MOVE(E8, C8, EMPTY, EMPTY, ISCASTLE));
     }
 
 }

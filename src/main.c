@@ -18,13 +18,14 @@
 #define BISHOPS "6k1/1b6/4n3/8/1n4B1/1B3N2/1N6/2b3K1 b - - 0 1"
 #define WCASTLE "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1"
 #define BCASTLE "r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1"
+#define TEST1 "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
 
 int main() {
     initAll();
 
     BOARD board [1];
 
-    parseFen(BCASTLE, board);
+    parseFen(TEST1, board);
     printBoard(board);
 
     MOVELIST movelist [1];
