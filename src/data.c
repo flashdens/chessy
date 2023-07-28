@@ -83,4 +83,4 @@ bool isPieceKing[13] = { false,
                       false, false, false, false, false,
                       true};
 
-int pieceSlides[13] = { false, false, false, true, true, true, false, false, false, true, true, true, false };
+bool doesPieceSlide[13] = { false, false, false, true, true, true, false, false, false, true, true, true, false };

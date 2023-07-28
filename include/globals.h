@@ -42,6 +42,7 @@ extern bool isPieceKnight[13];
 extern bool isPieceKing[13];
 extern bool isPieceBishopOrQueen[13];
 extern bool isPieceRookOrQueen[13];
+extern bool doesPieceSlide[13];
 
 /**
  * @brief print the coordinates of a square.

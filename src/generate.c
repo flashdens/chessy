@@ -42,6 +42,9 @@ void addEnPassantMove (const BOARD *pos, MOVELIST *list, int move) {
  */
 void addPawnMove (const BOARD *pos, const int from, const int to, MOVELIST *list) {
 
+    ASSERT(isSquareOnBoard(from));
+    ASSERT(isSquareOnBoard(to));
+
     // is the move a promotion?
     if (boardRanks[from] == RANK_7 && pos->sideToMove == WHITE) {
         addQuietMove(pos, list, MOVE(from, to, EMPTY, Q, 0));
@@ -72,6 +75,11 @@ void addPawnMove (const BOARD *pos, const int from, const int to, MOVELIST *list
  */
 void addPawnCaptureMove (const BOARD *pos, const int from, const int to, const int capture, MOVELIST *list) {
 
+    ASSERT(isPieceValidOrEmpty(capture));
+    ASSERT(isSquareOnBoard(from));
+    ASSERT(isSquareOnBoard(to));
+
+
     // is the move a promotion?
     if (boardRanks[from] == RANK_7 && pos->sideToMove == WHITE) {
         addCaptureMove(pos, list, MOVE(from, to, capture, Q, 0));
@@ -96,6 +104,7 @@ void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list) {
     int square = 0;
     int tempSquare = 0;
     int numOfPieces = 0;
+
 
     for (int i = 0; i < pos->numOfPieces[P]; ++i) {
         square = pos->pieceList[P][i];
@@ -131,6 +140,7 @@ void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list) {
     int square = 0;
     int tempSquare = 0;
     int numOfPieces = 0;
+    int dir = 0;
 
     for (int i = 0; i < pos->numOfPieces[p]; ++i) {
         square = pos->pieceList[p][i];
@@ -160,13 +170,45 @@ void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list) {
     }
 }
 
+void generateSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
+
+    int slidePieces[3] = {
+            (pos->sideToMove == WHITE) ? B : b,
+            (pos->sideToMove == WHITE) ? R : r,
+            (pos->sideToMove == WHITE) ? Q : q
+    };
+
+    for (int i = 0; i < 3; ++i) {
+        ASSERT(isPieceValid(slidePieces[i]));
+        printf("slider piece index: %d, piece %d\n", i, slidePieces[i]);
+    }
+}
+
+void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
+
+    int nonSlidePieces[2] = {
+            (pos->sideToMove == WHITE) ? N : n,
+            (pos->sideToMove == WHITE) ? K : k,
+    };
+
+    for (int i = 0; i < 2; ++i) {
+        ASSERT(isPieceValid(nonSlidePieces[i]));
+        printf("slider piece index: %d, piece %d\n", i, nonSlidePieces[i]);
+    }
+}
+
 void generateAllMoves (const BOARD *pos, MOVELIST *list) {
 
     ASSERT(assertBoard(pos));
 
-    if (pos->sideToMove == WHITE)
+    if (pos->sideToMove == WHITE) {
         generateWhitePawnMoves(pos, list);
-    else
+        generateSlidingPieceMoves(pos, list);
+        generateNonSlidingPieceMoves(pos, list);
+    }
+    else {
         generateBlackPawnMoves(pos, list);
-
+        generateSlidingPieceMoves(pos, list);
+        generateNonSlidingPieceMoves(pos, list);
+    }
 }
