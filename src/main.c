@@ -5,29 +5,26 @@
 #include "utils.h"
 #include "init.h"
 #include "enums.h"
+#include "board.h"
+#include "generate.h"
 
 #define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 #define FEN4 "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
+#define FEN5 "rnbqkb1r/pp1p1pPp/8/2p1pP2/1P1P4/3P3P/P1P1P3/RNBQKBNR w KQkq e6 0 1"
 
 int main() {
     initAll();
 
-        int move = 0;
-        int from = A2;
-        int to = H7;
-        int captured = R;
-        int prom = K;
+    BOARD board [1];
 
-        move = ( ( from ) | ( to << 7 ) | (captured << 14) | (prom << 20) );
+    parseFen(FEN5, board);
+    printBoard(board);
 
-        printf("decimal: %d \n hexadecimal: %X\n\n", move, move);
-        printBinaryNumber(move);
+    MOVELIST movelist [1];
 
-        printf("%d\n%d\n%d\n%d\n%s\n", FROMSQ(move), TOSQ(move), CAPTURED(move), PROMOTED(move),(move & ISPROMOTION) ? "Y":"N");
+    generateAllMoves(board, movelist);
 
-    printf("From: %s\n", printSquare(from));
-    printf("To: %s\n", printSquare(to));
-    printf("Move: %s\n", printMove(move));
+    printMoveList(movelist);
 
     return 0;
 }

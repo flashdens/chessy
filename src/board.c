@@ -313,17 +313,16 @@ void updateMaterialLists (BOARD *pos) {
  *
  * @param pos (*const BOARD) the position to be checked.
  *
- * @return 0 on success
+ * @return (bool) true on success
  * @return program exit with code 1 on failure
  */
-int assertBoard (const BOARD *pos) {
+bool assertBoard (const BOARD *pos) {
 
-   int square;
-   int square64;
-   int checkNumOfPieces2;
-   int colour;
-   int pawnCount;
-   int tempPiece;
+   int square = 0;
+   int square64 = 0;
+   int colour = 0;
+   int pawnCount = 0;
+   int tempPiece = 0;
 
    int tempNumOfPieces[13] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
    int tempMinPieces[2] = {0, 0};
@@ -413,7 +412,7 @@ int assertBoard (const BOARD *pos) {
     // position key
     ASSERT(generatePositionKey(pos) == pos->posKey);
 
-    return 0;
+    return true;
 }
 
 /**

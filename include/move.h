@@ -11,25 +11,25 @@
 /** @brief to square */
 #define TOSQ(m) (((m)>>7) & 0x7F)
 
-/** @brief captured piece */
+/** @brief captured piece (if so) */
 #define CAPTURED(m) (((m)>>14) & 0xF)
 
-/** @brief promoted to piece */
+/** @brief promoted to piece (if so) */
 #define PROMOTED(m) (((m)>>20) & 0xF)
 
-/** @brief is the move en passant? */
+/** @brief (flag) is the move en passant? */
 #define ISENPASSANT 0x4000
 
-/** @brief is the move a pawn start? */
-#define ISSTART 0x8000
+/** @brief (flag) is the move a pawn start? */
+#define ISPAWNSTART 0x8000
 
-/** @brief is the move a castle? */
+/** @brief (flag) is the move a castle? */
 #define ISCASTLE 0x1000000
 
-/** @brief is the move a capture? */
+/** @brief (flag) is the move a capture? */
 #define ISCAPTURE 0x7C000
 
-/** @brief is the move a promotion? */
+/** @brief (flag) is the move a promotion? */
 #define ISPROMOTION 0xF00000
 
 
@@ -64,11 +64,21 @@ typedef struct {
  * @param count the number of moves in the movelist
  *
  * the list of possible moves.
-
+ *
  */
 typedef struct {
     MOVE moves[MAX_POSITION_MOVES];
     int count;
 } MOVELIST;
+
+
+/**
+ * @brief print a move list.
+ *
+ * @param list (const *MOVELIST) the move list to be printed
+ *
+ * @return void
+ */
+void printMoveList (const MOVELIST *list);
 
 #endif //MILOCHESS_MOVE_H

@@ -11,14 +11,14 @@ char *printMove (const int move) {
     int fileFrom = boardFiles[FROMSQ(move)];
     int rankFrom = boardRanks[FROMSQ(move)];
     int fileTo = boardFiles[TOSQ(move)];
-    int rankTo = boardFiles[TOSQ(move)];
+    int rankTo = boardRanks[TOSQ(move)];
 
     int promoted = PROMOTED(move);
 
     if (promoted) {
         piece = 'q';
         if (isPieceKnight[promoted])
-            piece = 'k';
+            piece = 'n';
         else if (isPieceBishopOrQueen[promoted] && !isPieceRookOrQueen[promoted])
             piece = 'b';
         else if (isPieceRookOrQueen[promoted] && !isPieceBishopOrQueen[promoted])
@@ -30,4 +30,27 @@ char *printMove (const int move) {
         strcat(moveString, &piece);
 
     return moveString;
+}
+
+/**
+ * @brief print a move list.
+ *
+ * @param list (const *MOVELIST) the move list to be printed
+ *
+ * @return void
+ */
+void printMoveList (const MOVELIST *list) {
+
+    int move = 0;
+    int score = 0;
+
+    printf("Move list:\n");
+
+    for (int i = 0; i < list->count; ++i) {
+        move = list->moves[i].info;
+        score = list->moves[i].score;
+        printf("Move %d: %s (score %d)\n", i+1, printMove(move), score);
+    }
+
+    printf("%d moves total\n", list->count);
 }

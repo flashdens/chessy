@@ -96,7 +96,7 @@ void updateMaterialLists (BOARD *pos);
 * @return 0 on success
 * @return program exit with code 1 on failure
 */
-int assertBoard (const BOARD *pos);
+bool assertBoard (const BOARD *pos);
 
 
 
