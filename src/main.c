@@ -25,7 +25,7 @@ int main() {
 
     BOARD board [1];
 
-    parseFen(TEST1, board);
+    parseFen(START_FEN, board);
     printBoard(board);
 
     MOVELIST movelist [1];

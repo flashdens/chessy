@@ -1,5 +1,11 @@
+/**
+ * @file generate.h
+ * @brief includes function declarations and macros for move generation (generate.c).
+ */
+
 #include "board.h"
 #include "move.h"
+
 
 /** @brief generate a move integer from parameters.
  *
@@ -10,10 +16,11 @@
  * @param fl a flag to be processed (if so)
  *
  */
-#define MOVE(from,to,capture,promote,fl) ( (from) | ((to) << 7) | ( (capture) << 14 ) | ( (promote) << 20 ) | (fl))
 
 #ifndef MILOCHESS_GENERATE_H
 #define MILOCHESS_GENERATE_H
+
+#define MOVE(from,to,capture,promote,fl) ( (from) | ((to) << 7) | ( (capture) << 14 ) | ( (promote) << 20 ) | (fl))
 
 /**
  * @brief add a quiet move to the move list.
@@ -24,13 +31,35 @@
  * @param list (*MOVELIST) the move list to append the move
  * @param move the move to be added to the move list
  *
- * @return void
+ * @return static void
  */
-void addQuietMove (const BOARD *pos, MOVELIST *list, int move);
+static void addQuietMove (const BOARD *pos, MOVELIST *list, int move);
 
-void addCaptureMove (const BOARD *pos, MOVELIST *list, int move);
+/**
+ * @brief add a static move to the move list.
+ *
+ * a move is considered quiet if it's not a capture, not a check or not a significant threat to the opponent.
+ *
+ * @param pos (const *BOARD) the position
+ * @param list (*MOVELIST) the move list to append the move
+ * @param move the move to be added to the move list
+ *
+ * @return static void
+ */
+static void addCaptureMove (const BOARD *pos, MOVELIST *list, int move);
 
-void addEnPassantMove (const BOARD *pos, MOVELIST *list, int move);
+/**
+ * @brief add an en passant move to the move list.
+ *
+ * a move is considered quiet if it's not a capture, not a check or not a significant threat to the opponent.
+ *
+ * @param pos (const *BOARD) the position
+ * @param list (*MOVELIST) the move list to append the move
+ * @param move the move to be added to the move list
+ *
+ * @return static void
+ */
+static void addEnPassantMove (const BOARD *pos, MOVELIST *list, int move);
 
 /**
  * @brief add a pawn move to the move list.
@@ -40,8 +69,10 @@ void addEnPassantMove (const BOARD *pos, MOVELIST *list, int move);
  * @param to (const) the square to which a move is made
  * @param capture (const) the captured piece (if so)
  * @param list (*MOVELIST) the list append the move to
+ *
+ * @return static void
  */
-void addPawnMove (const BOARD *pos, int from, int to, MOVELIST *list);
+static void addPawnMove (const BOARD *pos, int from, int to, MOVELIST *list);
 
 /**
  * @brief add a pawn capture move the the move list.
@@ -51,8 +82,10 @@ void addPawnMove (const BOARD *pos, int from, int to, MOVELIST *list);
  * @param to (const) the square to which a move is made
  * @param capture (const) the captured piece (if so)
  * @param list (*MOVELIST) the list append the move to
+ *
+ * @return static void
  */
-void addPawnCaptureMove (const BOARD *pos, int from, int to, int capture, MOVELIST *list);
+static void addPawnCaptureMove (const BOARD *pos, int from, int to, int capture, MOVELIST *list);
 
 /**
  * @brief generate moves for white pawns.
@@ -60,9 +93,9 @@ void addPawnCaptureMove (const BOARD *pos, int from, int to, int capture, MOVELI
  * @param pos (const *BOARD) the position to generate the moves for
  * @param list (*MOVELIST) the list append the moves to
  *
- * @return void
+ * @return static void
  */
-void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list);
+static void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list);
 
 /**
  * @brief generate moves for black pawns.
@@ -70,9 +103,9 @@ void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list);
  * @param pos (const *BOARD) the position to generate the moves for
  * @param list (*MOVELIST) the list append the moves to
  *
- * @return void
+ * @return static void
  */
-void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list);
+static void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list);
 
 /**
  * @brief generate moves for sliding pieces of the side to make a move.
@@ -80,9 +113,9 @@ void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list);
  * @param pos (const *BOARD) the position to generate the moves for
  * @param list (*MOVELIST) the list append the moves to
  *
- * @return void
+ * @return static void
  */
-void generateSlidingPieceMoves (const BOARD *pos, MOVELIST *list);
+static void generateSlidingPieceMoves (const BOARD *pos, MOVELIST *list);
 
 /**
  * @brief generate moves for non-sliding pieces of the side to make a move.
@@ -90,9 +123,29 @@ void generateSlidingPieceMoves (const BOARD *pos, MOVELIST *list);
  * @param pos (const *BOARD) the position to generate the moves for
  * @param list (*MOVELIST) the list append the moves to
  *
- * @return void
+ * @return static void
  */
-void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list);
+static void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list);
+
+/**
+ * @brief generate castling moves for white.
+ *
+ * @param pos (const *BOARD) the position to generate the moves for
+ * @param list (*MOVELIST) the list append the moves to
+ *
+ * @return static void
+ */
+static void generateWhiteCastlingMoves (const BOARD *pos, MOVELIST *list)
+
+/**
+ * @brief generate castling moves for black.
+ *
+ * @param pos (const *BOARD) the position to generate the moves for
+ * @param list (*MOVELIST) the list append the moves to
+ *
+ * @return static void
+ */
+static void generateBlackCastlingMoves (const BOARD *pos, MOVELIST *list);
 
 /**
  * @brief driver function for move generation. generate moves for the side to make a move.

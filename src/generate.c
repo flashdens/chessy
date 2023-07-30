@@ -1,3 +1,8 @@
+/**
+ * @file generate.c
+ * @brief includes function declarations and macros for move generation (generate.c).
+ */
+
 #include "generate.h"
 #include "globals.h"
 #include "enums.h"
@@ -12,21 +17,43 @@
  * @param list (*MOVELIST) the move list to append the move
  * @param move the move to be added to the move list
  *
- * @return void
+ * @return static void
  */
-void addQuietMove (const BOARD *pos, MOVELIST *list, int move) {
+static void addQuietMove (const BOARD *pos, MOVELIST *list, int move) {
     list->moves[list->count].info = move;
     list->moves[list->count].score = 0;
     list->count++;
 }
 
-void addCaptureMove (const BOARD *pos, MOVELIST *list, int move) {
+/**
+ * @brief add a static move to the move list.
+ *
+ * a move is considered quiet if it's not a capture, not a check or not a significant threat to the opponent.
+ *
+ * @param pos (const *BOARD) the position
+ * @param list (*MOVELIST) the move list to append the move
+ * @param move the move to be added to the move list
+ *
+ * @return static void
+ */
+static void addCaptureMove (const BOARD *pos, MOVELIST *list, int move) {
     list->moves[list->count].info = move;
     list->moves[list->count].score = 0;
     list->count++;
 }
 
-void addEnPassantMove (const BOARD *pos, MOVELIST *list, int move) {
+/**
+ * @brief add an en passant move to the move list.
+ *
+ * a move is considered quiet if it's not a capture, not a check or not a significant threat to the opponent.
+ *
+ * @param pos (const *BOARD) the position
+ * @param list (*MOVELIST) the move list to append the move
+ * @param move the move to be added to the move list
+ *
+ * @return static void
+ */
+static void addEnPassantMove (const BOARD *pos, MOVELIST *list, int move) {
     list->moves[list->count].info = move;
     list->moves[list->count].score = 0;
     list->count++;
@@ -40,8 +67,10 @@ void addEnPassantMove (const BOARD *pos, MOVELIST *list, int move) {
  * @param to (const) the square to which a move is made
  * @param capture (const) the captured piece (if so)
  * @param list (*MOVELIST) the list append the move to
+ *
+ * @return static void
  */
-void addPawnMove (const BOARD *pos, const int from, const int to, MOVELIST *list) {
+static void addPawnMove (const BOARD *pos, const int from, const int to, MOVELIST *list) {
 
     ASSERT(isSquareOnBoard(from));
     ASSERT(isSquareOnBoard(to));
@@ -73,8 +102,10 @@ void addPawnMove (const BOARD *pos, const int from, const int to, MOVELIST *list
  * @param to (const) the square to which a move is made
  * @param capture (const) the captured piece (if so)
  * @param list (*MOVELIST) the list append the move to
+ *
+ * @return static void
  */
-void addPawnCaptureMove (const BOARD *pos, const int from, const int to, const int capture, MOVELIST *list) {
+static void addPawnCaptureMove (const BOARD *pos, const int from, const int to, const int capture, MOVELIST *list) {
 
     ASSERT(isPieceValidOrEmpty(capture));
     ASSERT(isSquareOnBoard(from));
@@ -99,7 +130,15 @@ void addPawnCaptureMove (const BOARD *pos, const int from, const int to, const i
     }
 }
 
-void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list) {
+/**
+ * @brief generate moves for white pawns.
+ *
+ * @param pos (const *BOARD) the position to generate the moves for
+ * @param list (*MOVELIST) the list append the moves to
+ *
+ * @return static void
+ */
+static void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list) {
 
     int piece = EMPTY;
     int square = 0;
@@ -135,7 +174,15 @@ void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list) {
     }
 }
 
-void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list) {
+/**
+ * @brief generate moves for black pawns.
+ *
+ * @param pos (const *BOARD) the position to generate the moves for
+ * @param list (*MOVELIST) the list append the moves to
+ *
+ * @return static void
+ */
+static void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list) {
 
     int piece = EMPTY;
     int square = 0;
@@ -171,13 +218,21 @@ void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list) {
     }
 }
 
-void generateSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
+/**
+ * @brief generate moves for sliding pieces of the side to make a move.
+ *
+ * @param pos (const *BOARD) the position to generate the moves for
+ * @param list (*MOVELIST) the list append the moves to
+ *
+ * @return static void
+ */
+static void generateSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
 
     /**
   * 0 is for bishops,
   * 1 is for rooks,
   * 2 is for queens
-  * 3 is for beans (there is no 3)
+  * 3 is for bees (there is no 3)
   */
     int slidePieces[3] = {
             (pos->sideToMove == WHITE) ? B : b,
@@ -197,9 +252,8 @@ void generateSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
         for (int piece = 0; piece < pos->numOfPieces[processedPiece]; ++piece) {
             square = pos->pieceList[processedPiece][piece];
             ASSERT(isSquareOnBoard(square));
-            printf("Piece %c on %s\n", pieceChar[processedPiece], printSquare(square));
 
-            // check in 4 directions if a piece is a bishop or a rook
+            // check for moves in 4 directions if a piece is a bishop or a rook
             // in 8 if it's a queen
             for (int j = 0; j < ((processedPiece == Q || processedPiece == q) ? 8 : 4); ++j) {
                 dir = (processedPiece == B || processedPiece == b) ? bishopDir[j] : rookDir[j];
@@ -228,7 +282,15 @@ void generateSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
     }
 }
 
-void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
+/**
+ * @brief generate moves for non-sliding pieces of the side to make a move.
+ *
+ * @param pos (const *BOARD) the position to generate the moves for
+ * @param list (*MOVELIST) the list append the moves to
+ *
+ * @return static void
+ */
+static void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
 
     /**
      * 0 is for knights,
@@ -250,7 +312,6 @@ void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
         for (int piece = 0; piece < pos->numOfPieces[processedPiece]; ++piece) {
             square = pos->pieceList[processedPiece][piece];
             ASSERT(isSquareOnBoard(square));
-            printf("Piece %c on %s\n", pieceChar[processedPiece], printSquare(square));
 
             // check each direction in which a piece can go
             for (int j = 0; j < 8; ++j) {
@@ -272,7 +333,15 @@ void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
     }
 }
 
-void generateWhiteCastlingMoves (const BOARD *pos, MOVELIST *list) {
+/**
+ * @brief generate castling moves for white.
+ *
+ * @param pos (const *BOARD) the position to generate the moves for
+ * @param list (*MOVELIST) the list append the moves to
+ *
+ * @return static void
+ */
+static void generateWhiteCastlingMoves (const BOARD *pos, MOVELIST *list) {
 
     if (pos->castlePermission & WKCA) {
         if (!isSquareAttacked(E1, BLACK, pos) &&
@@ -295,7 +364,15 @@ void generateWhiteCastlingMoves (const BOARD *pos, MOVELIST *list) {
 
 }
 
-void generateBlackCastlingMoves (const BOARD *pos, MOVELIST *list) {
+/**
+ * @brief generate castling moves for black.
+ *
+ * @param pos (const *BOARD) the position to generate the moves for
+ * @param list (*MOVELIST) the list append the moves to
+ *
+ * @return static void
+ */
+static void generateBlackCastlingMoves (const BOARD *pos, MOVELIST *list) {
 
     if (pos->castlePermission & BKCA) {
         if (!isSquareAttacked(E8, WHITE, pos) &&
@@ -313,6 +390,14 @@ void generateBlackCastlingMoves (const BOARD *pos, MOVELIST *list) {
 
 }
 
+/**
+ * @brief driver function for move generation. generate moves for the side to make a move.
+ *
+ * @param pos (const *BOARD) the position to generate the moves for
+ * @param list (*MOVELIST) the list append the moves to
+ *
+ * @return void
+ */
 void generateAllMoves (const BOARD *pos, MOVELIST *list) {
 
     ASSERT(assertBoard(pos));

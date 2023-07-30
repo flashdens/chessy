@@ -39,13 +39,15 @@ void resetBoard (BOARD *pos) {
     }
 
     for (int i = 0; i < 2; ++i) {
-        pos->pawns[i] = 0LL;
         pos->bigPieces[i] = 0;
         pos->majPieces[i] = 0;
         pos->minPieces[i] = 0;
         pos->material[i] = 0;
     }
-    pos->pawns[2] = 0LL;
+
+    for (int i = 0; i < 3; ++i) {
+        pos->pawns[i] = 0LL;
+    }
 
     pos->ply = 0;
     pos->hisPly = 0;
