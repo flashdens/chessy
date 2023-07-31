@@ -38,6 +38,7 @@ extern const int rookDir[4];
 extern const int bishopDir[4];
 extern const int kingDir[8];
 
+extern bool isPiecePawn[13];
 extern bool isPieceKnight[13];
 extern bool isPieceKing[13];
 extern bool isPieceBishopOrQueen[13];

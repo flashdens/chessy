@@ -32,7 +32,7 @@ int countSetBits (U64 bb) {
     return r;
 }
 
-void clearBit(U64 *bb, U64 sq) {
+void clearBit(U64 *bb, int sq) {
     *bb &= clearMask[sq];
 }
 

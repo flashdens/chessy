@@ -5,8 +5,15 @@
 #include "board.h"
 #include "enums.h"
 
-U64 hashPiece (U64 key, int piece, int sq) {
-    return key ^= pieceKeys[piece][sq];
+/**
+ * TODO: do i need U64 as return types?
+ * @param pos
+ * @param piece
+ * @param sq
+ * @return
+ */
+U64 hashPiece (BOARD *pos, int piece, int sq) {
+    return pos->posKey ^= pieceKeys[piece][sq];
 }
 
 U64 hashCastle (BOARD *pos) {

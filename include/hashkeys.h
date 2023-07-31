@@ -7,7 +7,7 @@
 #ifndef MILOCHESS_HASHKEYS_H
 #define MILOCHESS_HASHKEYS_H
 
-U64 hashPiece (U64 key, int piece, int sq);
+U64 hashPiece (BOARD *pos, int piece, int sq);
 
 U64 hashCastle (BOARD *pos);
 
