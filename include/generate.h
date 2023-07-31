@@ -4,7 +4,7 @@
  */
 
 #include "board.h"
-#include "move.h"
+#include "movelist.h"
 
 
 /** @brief generate a move integer from parameters.

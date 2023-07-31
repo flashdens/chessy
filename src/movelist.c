@@ -1,6 +1,7 @@
 #include <string.h>
 
-#include "move.h"
+#include "movelist.h"
+#include "board.h"
 #include "globals.h"
 
 char *printMove (const int move) {
@@ -54,3 +55,6 @@ void printMoveList (const MOVELIST *list) {
 
     printf("%d moves total\n", list->count);
 }
+
+
+

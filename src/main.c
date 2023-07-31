@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "move.h"
+#include "movelist.h"
 #include "utils.h"
 #include "init.h"
 #include "enums.h"

@@ -5,6 +5,22 @@
 #include "board.h"
 #include "enums.h"
 
+U64 hashPiece (U64 key, int piece, int sq) {
+    return key ^= pieceKeys[piece][sq];
+}
+
+U64 hashCastle (BOARD *pos) {
+    return pos->posKey ^= castleKeys[pos->castlePermission];
+}
+
+U64 hashSide (BOARD *pos) {
+    return pos->posKey ^= sideKey;
+}
+
+U64 hashEnPassant (BOARD *pos) {
+    return pos->posKey ^= pieceKeys[EMPTY][pos->enPassant];
+}
+
 /**
  * @brief generate a random unsigned 64-bit integer.
  *

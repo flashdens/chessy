@@ -1,5 +1,5 @@
-#ifndef MILOCHESS_MOVE_H
-#define MILOCHESS_MOVE_H
+#ifndef MILOCHESS_MOVELIST_H
+#define MILOCHESS_MOVELIST_H
 
 #include "globals.h"
 
@@ -81,4 +81,4 @@ typedef struct {
  */
 void printMoveList (const MOVELIST *list);
 
-#endif //MILOCHESS_MOVE_H
+#endif //MILOCHESS_MOVELIST_H

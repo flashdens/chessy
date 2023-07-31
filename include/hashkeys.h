@@ -1,10 +1,19 @@
 #include <stdlib.h>
 
 #include "utils.h"
+#include "enums.h"
 #include "board.h"
 
 #ifndef MILOCHESS_HASHKEYS_H
 #define MILOCHESS_HASHKEYS_H
+
+U64 hashPiece (U64 key, int piece, int sq);
+
+U64 hashCastle (BOARD *pos);
+
+U64 hashSide (BOARD *pos);
+
+U64 hashEnPassant (BOARD *pos);
 
 /**
  * @brief generate a random unsigned 64-bit integer.
