@@ -318,7 +318,7 @@ void updateMaterialLists (BOARD *pos) {
  * @return (bool) true on success
  * @return program exit with code 1 on failure
  */
-bool assertBoard (const BOARD *pos) {
+bool checkBoard (const BOARD *pos) {
 
    int square = 0;
    int square64 = 0;

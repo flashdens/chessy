@@ -36,7 +36,7 @@ void clearBit(U64 *bb, int sq) {
     *bb &= clearMask[sq];
 }
 
-void setBit(U64 *bb, U64 sq) {
+void setBit(U64 *bb, int sq) {
     *bb |= setMask[sq];
 }
 

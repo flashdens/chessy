@@ -16,7 +16,7 @@ typedef struct {
     int castlePermission;
     int enPassant;
     int fiftyMove;
-    U64 positionKey;
+    U64 posKey;
 }
 HISTORY;
 
@@ -96,7 +96,7 @@ void updateMaterialLists (BOARD *pos);
 * @return 0 on success
 * @return program exit with code 1 on failure
 */
-bool assertBoard (const BOARD *pos);
+bool checkBoard (const BOARD *pos);
 
 
 

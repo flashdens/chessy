@@ -400,7 +400,7 @@ static void generateBlackCastlingMoves (const BOARD *pos, MOVELIST *list) {
  */
 void generateAllMoves (const BOARD *pos, MOVELIST *list) {
 
-    ASSERT(assertBoard(pos));
+    ASSERT(checkBoard(pos));
 
     if (pos->sideToMove == WHITE) {
         generateWhitePawnMoves(pos, list);
