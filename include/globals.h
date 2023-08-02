@@ -45,6 +45,9 @@ extern bool isPieceBishopOrQueen[13];
 extern bool isPieceRookOrQueen[13];
 extern bool doesPieceSlide[13];
 
+/** @file makemove.c */
+extern const int castlePerms[120];
+
 /**
  * @brief print the coordinates of a square.
  *
@@ -68,7 +71,7 @@ extern char* printMove (int move);
 /**
  * @brief check if a square is on the board.
  *
- * @param sq (const) the square to be checked
+ * @param sq  the square to be checked
  *
  * @return (bool) true if true
  * @return (bool) false otherwise
@@ -78,7 +81,7 @@ extern bool isSquareOnBoard (int sq);
 /**
  * @brief check if it's either white or black to make a move.
  *
- * @param piece (const) the side to move
+ * @param piece  the side to move
  *
  * @return (bool) true if true
  * @return (bool) false otherwise
@@ -88,7 +91,7 @@ extern bool isSideValid (int side);
 /**
  * @brief check if a file or rank is on the board.
  *
- * @param piece (const) the file or rank to be checked
+ * @param piece  the file or rank to be checked
  *
  * @return (bool) true if true
  * @return (bool) false otherwise
@@ -98,7 +101,7 @@ extern bool isFileRankValid (int fr);
 /**
  * @brief check if a piece is valid or empty.
  *
- * @param piece (const) the piece to be checked
+ * @param piece  the piece to be checked
  *
  * @return (bool) true if true
  * @return (bool) false otherwise
@@ -108,7 +111,7 @@ extern bool isPieceValidOrEmpty (int piece);
 /**
  * @brief check if a piece is valid (not empty).
  *
- * @param piece (const) the piece to be checked
+ * @param piece  the piece to be checked
  *
  * @return (bool) true if true
  * @return (bool) false otherwise

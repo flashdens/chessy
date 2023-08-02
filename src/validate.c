@@ -7,7 +7,7 @@
 /**
  * @brief check if a square is on the board.
  *
- * @param sq (const) the square to be checked
+ * @param sq  the square to be checked
  *
  * @return (bool) true if true
  * @return (bool) false otherwise
@@ -19,7 +19,7 @@ bool isSquareOnBoard (const int sq) {
 /**
  * @brief check if it's either white or black to make a move.
  *
- * @param side (const) the side to move
+ * @param side  the side to move
  *
  * @return (bool) true if true
  * @return (bool) false otherwise
@@ -31,7 +31,7 @@ bool isSideValid (const int side) {
 /**
  * @brief check if a file or rank is on the board.
  *
- * @param fr (const) the file or rank to be checked
+ * @param fr  the file or rank to be checked
  *
  * @return (bool) true if true
  * @return (bool) false otherwise
@@ -43,7 +43,7 @@ bool isFileRankValid (const int fr) {
 /**
  * @brief check if a piece is valid or empty.
  *
- * @param piece (const) the piece to be checked
+ * @param piece  the piece to be checked
  *
  * @return (bool) true if true
  * @return (bool) false otherwise
@@ -55,7 +55,7 @@ bool isPieceValidOrEmpty (const int piece) {
 /**
  * @brief check if a piece is valid (not empty).
  *
- * @param piece (const) the piece to be checked
+ * @param piece  the piece to be checked
  *
  * @return (bool) true if true
  * @return (bool) false otherwise

@@ -1,3 +1,9 @@
+/**
+ * @file makemove.c
+ *
+ * @brief contains function definitions and globals needed for the engine to make actual moves.
+ */
+
 #include <stdbool.h>
 
 #include "makemove.h"
@@ -9,6 +15,38 @@
 #include "utils.h"
 #include "attack.h"
 
+/**
+ *  @var (int*) castlePerms[120]
+ *
+ *  @brief the list of castling permissions.
+ *
+ *  while there is a field for each square on the board, you should only care about those that
+ *  correspond to the squares where the rooks are located - A1, H1, A8, F8.
+ *  if a castle move is made to or from one of those squares, pos->castlePermission gets set to the value under this square.
+ */
+const int castlePerms[120] = {
+        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+        15, 13, 15, 15, 15, 12, 15, 15, 14, 15,
+        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+        15,  7, 15, 15, 15,  3, 15, 15, 11, 15,
+        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
+        15, 15, 15, 15, 15, 15, 15, 15, 15, 15
+};
+
+/**
+ * @brief clear a piece from the board.
+ *
+ * @param pos (*BOARD) the board to remove the piece from
+ * @param sq the square the piece is on
+ *
+ * @return static void
+ */
 static void clearPiece (BOARD *pos, const int sq) {
 
     ASSERT(isSquareOnBoard(sq));
@@ -52,6 +90,14 @@ static void clearPiece (BOARD *pos, const int sq) {
     ASSERT(pos->pieceList[piece][pos->numOfPieces[piece]] + 1 == oldSize);
 }
 
+/**
+ * @brief add a piece to the board.
+ *
+ * @param pos (*BOARD) the board to add the piece to
+ * @param sq the square to add the piece to
+ *
+ * @return static void
+ */
 static void addPiece (BOARD *pos, const int sq, const int piece) {
 
     ASSERT(isSquareOnBoard(sq));
@@ -83,6 +129,15 @@ static void addPiece (BOARD *pos, const int sq, const int piece) {
     pos->numOfPieces[piece]++;
 }
 
+/**
+* @brief move a piece on the board from one square to another.
+*
+* @param pos (*BOARD) the board to be processed
+* @param fromSq the square the piece is standing on
+* @param toSq the square to move the piece to
+*
+* @return static void
+*/
 static void movePiece (BOARD *pos, const int fromSq, const int toSq) {
 
     ASSERT(isSquareOnBoard(fromSq));
@@ -116,22 +171,16 @@ static void movePiece (BOARD *pos, const int fromSq, const int toSq) {
     ASSERT(moved);
 }
 
-void processMoveFlags (BOARD *pos, int move) {
-
-    int fromSq = FROMSQ(move);
-    int toSq = TOSQ(move);
-    int side = pos->sideToMove;
-
-
-}
 /**
- *
- * @param pos
- * @param move
- * @param castlePerms
- * @return
+* @brief make a move from one square to another.
+*
+* @param pos (*BOARD) the board to be processed
+* @param move the move to be processed @see move.h MOVE->info
+*
+* @return true if the move is valid
+* @return false if the move is invalid (it doesn't prevent an enemy check or caused it)
  */
-bool makeMove (BOARD *pos, int move, const int *castlePerms) {
+bool makeMove (BOARD *pos, int move) {
 
     ASSERT(checkBoard(pos));
 
@@ -176,7 +225,7 @@ bool makeMove (BOARD *pos, int move, const int *castlePerms) {
     if (pos->enPassant != SQ_NONE)
         hashEnPassant(pos);
 
-    // handle castle permissiosn
+    // handle castle permissions
     hashCastlePerms(pos);
 
     pos->history[pos->hisPly].move = move;
@@ -238,14 +287,22 @@ bool makeMove (BOARD *pos, int move, const int *castlePerms) {
 
     // if we moved to an attacked square...
     if (isSquareAttacked(pos->kingSquare[side], pos->sideToMove, pos)) {
-        //takeMove();
+        takeBackMove(pos);
         return false;
     }
 
     return true;
 }
 
-int takeBackMove (BOARD *pos, const int *castlePerms) {
+/**
+ * @brief take back a move (load the previous one from the HISTORY).
+ *
+ * @param pos (*BOARD) the board to be processed
+ *
+ * @return 0 on success
+ * @return (program exit with code) 1 on assertion fault, alongside with according information.
+ */
+int takeBackMove (BOARD *pos) {
 
     ASSERT(checkBoard(pos));
 
@@ -323,20 +380,3 @@ int takeBackMove (BOARD *pos, const int *castlePerms) {
     return 0;
 }
 
-/**
- * TODO: explain...
- */
-const int castlePerms[120] = {
-        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
-        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
-        15, 13, 15, 15, 15, 12, 15, 15, 14, 15,
-        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
-        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
-        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
-        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
-        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
-        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
-        15,  7, 15, 15, 15,  3, 15, 15, 11, 15,
-        15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
-        15, 15, 15, 15, 15, 15, 15, 15, 15, 15
-};

@@ -65,9 +65,9 @@ static void addEnPassantMove (const BOARD *pos, MOVELIST *list, int move);
  * @brief add a pawn move to the move list.
  *
  * @param pos (const *BOARD) the position in which a move is made
- * @param from (const) the square from which a move is made
- * @param to (const) the square to which a move is made
- * @param capture (const) the captured piece (if so)
+ * @param from  the square from which a move is made
+ * @param to  the square to which a move is made
+ * @param capture  the captured piece (if so)
  * @param list (*MOVELIST) the list append the move to
  *
  * @return static void
@@ -78,9 +78,9 @@ static void addPawnMove (const BOARD *pos, int from, int to, MOVELIST *list);
  * @brief add a pawn capture move the the move list.
  *
  * @param pos (const *BOARD) the position in which a move is made
- * @param from (const) the square from which a move is made
- * @param to (const) the square to which a move is made
- * @param capture (const) the captured piece (if so)
+ * @param from  the square from which a move is made
+ * @param to  the square to which a move is made
+ * @param capture  the captured piece (if so)
  * @param list (*MOVELIST) the list append the move to
  *
  * @return static void
@@ -135,7 +135,7 @@ static void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list);
  *
  * @return static void
  */
-static void generateWhiteCastlingMoves (const BOARD *pos, MOVELIST *list)
+static void generateWhiteCastlingMoves (const BOARD *pos, MOVELIST *list);
 
 /**
  * @brief generate castling moves for black.

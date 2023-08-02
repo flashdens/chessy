@@ -63,9 +63,9 @@ static void addEnPassantMove (const BOARD *pos, MOVELIST *list, int move) {
  * @brief add a pawn move to the move list.
  *
  * @param pos (const *BOARD) the position in which a move is made
- * @param from (const) the square from which a move is made
- * @param to (const) the square to which a move is made
- * @param capture (const) the captured piece (if so)
+ * @param from  the square from which a move is made
+ * @param to  the square to which a move is made
+ * @param capture  the captured piece (if so)
  * @param list (*MOVELIST) the list append the move to
  *
  * @return static void
@@ -98,9 +98,9 @@ static void addPawnMove (const BOARD *pos, const int from, const int to, MOVELIS
  * @brief add a pawn capture move the the move list.
  *
  * @param pos (const *BOARD) the position in which a move is made
- * @param from (const) the square from which a move is made
- * @param to (const) the square to which a move is made
- * @param capture (const) the captured piece (if so)
+ * @param from  the square from which a move is made
+ * @param to  the square to which a move is made
+ * @param capture  the captured piece (if so)
  * @param list (*MOVELIST) the list append the move to
  *
  * @return static void

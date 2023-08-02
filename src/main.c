@@ -22,7 +22,7 @@
 
 int main() {
     initAll();
-
-    ASSERT(false);
+    int sq = 98;
+    printf("%c%c", 'a' + boardFiles[sq], '1' + boardRanks[sq]);
     return 0;
 }
