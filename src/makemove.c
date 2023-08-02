@@ -234,6 +234,8 @@ bool makeMove (BOARD *pos, int move, const int *castlePerms) {
     // pretty clever isn't it?
     pos->sideToMove ^= 1;
 
+    ASSERT(checkBoard(pos));
+
     // if we moved to an attacked square...
     if (isSquareAttacked(pos->kingSquare[side], pos->sideToMove, pos)) {
         //takeMove();
@@ -241,6 +243,84 @@ bool makeMove (BOARD *pos, int move, const int *castlePerms) {
     }
 
     return true;
+}
+
+int takeBackMove (BOARD *pos, const int *castlePerms) {
+
+    ASSERT(checkBoard(pos));
+
+    pos->hisPly--;
+    pos->ply--;
+
+    int move = pos->history[pos->hisPly].move;
+    int fromSq = FROMSQ(move);
+    int toSq = TOSQ(move);
+    int captured = CAPTURED(move);
+    int promotedTo = PROMOTED(move);
+
+    ASSERT(isSquareOnBoard(fromSq));
+    ASSERT(isSquareOnBoard(toSq));
+
+    if (pos->enPassant != SQ_NONE)
+        hashEnPassant(pos);
+    hashCastlePerms(pos);
+
+    pos->fiftyMove = pos->history[pos->hisPly].fiftyMove;
+    pos->enPassant = pos->history[pos->hisPly].enPassant;
+    pos->castlePerm = pos->history[pos->hisPly].castlePerm;
+
+    if (pos->enPassant != SQ_NONE)
+        hashEnPassant(pos);
+
+    pos->sideToMove ^= 1;
+    hashSide(pos);
+
+    // handle en passant and castling flags
+    if (move & FISENPASSANT) {
+        (pos->sideToMove == WHITE)
+        ? addPiece(pos, toSq - 10, p)
+        : addPiece(pos, toSq + 10, P);
+    }
+    // note that this one moves the rook
+    else if (move & FISCASTLE) {
+        switch (toSq) {
+            case C1:
+                movePiece(pos, D1, A1);
+                break;
+            case C8:
+                movePiece(pos, D8, A8);
+                break;
+            case G1:
+                movePiece(pos, F1, H1);
+                break;
+            case G8:
+                movePiece(pos, F8, H8);
+                break;
+            default:
+                // something must have gone terribly wrong...
+                ASSERT(false);
+        }
+    }
+    movePiece(pos, toSq, fromSq);
+
+    if (isPieceKing[pos->pieces[fromSq]])
+        pos->kingSquare[pos->sideToMove] = fromSq;
+
+    if (captured != EMPTY) {
+        ASSERT(isPieceValid(captured));
+        addPiece(pos, toSq, captured);
+    }
+
+    if (promotedTo != EMPTY) {
+        ASSERT(isPieceValid(promotedTo) && !isPiecePawn[promotedTo]);
+        // note that the piece has already been moved from toSq to fromSq
+        clearPiece(pos, fromSq);
+        addPiece(pos, fromSq, (pieceCol[promotedTo] == WHITE) ? P : p);
+    }
+
+    ASSERT(checkBoard(pos));
+
+    return 0;
 }
 
 /**
