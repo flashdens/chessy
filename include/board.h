@@ -13,7 +13,7 @@
 
 typedef struct {
     int move;
-    int castlePermission;
+    int castlePerm;
     int enPassant;
     int fiftyMove;
     U64 posKey;
@@ -41,7 +41,7 @@ typedef struct {
     int ply;
     int hisPly;
 
-    int castlePermission;
+    int castlePerm;
 
     int pieceList[13][10];
 

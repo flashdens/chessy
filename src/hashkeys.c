@@ -16,8 +16,8 @@ U64 hashPiece (BOARD *pos, int piece, int sq) {
     return pos->posKey ^= pieceKeys[piece][sq];
 }
 
-U64 hashCastle (BOARD *pos) {
-    return pos->posKey ^= castleKeys[pos->castlePermission];
+U64 hashCastlePerms (BOARD *pos) {
+    return pos->posKey ^= castleKeys[pos->castlePerm];
 }
 
 U64 hashSide (BOARD *pos) {
@@ -66,9 +66,9 @@ U64 generatePositionKey (const BOARD *pos) {
         finalKey ^= pieceKeys[EMPTY][pos->enPassant];
     }
 
-    ASSERT(pos->castlePermission >= 0 && pos->castlePermission <= 15);
+    ASSERT(pos->castlePerm >= 0 && pos->castlePerm <= 15);
 
-    finalKey ^= castleKeys[pos->castlePermission];
+    finalKey ^= castleKeys[pos->castlePerm];
 
     return finalKey;
 }

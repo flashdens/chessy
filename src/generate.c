@@ -155,7 +155,7 @@ static void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list) {
             addPawnMove(pos, square, square + 10, list);
             // consider a 2-square "jump" from the starting field
             if (boardRanks[square] == RANK_2 && pos->pieces[square + 20] == EMPTY)
-                addQuietMove(pos, list, MOVE(square, square + 20, EMPTY, EMPTY, ISPAWNSTART));
+                addQuietMove(pos, list, MOVE(square, square + 20, EMPTY, EMPTY, FISPAWNSTART));
         }
 
         // consider a capture move
@@ -167,10 +167,10 @@ static void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list) {
 
         // consider an en passant move
         if (square + 9 == pos->enPassant)
-            addCaptureMove(pos, list, MOVE(square, square + 9, EMPTY, EMPTY, ISENPASSANT));
+            addCaptureMove(pos, list, MOVE(square, square + 9, EMPTY, EMPTY, FISENPASSANT));
 
         if (square + 11 == pos->enPassant)
-            addCaptureMove(pos, list, MOVE(square, square + 11, EMPTY, EMPTY, ISENPASSANT));
+            addCaptureMove(pos, list, MOVE(square, square + 11, EMPTY, EMPTY, FISENPASSANT));
     }
 }
 
@@ -199,7 +199,7 @@ static void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list) {
             addPawnMove(pos, square, square - 10, list);
             // consider a 2-square "jump" from the starting field
             if (boardRanks[square] == RANK_7 && pos->pieces[square - 20] == EMPTY)
-                addQuietMove(pos, list, MOVE(square, square - 20, EMPTY, EMPTY, ISPAWNSTART));
+                addQuietMove(pos, list, MOVE(square, square - 20, EMPTY, EMPTY, FISPAWNSTART));
         }
 
         // consider a capture move
@@ -211,10 +211,10 @@ static void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list) {
 
         // consider an en passant move
         if (square - 9 == pos->enPassant)
-            addCaptureMove(pos, list, MOVE(square, square - 9, EMPTY, EMPTY, ISENPASSANT));
+            addCaptureMove(pos, list, MOVE(square, square - 9, EMPTY, EMPTY, FISENPASSANT));
 
         if (square - 11 == pos->enPassant)
-            addCaptureMove(pos, list, MOVE(square, square - 11, EMPTY, EMPTY, ISENPASSANT));
+            addCaptureMove(pos, list, MOVE(square, square - 11, EMPTY, EMPTY, FISENPASSANT));
     }
 }
 
@@ -343,21 +343,21 @@ static void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list) {
  */
 static void generateWhiteCastlingMoves (const BOARD *pos, MOVELIST *list) {
 
-    if (pos->castlePermission & WKCA) {
+    if (pos->castlePerm & WKCA) {
         if (!isSquareAttacked(E1, BLACK, pos) &&
         (pos->pieces[F1] == EMPTY && !isSquareAttacked(F1, BLACK, pos)) &&
         (pos->pieces[G1] == EMPTY && !isSquareAttacked(G1, BLACK, pos)))
         {
-            addQuietMove(pos, list, MOVE(E1, G1, EMPTY, EMPTY, ISCASTLE));
+            addQuietMove(pos, list, MOVE(E1, G1, EMPTY, EMPTY, FISCASTLE));
         }
     }
 
-    if (pos->castlePermission & WQCA) {
+    if (pos->castlePerm & WQCA) {
         if (!isSquareAttacked(E1, BLACK, pos) &&
             (pos->pieces[D1] == EMPTY && !isSquareAttacked(D1, BLACK, pos)) &&
             (pos->pieces[C1] == EMPTY && !isSquareAttacked(C1, BLACK, pos)))
         {
-            addQuietMove(pos, list, MOVE(E1, C1, EMPTY, EMPTY, ISCASTLE));
+            addQuietMove(pos, list, MOVE(E1, C1, EMPTY, EMPTY, FISCASTLE));
         }
 
     }
@@ -374,18 +374,18 @@ static void generateWhiteCastlingMoves (const BOARD *pos, MOVELIST *list) {
  */
 static void generateBlackCastlingMoves (const BOARD *pos, MOVELIST *list) {
 
-    if (pos->castlePermission & BKCA) {
+    if (pos->castlePerm & BKCA) {
         if (!isSquareAttacked(E8, WHITE, pos) &&
             (pos->pieces[F8] == EMPTY && !isSquareAttacked(F8, WHITE, pos)) &&
             (pos->pieces[G8] == EMPTY && !isSquareAttacked(G8, WHITE, pos)))
-            addQuietMove(pos, list, MOVE(E8, G8, EMPTY, EMPTY, ISCASTLE));
+            addQuietMove(pos, list, MOVE(E8, G8, EMPTY, EMPTY, FISCASTLE));
     }
 
-    if (pos->castlePermission & BQCA) {
+    if (pos->castlePerm & BQCA) {
         if (!isSquareAttacked(E8, WHITE, pos) &&
             (pos->pieces[D8] == EMPTY && !isSquareAttacked(D8, WHITE, pos)) &&
             (pos->pieces[C8] == EMPTY && !isSquareAttacked(C8, WHITE, pos)))
-            addQuietMove(pos, list, MOVE(E8, C8, EMPTY, EMPTY, ISCASTLE));
+            addQuietMove(pos, list, MOVE(E8, C8, EMPTY, EMPTY, FISCASTLE));
     }
 
 }

@@ -2,11 +2,12 @@
 
 #include "makemove.h"
 #include "board.h"
-#include "movelist.h"
+#include "move.h"
 #include "bitboards.h"
 #include "enums.h"
 #include "hashkeys.h"
 #include "utils.h"
+#include "attack.h"
 
 static void clearPiece (BOARD *pos, const int sq) {
 
@@ -115,20 +116,131 @@ static void movePiece (BOARD *pos, const int fromSq, const int toSq) {
     ASSERT(moved);
 }
 
-int makeMove (BOARD *pos, int move) {
+void processMoveFlags (BOARD *pos, int move) {
+
+    int fromSq = FROMSQ(move);
+    int toSq = TOSQ(move);
+    int side = pos->sideToMove;
+
+
+}
+/**
+ *
+ * @param pos
+ * @param move
+ * @param castlePerms
+ * @return
+ */
+bool makeMove (BOARD *pos, int move, const int *castlePerms) {
 
     ASSERT(checkBoard(pos));
 
-    int from = FROMSQ(move);
-    int to = TOSQ(move);
     int side = pos->sideToMove;
+    int fromSq = FROMSQ(move);
+    int toSq = TOSQ(move);
+    int captured = CAPTURED(move);
+    int promotedTo = PROMOTED(move);
 
-    ASSERT(isSquareOnBoard(from));
-    ASSERT(isSquareOnBoard(to));
+    ASSERT(isSquareOnBoard(fromSq));
+    ASSERT(isSquareOnBoard(toSq));
     ASSERT(isSideValid(side));
-    ASSERT(isPieceValid(pos->pieces[from]));
+    ASSERT(isPieceValid(pos->pieces[fromSq]));
 
     pos->history[pos->hisPly].posKey = pos->posKey;
+
+    // handle en passant and castling flags
+    if (move & FISENPASSANT) {
+        (side == WHITE) ? clearPiece(pos, toSq - 10) : clearPiece(pos, toSq + 10);
+    }
+        // note that this one moves the rook
+    else if (move & FISCASTLE) {
+        switch (toSq) {
+            case C1:
+                movePiece(pos, A1, D1);
+                break;
+            case C8:
+                movePiece(pos, A8, D8);
+                break;
+            case G1:
+                movePiece(pos, H1, F1);
+                break;
+            case G8:
+                movePiece(pos, H8, F8);
+                break;
+            default:
+                // something must have gone terribly wrong...
+                ASSERT(false);
+        }
+    }
+
+    if (pos->enPassant != SQ_NONE)
+        hashEnPassant(pos);
+
+    // handle castle permissiosn
+    hashCastlePerms(pos);
+
+    pos->history[pos->hisPly].move = move;
+    pos->history[pos->hisPly].fiftyMove = pos->fiftyMove;
+    pos->history[pos->hisPly].enPassant = pos->enPassant;
+    pos->history[pos->hisPly].castlePerm = pos->castlePerm;
+
+    pos->castlePerm &= castlePerms[fromSq];
+    pos->castlePerm &= castlePerms[toSq];
+
+    hashCastlePerms(pos);
+
+    pos->fiftyMove++;
+
+    // handle capture
+    if (captured != EMPTY) {
+        ASSERT(isPieceValid(captured));
+        clearPiece(pos, toSq);
+        pos->fiftyMove = 0;
+    }
+
+    pos->hisPly++;
+    pos->ply++;
+
+    // handle en passant square after pawn start
+    if (isPiecePawn[pos->pieces[fromSq]]) {
+        pos->fiftyMove = 0;
+
+        if (move & FISPAWNSTART) {
+            if (side == WHITE) {
+                pos->enPassant = fromSq + 10;
+                ASSERT(boardRanks[pos->enPassant] == RANK_3);
+            } else {
+                pos->enPassant = fromSq - 10;
+                ASSERT(boardRanks[pos->enPassant] == RANK_6);
+            }
+            hashEnPassant(pos);
+        }
+    }
+
+    // after all the struggle, finally the piece is moved!
+    movePiece(pos, fromSq, toSq);
+
+    // handle promotions
+    if (promotedTo != EMPTY) {
+        ASSERT(isPieceValid(promotedTo) && !isPiecePawn[promotedTo]);
+        clearPiece(pos, toSq);
+        addPiece(pos, toSq, promotedTo);
+    }
+
+    // handle king square change
+    if (isPieceKing[pos->pieces[toSq]])
+        pos->kingSquare[pos->sideToMove] = toSq;
+
+    // pretty clever isn't it?
+    pos->sideToMove ^= 1;
+
+    // if we moved to an attacked square...
+    if (isSquareAttacked(pos->kingSquare[side], pos->sideToMove, pos)) {
+        //takeMove();
+        return false;
+    }
+
+    return true;
 }
 
 /**

@@ -9,7 +9,7 @@
 
 U64 hashPiece (BOARD *pos, int piece, int sq);
 
-U64 hashCastle (BOARD *pos);
+U64 hashCastlePerms (BOARD *pos);
 
 U64 hashSide (BOARD *pos);
 

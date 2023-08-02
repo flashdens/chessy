@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "movelist.h"
+#include "move.h"
 #include "utils.h"
 #include "init.h"
 #include "enums.h"
@@ -23,16 +23,6 @@
 int main() {
     initAll();
 
-    BOARD board [1];
-
-    parseFen(START_FEN, board);
-    printBoard(board);
-
-    MOVELIST movelist [1];
-
-    generateAllMoves(board, movelist);
-
-    printMoveList(movelist);
-
+    ASSERT(false);
     return 0;
 }

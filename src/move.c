@@ -1,6 +1,6 @@
 #include <string.h>
 
-#include "movelist.h"
+#include "move.h"
 #include "board.h"
 #include "globals.h"
 

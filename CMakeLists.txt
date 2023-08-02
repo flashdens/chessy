@@ -11,7 +11,7 @@ add_executable(milochess
         src/board.c
         src/data.c
         src/attack.c
-        src/movelist.c
+        src/move.c
         src/main.c
         src/io.c include/io.h src/generate.c include/generate.h src/validate.c include/validate.h
         src/makemove.c

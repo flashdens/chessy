@@ -52,7 +52,7 @@ void resetBoard (BOARD *pos) {
     pos->ply = 0;
     pos->hisPly = 0;
 
-    pos->castlePermission = 0;
+    pos->castlePerm = 0;
 
     pos->posKey = 0ULL;
 
@@ -178,16 +178,16 @@ int parseFen (const char *fen, BOARD *pos) {
 
         switch (*fen) {
             case 'K':
-                pos->castlePermission |= WKCA;
+                pos->castlePerm |= WKCA;
                 break;
             case 'Q':
-                pos->castlePermission |= WQCA;
+                pos->castlePerm |= WQCA;
                 break;
             case 'k':
-                pos->castlePermission |= BKCA;
+                pos->castlePerm |= BKCA;
                 break;
             case 'q':
-                pos->castlePermission |= BQCA;
+                pos->castlePerm |= BQCA;
                 break;
             default:
                 break;
@@ -196,7 +196,7 @@ int parseFen (const char *fen, BOARD *pos) {
     }
     fen++;
 
-    ASSERT(pos->castlePermission >= 0 && pos->castlePermission <= 15);
+    ASSERT(pos->castlePerm >= 0 && pos->castlePerm <= 15);
 
     // process the en passant square
     if (*fen != '-') {
@@ -248,10 +248,10 @@ void printBoard (const BOARD *pos) {
     printf("side to move:%c\n",sideChar[pos->sideToMove]);
     printf("en passant square: %d\n",pos->enPassant);
     printf("castle permissions: %c%c%c%c\n",
-           pos->castlePermission & WKCA ? 'K' : '-',
-           pos->castlePermission & WQCA ? 'Q' : '-',
-           pos->castlePermission & BKCA ? 'k' : '-',
-           pos->castlePermission & BQCA ? 'q' : '-'
+           pos->castlePerm & WKCA ? 'K' : '-',
+           pos->castlePerm & WQCA ? 'Q' : '-',
+           pos->castlePerm & BKCA ? 'k' : '-',
+           pos->castlePerm & BQCA ? 'q' : '-'
     );
     printf("position key: %llX\n",pos->posKey);
     printf("\n");

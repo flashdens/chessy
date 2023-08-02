@@ -1,5 +1,5 @@
-#ifndef MILOCHESS_MOVELIST_H
-#define MILOCHESS_MOVELIST_H
+#ifndef MILOCHESS_MOVE_H
+#define MILOCHESS_MOVE_H
 
 #include "globals.h"
 
@@ -18,19 +18,19 @@
 #define PROMOTED(m) (((m)>>20) & 0xF)
 
 /** @brief (flag) is the move en passant? */
-#define ISENPASSANT 0x4000
+#define FISENPASSANT 0x4000
 
 /** @brief (flag) is the move a pawn start? */
-#define ISPAWNSTART 0x8000
+#define FISPAWNSTART 0x8000
 
 /** @brief (flag) is the move a castle? */
-#define ISCASTLE 0x1000000
+#define FISCASTLE 0x1000000
 
 /** @brief (flag) is the move a capture? */
-#define ISCAPTURE 0x7C000
+#define FISCAPTURE 0x7C000
 
 /** @brief (flag) is the move a promotion? */
-#define ISPROMOTION 0xF00000
+#define FISPROMOTION 0xF00000
 
 
 /**
@@ -81,4 +81,4 @@ typedef struct {
  */
 void printMoveList (const MOVELIST *list);
 
-#endif //MILOCHESS_MOVELIST_H
+#endif //MILOCHESS_MOVE_H
