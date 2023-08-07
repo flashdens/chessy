@@ -8,6 +8,7 @@
 #include "enums.h"
 #include "board.h"
 #include "generate.h"
+#include "perft.h"
 
 #define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 #define FEN4 "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
@@ -28,27 +29,11 @@ int main() {
     MOVELIST movelist[1];
 
     parseFen(START_FEN, board);
-    generateAllMoves(board, movelist);
+    perftTest(board, 3);
 
-    int move = 0;
     printBoard(board);
     getchar();
 
-    for (int i = 0; i < movelist->count; ++i) {
-        move = movelist->moves[i].info;
-
-        if (!makeMove(board, move))
-            continue;
-
-        printf("\nMADE: %s\n", printMove(move));
-        printBoard(board);
-
-        takeBackMove(board);
-        printf("\nTAKEN BACK: %s\n", printMove(move));
-        printBoard(board);
-
-        getchar();
-    }
 
     return 0;
 }

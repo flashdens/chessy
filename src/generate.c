@@ -1,6 +1,6 @@
 /**
  * @file generate.c
- * @brief includes function declarations and macros for move generation (generate.c).
+ * @brief contains function definitions for move generation.
  */
 
 #include "generate.h"
@@ -21,7 +21,7 @@
  * @return static void
  */
 static void addQuietMove (const BOARD *pos, MOVELIST *list, int move) {
-    list->moves[list->count].info = move;
+    list->moves[list->count].move = move;
     list->moves[list->count].score = 0;
     list->count++;
 }
@@ -38,7 +38,7 @@ static void addQuietMove (const BOARD *pos, MOVELIST *list, int move) {
  * @return static void
  */
 static void addCaptureMove (const BOARD *pos, MOVELIST *list, int move) {
-    list->moves[list->count].info = move;
+    list->moves[list->count].move = move;
     list->moves[list->count].score = 0;
     list->count++;
 }
@@ -55,7 +55,7 @@ static void addCaptureMove (const BOARD *pos, MOVELIST *list, int move) {
  * @return static void
  */
 static void addEnPassantMove (const BOARD *pos, MOVELIST *list, int move) {
-    list->moves[list->count].info = move;
+    list->moves[list->count].move = move;
     list->moves[list->count].score = 0;
     list->count++;
 }

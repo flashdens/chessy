@@ -6,7 +6,6 @@
 #include "enums.h"
 
 /**
- * TODO: do i need U64 as return types?
  * @param pos
  * @param piece
  * @param sq

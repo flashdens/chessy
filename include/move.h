@@ -3,7 +3,7 @@
 
 #include "globals.h"
 
-// macros to help reading the bits from MOVE->info.
+// macros to help reading the bits from MOVE->move.
 
 /** @brief from square */
 #define FROMSQ(m) ((m) & 0x7F)
@@ -38,10 +38,10 @@
  *
  * @brief a structure representing moves.
  *
- * @param info the information about the move is stored as a 32-bit integer, though only 25 bits are used.
+ * @param move the information about the move is stored as a 32-bit integer, though only 25 bits are used.
  * @param score the score of the move.
  *
- * the MOVE->info bits correspond to:
+ * the MOVE->move bits correspond to:
  *
  * 0000 0000 0000 0000 0000 0000 0|111 1111| - the square FROM which a move is made (0x7F, bits 1-7)
  * 0000 0000 0000 0000 00|11 1111 1|000 0000 - the square TO which a move is made (7 >> 0x7F, bits 8-14)
@@ -53,7 +53,7 @@
  * |0000 000|1 0000 0000 0000 0000 0000 0000 - free irrelevant space (25 << 0X7F, bitS 26-32)
  */
 typedef struct {
-    int info;
+    int move;
     int score;
 } MOVE;
 

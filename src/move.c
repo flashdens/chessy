@@ -48,7 +48,7 @@ void printMoveList (const MOVELIST *list) {
     printf("Move list:\n");
 
     for (int i = 0; i < list->count; ++i) {
-        move = list->moves[i].info;
+        move = list->moves[i].move;
         score = list->moves[i].score;
         printf("Move %d: %s (score %d)\n", i+1, printMove(move), score);
     }

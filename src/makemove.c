@@ -177,7 +177,7 @@ static void movePiece (BOARD *pos, const int fromSq, const int toSq) {
 * @brief make a move from one square to another.
 *
 * @param pos (*BOARD) the board to be processed
-* @param move the move to be processed @see move.h MOVE->info
+* @param move the move to be processed @see move.h MOVE->move
 *
 * @return true if the move is valid
 * @return false if the move is invalid (it doesn't prevent an enemy check or caused it)
