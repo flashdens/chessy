@@ -14,6 +14,7 @@
 #include "hashkeys.h"
 #include "utils.h"
 #include "attack.h"
+#include "validate.h"
 
 /**
  *  @var (int*) castlePerms[120]

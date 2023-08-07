@@ -1,3 +1,8 @@
+/**
+ * @file validate.h
+ * @brief various validation functions required for assertion checks
+ */
+
 #include <stdbool.h>
 
 #include "validate.h"
