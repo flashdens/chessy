@@ -18,10 +18,10 @@
 #define PROMOTED(m) (((m)>>20) & 0xF)
 
 /** @brief (flag) is the move en passant? */
-#define FISENPASSANT 0x4000
+#define FISENPASSANT 0x40000
 
 /** @brief (flag) is the move a pawn start? */
-#define FISPAWNSTART 0x8000
+#define FISPAWNSTART 0x80000
 
 /** @brief (flag) is the move a castle? */
 #define FISCASTLE 0x1000000

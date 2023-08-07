@@ -70,6 +70,5 @@ U64 generatePositionKey (const BOARD *pos) {
 
     finalKey ^= castleKeys[pos->castlePerm];
 
-    printf("Inside assert: %llx\n", finalKey);
     return finalKey;
 }
