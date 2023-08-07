@@ -56,9 +56,9 @@ bool makeMove (BOARD *pos, int move);
  *
  * @param pos (*BOARD) the board to be processed
  *
- * @return 0 on success
+ * @return (bool) true on success
  * @return (program exit with code) 1 on assertion fault, alongside with according information.
  */
-int takeBackMove (BOARD *pos);
+bool takeBackMove (BOARD *pos);
 
 #endif //MILOCHESS_MAKEMOVE_H

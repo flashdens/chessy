@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "move.h"
+#include "makemove.h"
 #include "utils.h"
 #include "init.h"
 #include "enums.h"
@@ -22,7 +23,32 @@
 
 int main() {
     initAll();
-    int sq = 98;
-    printf("%c%c", 'a' + boardFiles[sq], '1' + boardRanks[sq]);
+
+    BOARD board[1];
+    MOVELIST movelist[1];
+
+    parseFen(START_FEN, board);
+    generateAllMoves(board, movelist);
+
+    int move = 0;
+    printBoard(board);
+    getchar();
+
+    for (int i = 0; i < movelist->count; ++i) {
+        move = movelist->moves[i].info;
+
+        if (!makeMove(board, move))
+            continue;
+
+        printf("\nMADE: %s\n", printMove(move));
+        printBoard(board);
+
+        takeBackMove(board);
+        printf("\nTAKEN BACK: %s\n", printMove(move));
+        printBoard(board);
+
+        getchar();
+    }
+
     return 0;
 }

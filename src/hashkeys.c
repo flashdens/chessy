@@ -12,20 +12,20 @@
  * @param sq
  * @return
  */
-U64 hashPiece (BOARD *pos, int piece, int sq) {
-    return pos->posKey ^= pieceKeys[piece][sq];
+void hashPiece (BOARD *pos, int piece, int sq) {
+    pos->posKey ^= pieceKeys[piece][sq];
 }
 
-U64 hashCastlePerms (BOARD *pos) {
-    return pos->posKey ^= castleKeys[pos->castlePerm];
+void hashCastlePerms (BOARD *pos) {
+    pos->posKey ^= castleKeys[pos->castlePerm];
 }
 
-U64 hashSide (BOARD *pos) {
-    return pos->posKey ^= sideKey;
+void hashSide (BOARD *pos) {
+    pos->posKey ^= sideKey;
 }
 
-U64 hashEnPassant (BOARD *pos) {
-    return pos->posKey ^= pieceKeys[EMPTY][pos->enPassant];
+void hashEnPassant (BOARD *pos) {
+    pos->posKey ^= pieceKeys[EMPTY][pos->enPassant];
 }
 
 /**
@@ -70,5 +70,6 @@ U64 generatePositionKey (const BOARD *pos) {
 
     finalKey ^= castleKeys[pos->castlePerm];
 
+    printf("Inside assert: %llx\n", finalKey);
     return finalKey;
 }

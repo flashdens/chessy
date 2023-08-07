@@ -7,13 +7,13 @@
 #ifndef MILOCHESS_HASHKEYS_H
 #define MILOCHESS_HASHKEYS_H
 
-U64 hashPiece (BOARD *pos, int piece, int sq);
+void hashPiece (BOARD *pos, int piece, int sq);
 
-U64 hashCastlePerms (BOARD *pos);
+void hashCastlePerms (BOARD *pos);
 
-U64 hashSide (BOARD *pos);
+void hashSide (BOARD *pos);
 
-U64 hashEnPassant (BOARD *pos);
+void hashEnPassant (BOARD *pos);
 
 /**
  * @brief generate a random unsigned 64-bit integer.

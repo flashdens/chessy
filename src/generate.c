@@ -7,6 +7,7 @@
 #include "globals.h"
 #include "enums.h"
 #include "attack.h"
+#include "validate.h"
 
 /**
  * @brief add a quiet move to the move list.

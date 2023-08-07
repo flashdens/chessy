@@ -154,9 +154,10 @@ static void movePiece (BOARD *pos, const int fromSq, const int toSq) {
     hashPiece(pos, piece, toSq);
     pos->pieces[toSq] = piece;
 
+
     if (isPiecePawn[piece]) {
-        clearBit(&pos->pawns[col], SQ64(toSq));
-        clearBit(&pos->pawns[BOTH], SQ64(toSq));
+        clearBit(&pos->pawns[col], SQ64(fromSq));
+        clearBit(&pos->pawns[BOTH], SQ64(fromSq));
         setBit(&pos->pawns[col], SQ64(toSq));
         setBit(&pos->pawns[BOTH], SQ64(toSq));
     }
@@ -198,11 +199,12 @@ bool makeMove (BOARD *pos, int move) {
 
     pos->history[pos->hisPly].posKey = pos->posKey;
 
-    // handle en passant and castling flags
+    // handle castling flag
     if (move & FISENPASSANT) {
         (side == WHITE) ? clearPiece(pos, toSq - 10) : clearPiece(pos, toSq + 10);
     }
-        // note that this one moves the rook
+
+    // handle castling. note that this one moves the rook
     else if (move & FISCASTLE) {
         switch (toSq) {
             case C1:
@@ -283,6 +285,7 @@ bool makeMove (BOARD *pos, int move) {
 
     // pretty clever isn't it?
     pos->sideToMove ^= 1;
+    hashSide(pos);
 
     ASSERT(checkBoard(pos));
 
@@ -303,7 +306,7 @@ bool makeMove (BOARD *pos, int move) {
  * @return 0 on success
  * @return (program exit with code) 1 on assertion fault, alongside with according information.
  */
-int takeBackMove (BOARD *pos) {
+bool takeBackMove (BOARD *pos) {
 
     ASSERT(checkBoard(pos));
 
@@ -321,6 +324,7 @@ int takeBackMove (BOARD *pos) {
 
     if (pos->enPassant != SQ_NONE)
         hashEnPassant(pos);
+
     hashCastlePerms(pos);
 
     pos->fiftyMove = pos->history[pos->hisPly].fiftyMove;
@@ -329,6 +333,8 @@ int takeBackMove (BOARD *pos) {
 
     if (pos->enPassant != SQ_NONE)
         hashEnPassant(pos);
+
+    hashCastlePerms(pos);
 
     pos->sideToMove ^= 1;
     hashSide(pos);
@@ -359,6 +365,7 @@ int takeBackMove (BOARD *pos) {
                 ASSERT(false);
         }
     }
+
     movePiece(pos, toSq, fromSq);
 
     if (isPieceKing[pos->pieces[fromSq]])
@@ -378,6 +385,6 @@ int takeBackMove (BOARD *pos) {
 
     ASSERT(checkBoard(pos));
 
-    return 0;
+    return true;
 }
 

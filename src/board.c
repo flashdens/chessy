@@ -411,6 +411,7 @@ bool checkBoard (const BOARD *pos) {
     ASSERT(pos->pieces[pos->kingSquare[WHITE]] == K);
     ASSERT(pos->pieces[pos->kingSquare[BLACK]] == k);
 
+    printf("The position key outside assert: %llx\n", pos->posKey);
     // position key
     ASSERT(generatePositionKey(pos) == pos->posKey);
 
