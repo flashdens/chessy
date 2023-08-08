@@ -39,7 +39,7 @@ void initHashKeys () {
 }
 
 /**
- * @brief initialize the 64sq to 120sq and 120sq to 64sq conversion arrays.
+ * @brief initialize the bit masks for bitboards.
  *
  * @return void
  */
@@ -50,7 +50,7 @@ void initBitMasks () {
     }
 
     for (int i = 0; i < 64; ++i) {
-        setMask[i] = (1ULL << i);
+        setMask[i] |= (1ULL << i);
         clearMask[i] = ~setMask[i];
     }
 }

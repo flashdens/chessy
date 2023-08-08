@@ -3,6 +3,7 @@
  * @brief contains functions needed for move generation testing (perft testing, @see https://www.chessprogramming.org/Perft)
  */
 #include <stdio.h>
+#include <time.h>
 
 #include "utils.h"
 #include "perft.h"
@@ -21,30 +22,28 @@ long leafNodes = 0;
  *
  * @return void (recursive!)
  */
-long perft (BOARD *pos, int depth) {
+void perft (BOARD *pos, int depth) {
     ASSERT(checkBoard(pos));
 
     if (depth == 0) {
-        return 1;
+        leafNodes++;
+        return;
     }
 
-    long nodes = 0;
     MOVELIST movelist[1];
     movelist[0].count = 0;
 
     generateAllMoves(pos, movelist);
 
     for (int i = 0; i < movelist->count; ++i) {
-        printf("%d\n", movelist->moves[i].move);
         if (!makeMove(pos, movelist->moves[i].move))
             continue;
 
-        printf("%ld\n", nodes);
-        nodes += perft(pos, depth - 1);
+        perft(pos, depth - 1);
+        printf("%d\n", movelist->moves[i].move);
+        printf("%s\n", printMove(movelist->moves[i].move));
         takeBackMove(pos);
     }
-
-    return nodes;
 }
 
 void perftTest (BOARD *pos, int depth) {
@@ -58,7 +57,9 @@ void perftTest (BOARD *pos, int depth) {
 
 
     printf("starting perft test with depth %d!\n\n", depth);
+    struct timespec start_time, end_time;
     generateAllMoves(pos, movelist);
+    clock_gettime(CLOCK_MONOTONIC, &start_time);
 
     for (int i = 0; i < movelist->count; ++i) {
         move = movelist->moves[i].move;
@@ -69,10 +70,11 @@ void perftTest (BOARD *pos, int depth) {
         perft(pos, depth - 1);
         takeBackMove(pos);
         oldNodes = leafNodes - cumNodes;
-        printf("move %d: %s : %ld\n", i + 1, printMove(move), oldNodes);
+        printf("move %d: %s: %ld\n", i + 1, printMove(move), oldNodes);
     }
 
-    printf("test complete - visited %ld nodes", leafNodes);
+    printf("test complete - visited %ld nodes in %ld ms", leafNodes, (end_time.tv_sec - start_time.tv_sec) +
+                                                                    (end_time.tv_nsec - start_time.tv_nsec) / 1e9);
 }
 
 

@@ -55,7 +55,7 @@ static void clearPiece (BOARD *pos, const int sq) {
     int piece = pos->pieces[sq];
     ASSERT(isPieceValid(piece));
 
-    int col = pieceCol[piece] = 0;
+    int col = pieceCol[piece];
     int oldSize = pos->numOfPieces[piece];
 
     hashPiece(pos, piece, sq);
@@ -86,9 +86,9 @@ static void clearPiece (BOARD *pos, const int sq) {
             break;
         }
     }
-
+    printf("%d\n", pos->pieceList[piece][pos->numOfPieces[piece]]);
     // assert that the piece has been cleared
-    ASSERT(pos->pieceList[piece][pos->numOfPieces[piece]] + 1 == oldSize);
+    ASSERT(pos->numOfPieces[piece] + 1 == oldSize);
 }
 
 /**

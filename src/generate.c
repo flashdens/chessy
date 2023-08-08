@@ -164,7 +164,7 @@ static void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list) {
             addPawnCaptureMove(pos, square, square + 9, pos->pieces[square + 9], list);
 
         if (isSquareOnBoard(square + 11) && pos->sideToMove == WHITE, pieceCol[pos->pieces[square + 11]] == BLACK)
-            addPawnCaptureMove(pos, square, square + 11, pos->pieces[square + 9], list);
+            addPawnCaptureMove(pos, square, square + 11, pos->pieces[square + 11], list);
 
         // consider an en passant move
         if (square + 9 == pos->enPassant)
