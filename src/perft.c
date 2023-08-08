@@ -14,44 +14,44 @@
 long leafNodes = 0;
 
 /**
- * @brief recursively calculate the number of nodes in a move tree.
+ * @brief recursively calculate the number of leaf nodes in a move tree.
  *
  * @param pos
  * @param depth the depth of the perft test. once it reaches 0, it returns.
- * @param nodes (long) the number of nodes visited
  *
  * @return void (recursive!)
  */
-void perft (BOARD *pos, int depth) {
-
+long perft (BOARD *pos, int depth) {
     ASSERT(checkBoard(pos));
 
     if (depth == 0) {
-        leafNodes++;
-        return;
+        return 1;
     }
 
+    long nodes = 0;
     MOVELIST movelist[1];
-    movelist[0].count = 0;// a temporary workaround?
-
+    movelist[0].count = 0;
 
     generateAllMoves(pos, movelist);
 
     for (int i = 0; i < movelist->count; ++i) {
+        printf("%d\n", movelist->moves[i].move);
         if (!makeMove(pos, movelist->moves[i].move))
             continue;
 
-        perft(pos, depth - 1);
+        printf("%ld\n", nodes);
+        nodes += perft(pos, depth - 1);
         takeBackMove(pos);
     }
+
+    return nodes;
 }
 
 void perftTest (BOARD *pos, int depth) {
 
     ASSERT(checkBoard(pos));
 
-    MOVELIST movelist[1];
-    movelist[0].count = 0;// a temporary workaround?
+    MOVELIST movelist[1]; movelist[0].count = 0;// a temporary workaround?
     long cumNodes = 0; // cumulative nodes
     long oldNodes = 0;
     int move = 0;
@@ -59,8 +59,6 @@ void perftTest (BOARD *pos, int depth) {
 
     printf("starting perft test with depth %d!\n\n", depth);
     generateAllMoves(pos, movelist);
-
-    printf("%d", movelist->moves[0].move);
 
     for (int i = 0; i < movelist->count; ++i) {
         move = movelist->moves[i].move;
@@ -76,3 +74,5 @@ void perftTest (BOARD *pos, int depth) {
 
     printf("test complete - visited %ld nodes", leafNodes);
 }
+
+

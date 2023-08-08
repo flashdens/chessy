@@ -254,9 +254,7 @@ bool makeMove (BOARD *pos, int move) {
     pos->ply++;
 
     // handle en passant square after pawn start
-    if (isPiecePawn[pos->pieces[fromSq]]) {
-        pos->fiftyMove = 0;
-
+    // TODO: i broke the fifty move mechanism, will go back to it when it's relevant
         if (move & FISPAWNSTART) {
             if (side == WHITE) {
                 pos->enPassant = fromSq + 10;
@@ -267,7 +265,9 @@ bool makeMove (BOARD *pos, int move) {
             }
             hashEnPassant(pos);
         }
-    }
+        else {
+            pos->enPassant = SQ_NONE;
+        }
 
     // after all the struggle, finally the piece is moved!
     movePiece(pos, fromSq, toSq);

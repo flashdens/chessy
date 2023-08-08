@@ -12,7 +12,7 @@
  * @param pos
  * @param depth
  */
-void perft (BOARD *pos, int depth);
+long perft (BOARD *pos, int depth);
 
 /**
  * @brief

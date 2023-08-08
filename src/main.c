@@ -32,7 +32,6 @@ int main() {
     perftTest(board, 3);
 
     printBoard(board);
-    getchar();
 
 
     return 0;
