@@ -86,7 +86,7 @@ static void clearPiece (BOARD *pos, const int sq) {
             break;
         }
     }
-    printf("%d\n", pos->pieceList[piece][pos->numOfPieces[piece]]);
+
     // assert that the piece has been cleared
     ASSERT(pos->numOfPieces[piece] + 1 == oldSize);
 }
