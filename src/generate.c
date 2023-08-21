@@ -186,36 +186,36 @@ static void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list) {
 static void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list) {
 
     int piece = EMPTY;
-    int square = 0;
+    int fromSquare = 0;
     int toSquare = 0;
     int numOfPieces = 0;
     int dir = 0;
 
     for (int i = 0; i < pos->numOfPieces[p]; ++i) {
-        square = pos->pieceList[p][i];
-        ASSERT(isSquareOnBoard(square));
+        fromSquare = pos->pieceList[p][i];
+        ASSERT(isSquareOnBoard(fromSquare));
 
         // consider a quiet move
-        if (pos->pieces[square - 10] == EMPTY) {
-            addPawnMove(pos, square, square - 10, list);
-            // consider a 2-square "jump" from the starting field
-            if (boardRanks[square] == RANK_7 && pos->pieces[square - 20] == EMPTY)
-                addQuietMove(pos, list, MOVE(square, square - 20, EMPTY, EMPTY, FISPAWNSTART));
+        if (pos->pieces[fromSquare - 10] == EMPTY) {
+            addPawnMove(pos, fromSquare, fromSquare - 10, list);
+            // consider a 2-fromSquare "jump" from the starting field
+            if (boardRanks[fromSquare] == RANK_7 && pos->pieces[fromSquare - 20] == EMPTY)
+                addQuietMove(pos, list, MOVE(fromSquare, fromSquare - 20, EMPTY, EMPTY, FISPAWNSTART));
         }
 
         // consider a capture move
-        if (isSquareOnBoard(square - 9) && pos->sideToMove == BLACK, pieceCol[pos->pieces[square - 9]] == WHITE)
-            addPawnCaptureMove(pos, square, square - 9, pos->pieces[square - 9], list);
+        if (isSquareOnBoard(fromSquare - 9) && pos->sideToMove == BLACK, pieceCol[pos->pieces[fromSquare - 9]] == WHITE)
+            addPawnCaptureMove(pos, fromSquare, fromSquare - 9, pos->pieces[fromSquare - 9], list);
 
-        if (isSquareOnBoard(square - 11) && pos->sideToMove == BLACK, pieceCol[pos->pieces[square - 11]] == WHITE)
-            addPawnCaptureMove(pos, square, square - 11, pos->pieces[square - 9], list);
+        if (isSquareOnBoard(fromSquare - 11) && pos->sideToMove == BLACK, pieceCol[pos->pieces[fromSquare - 11]] == WHITE)
+            addPawnCaptureMove(pos, fromSquare, fromSquare - 11, pos->pieces[fromSquare - 11], list);
 
         // consider an en passant move
-        if (square - 9 == pos->enPassant)
-            addCaptureMove(pos, list, MOVE(square, square - 9, EMPTY, EMPTY, FISENPASSANT));
+        if (fromSquare - 9 == pos->enPassant)
+            addCaptureMove(pos, list, MOVE(fromSquare, fromSquare - 9, EMPTY, EMPTY, FISENPASSANT));
 
-        if (square - 11 == pos->enPassant)
-            addCaptureMove(pos, list, MOVE(square, square - 11, EMPTY, EMPTY, FISENPASSANT));
+        if (fromSquare - 11 == pos->enPassant)
+            addCaptureMove(pos, list, MOVE(fromSquare, fromSquare - 11, EMPTY, EMPTY, FISENPASSANT));
     }
 }
 

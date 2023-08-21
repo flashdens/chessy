@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <time.h>
+#include <stdlib.h>
+
 #include "utils.h"
 #include "perft.h"
 #include "board.h"
@@ -23,7 +25,6 @@ void perft (BOARD *pos, int depth, long *leafNodes) {
     for (int i = 0; i < movelist->count; ++i) {
         if (!makeMove(pos, movelist->moves[i].move))
             continue;
-
         perft(pos, depth - 1, leafNodes);
         takeBackMove(pos);
     }
@@ -59,5 +60,9 @@ void perftTest (BOARD *pos, int depth) {
     }
 
     endTime = clock();
-    printf("Test complete - visited %ld nodes in %f ms\n", leafNodes, ((double)(endTime - startTime) / CLOCKS_PER_SEC));
+    printf("Test complete - found %ld nodes in %f s\n", leafNodes, ((double)(endTime - startTime) / CLOCKS_PER_SEC));
+}
+
+void bongo (int argc, char **argv) {
+
 }

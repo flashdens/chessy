@@ -57,7 +57,7 @@ bool makeMove (BOARD *pos, int move);
  * @param pos (*BOARD) the board to be processed
  *
  * @return (bool) true on success
- * @return (program exit with code) 1 on assertion fault, alongside with according information.
+ * @return (program exit with code) 1 on assertion fault, alongside with according information
  */
 bool takeBackMove (BOARD *pos);
 

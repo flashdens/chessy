@@ -29,7 +29,7 @@ int main() {
     MOVELIST movelist[1];
 
     parseFen(START_FEN, board);
-    perftTest(board, 4);
+    perftTest(board, 5);
 
 
     return 0;
