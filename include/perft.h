@@ -21,4 +21,16 @@ void perft (BOARD *pos, int depth, long *leafNodes);
  */
 void perftTest (BOARD *pos, int depth);
 
+/**
+ *
+ * @brief perft-test against a set of results stored in a text file.
+ *
+ * @param argc argument count
+ * @param argv arguments
+ *
+ * @return 0 on success
+ * @return 1 on failure, alongside relevant information
+ */
+int perftHub();
+
 #endif //MILOCHESS_PERFT_H
