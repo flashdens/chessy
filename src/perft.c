@@ -112,26 +112,38 @@ int perftHub (int argc, int **argv) {
         int depth;
         scanf(" %d", &depth);
 
-        if (depth < 2 || depth > 7)
+        if (depth < 2 || depth > 7) {
             printf("please provide a valid number\n");
-        else
+            int c;
+            while ((c = getchar()) != '\n' && c != EOF); // clear stdin
+        }
+        else {
             break;
+        }
     }
 
     int lines = 0;
     char buf[256];
 
     while (fgets(buf, sizeof(buf), input) != NULL) {
-        printf("Read line: %s", buf);
         lines++;
     }
 
     rewind(input);
 
     BOARD board[1];
-    char *fen = strtok(buf, ",");
-    parseFen()
-
+    char *token = strtok(buf, ",");
+    char *fen = token;
+    parseFen(fen, board);
+    token = strtok(NULL, "");
+    printf("%s", token);
+    int perftValues[13];
+    for (int i = 0; i < 6; ++i) {
+        perftValues[i] = atoi(token);
+        printf("%d\n", perftValues[i]);
+        token = strtok(NULL, ",");
+        printf("%s\n", token);
+    }
 
 
     return 0;
