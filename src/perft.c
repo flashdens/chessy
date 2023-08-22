@@ -56,7 +56,7 @@ U64 perftTest (BOARD *pos, int depth) {
         perft(pos, depth - 1, &leafNodes);
         takeBackMove(pos);
         oldNodes = leafNodes - cumNodes;
-        printf("Move %d: %s: %ld\n", i + 1, printMove(move), oldNodes);
+        printf("Move %d: %s: %llu\n", i + 1, printMove(move), oldNodes);
     }
 
     endTime = clock();

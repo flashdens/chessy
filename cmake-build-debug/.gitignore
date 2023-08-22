@@ -20,3 +20,6 @@ lib
 
 # the actual executable
 milochess
+
+# perfthub files
+perft*
