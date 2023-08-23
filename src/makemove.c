@@ -180,7 +180,7 @@ static void movePiece (BOARD *pos, const int fromSq, const int toSq) {
 * @param move the move to be processed @see move.h MOVE->move
 *
 * @return true if the move is valid
-* @return false if the move is invalid (it doesn't prevent an enemy check or caused it)
+* @return false if the move is invalid (it doesn't prevent an enemy check or it caused it)
  */
 bool makeMove (BOARD *pos, int move) {
 
