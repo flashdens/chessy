@@ -145,11 +145,11 @@ int perftHub (int argc, int **argv) {
         }
     }
 
-    fprintf(info, "---PERFTHUB TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\n\n",
+    fprintf(info, "---PERFTHUB SHORT TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\n\n",
             date, tests, depth);
-    fprintf(error, "---PERFTHUB TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\n\n",
+    fprintf(error, "---PERFTHUB ERROR TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\n\n",
             date, tests, depth);
-    fprintf(full, "---PERFTHUB TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\n\n",
+    fprintf(full, "---PERFTHUB FULL TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\n\nstarting the test...\n",
             date, tests, depth);
 
     BOARD board[1];
@@ -170,13 +170,17 @@ int perftHub (int argc, int **argv) {
             token = strtok(NULL, ",");
         }
 
-        for (int j = 2; j < depth; ++j) {
+        for (int j = 2; j <= depth; ++j) {
             U64 result = perftTest(board, j);
 
             if (result != expectedValues[j]) {
                 fprintf(error, "error: perft test failed for\n%s\nwith depth %d: expected %llu leaf nodes, got %llu\n\n",
                         fen, depth, expectedValues[j], result);
                 failed++;
+            }
+            else {
+                fprintf(full, "success: perft test passed for\n%s\nwith depth %d, got %llu\n\n",
+                        fen, depth, result);
             }
         }
 
