@@ -42,10 +42,6 @@ void clearStdin () {
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
-void readExpectedValues () {
-
-}
-
 /**
  *
  * @brief perft-test against a set of results stored in a text file.
@@ -104,7 +100,7 @@ int perftHub (int argc, int **argv) {
 
     int lines = 0;
     int maxDepth;
-    char hehe[5];
+    char dBuf[5];
     int tests;
     char buf[256];
 
@@ -129,18 +125,18 @@ int perftHub (int argc, int **argv) {
 
     while (1) {
         printf("how many positions do you want to test against? (max %d, leave empty to test for that amount)\n", lines);
-        fgets(hehe, 5, stdin);
+        fgets(dBuf, 5, stdin);
 
-        if (atoi(hehe) < 0 || atoi(hehe) > lines) {
+        if (atoi(dBuf) < 0 || atoi(dBuf) > lines) {
             printf("please provide a valid number\n");
             clearStdin();
         }
-        else if (strcmp(hehe, "\n") == 0) {
+        else if (strcmp(dBuf, "\n") == 0) {
             tests = lines;
             break;
         }
         else {
-            tests = atoi(hehe);
+            tests = atoi(dBuf);
             break;
         }
     }
@@ -188,9 +184,9 @@ int perftHub (int argc, int **argv) {
             testEnd = clock();
 
             if (result != expectedValues[currentDepth]) {
-                fprintf(error, "error: perft test failedTests in %ldd for\n%s\ndepth %d: expected %llu leaf nodes, got %llu\n\n",
+                fprintf(error, "error: perft test failed in %ldd for\n%s\ndepth %d: expected %llu leaf nodes, got %llu\n\n",
                         (long) testEnd - testStart / CLOCKS_PER_SEC, fen, currentDepth, expectedValues[currentDepth], result);
-                fprintf(full, "error: perft test failedTests in %ldd for\n%s\ndepth %d: expected %llu leaf nodes, got %llu\n\n",
+                fprintf(full, "error: perft test failed in %ldd for\n%s\ndepth %d: expected %llu leaf nodes, got %llu\n\n",
                          (long) testEnd - testStart / CLOCKS_PER_SEC, fen, currentDepth, expectedValues[currentDepth], result);
                 failedTests++;
             }
@@ -206,11 +202,11 @@ int perftHub (int argc, int **argv) {
     }
 
 
-    fprintf(info, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f\nTOTAL TIME ELAPSED: %fd",
+    fprintf(info, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %fs",
+            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) * 100 / (float) totalTests, (double) ((clock() - totalStart)) / CLOCKS_PER_SEC);
+    fprintf(error, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %fs",
             totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) / (float) totalTests, (double) ((clock() - totalStart)) / CLOCKS_PER_SEC);
-    fprintf(error, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f\nTOTAL TIME ELAPSED: %fd",
-            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) / (float) totalTests, (double) ((clock() - totalStart)) / CLOCKS_PER_SEC);
-    fprintf(full, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f\nTOTAL TIME ELAPSED: %fd",
+    fprintf(full, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %fs",
             totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) / (float) totalTests, (double) ((clock() - totalStart)) / CLOCKS_PER_SEC);
 
     if (failedTests == 0) {
