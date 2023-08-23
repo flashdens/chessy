@@ -114,7 +114,7 @@ int perftHub (int argc, int **argv) {
     rewind(input);
 
     while (1) {
-        printf("please provide the maxDepth of the test (2-7)\n");
+        printf("please provide the depth of the test (2-7)\n");
         scanf(" %d", &maxDepth);
 
         if (maxDepth < 2 || maxDepth > 7) {
@@ -153,9 +153,14 @@ int perftHub (int argc, int **argv) {
             date, tests, maxDepth);
 
     BOARD board[1];
-    int failed = 0;
+
+    time_t totalStart = clock();
+
+    int failedTests = 0;
+    int totalTests = 0;
 
     for (int i = 0; i < tests; ++i) {
+
         U64 expectedValues[13];
         char *token = strtok(buf, ",");
         char *fen = token;
@@ -171,27 +176,29 @@ int perftHub (int argc, int **argv) {
         }
 
         for (int currentDepth = 2; currentDepth <= maxDepth; ++currentDepth) {
-            clock_t start, end;
+            clock_t testStart;
+            clock_t testEnd;
             U64 result;
 
             fprintf(full, "Starting perft test for %s with depth %d\n\n", fen, currentDepth);
-            printf("Starting perft test for %s with maxDepth %d\n\n", fen, currentDepth);
+            printf("Starting perft test for %s depth %d\n\n", fen, currentDepth);
 
-            start = clock();
+            testStart = clock();
             result = perftTest(board, currentDepth, full);
-            end = clock();
+            testEnd = clock();
 
             if (result != expectedValues[currentDepth]) {
-                fprintf(error, "error: perft test failed in %ldd for\n%s\nwith maxDepth %d: expected %llu leaf nodes, got %llu\n\n",
-                        (long) end - start / CLOCKS_PER_SEC, fen, currentDepth, expectedValues[currentDepth], result);
-                fprintf(full, "error: perft test failed in %ldd for\n%s\nwith maxDepth %d: expected %llu leaf nodes, got %llu\n\n",
-                         (long) end - start / CLOCKS_PER_SEC, fen, currentDepth, expectedValues[currentDepth], result);
-                failed++;
+                fprintf(error, "error: perft test failedTests in %ldd for\n%s\ndepth %d: expected %llu leaf nodes, got %llu\n\n",
+                        (long) testEnd - testStart / CLOCKS_PER_SEC, fen, currentDepth, expectedValues[currentDepth], result);
+                fprintf(full, "error: perft test failedTests in %ldd for\n%s\ndepth %d: expected %llu leaf nodes, got %llu\n\n",
+                         (long) testEnd - testStart / CLOCKS_PER_SEC, fen, currentDepth, expectedValues[currentDepth], result);
+                failedTests++;
             }
             else {
-                fprintf(full, "success: perft test passed for\n%s\nwith maxDepth %d, got %llu\n\n",
+                fprintf(full, "success: perft test passed for\n%s\ndepth %d, got %llu\n\n",
                         fen, maxDepth, result);
             }
+            totalTests++;
         }
 
         resetBoard(board);
@@ -199,8 +206,18 @@ int perftHub (int argc, int **argv) {
     }
 
 
-    if (failed == 0)
+    fprintf(info, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f\nTOTAL TIME ELAPSED: %fd",
+            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) / (float) totalTests, (double) ((clock() - totalStart)) / CLOCKS_PER_SEC);
+    fprintf(error, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f\nTOTAL TIME ELAPSED: %fd",
+            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) / (float) totalTests, (double) ((clock() - totalStart)) / CLOCKS_PER_SEC);
+    fprintf(full, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f\nTOTAL TIME ELAPSED: %fd",
+            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) / (float) totalTests, (double) ((clock() - totalStart)) / CLOCKS_PER_SEC);
+
+    if (failedTests == 0) {
+        fprintf(info, "all tests passed, congrats!\n");
         fprintf(error, "all tests passed, congrats!\n");
+        fprintf(full, "all tests passed, congrats!\n");
+    } else
 
     return 0;
 }
