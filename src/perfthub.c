@@ -2,7 +2,6 @@
 #include <string.h>
 #include <time.h>
 #include <sys/stat.h>
-#include <sys/types.h>
 
 #include "perfthub.h"
 #include "perft.h"
@@ -43,6 +42,10 @@ void clearStdin () {
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
+void readExpectedValues () {
+
+}
+
 /**
  *
  * @brief perft-test against a set of results stored in a text file.
@@ -71,26 +74,23 @@ int perftHub (int argc, int **argv) {
             return 1;
         }
 
-
-    printf("%s\n", subDirName);
     if (mkdir(subDirName, 0755) != 0) {
         printf("error creating the perfthub subdirectory\n");
         return 1;
     }
 
     char infoFilename[256];
+    char errorFilename[256];
+    char fullFilename[256];
+
     snprintf(infoFilename, sizeof(infoFilename), "%s", subDirName);
     snprintf(infoFilename + 28, sizeof(infoFilename), "/perfthub_%s", date);
-    char errorFilename[256];
+
     snprintf(errorFilename, sizeof(infoFilename), "%s", subDirName);
     snprintf(errorFilename + 28, sizeof(infoFilename), "/perfthub_error_%s", date);
-    char fullFilename[256];
+
     snprintf(fullFilename, sizeof(infoFilename), "%s", subDirName);
     snprintf(fullFilename + 28, sizeof(infoFilename), "/perfthub_full_%s", date);
-
-    printf("%s\n", infoFilename);
-    printf("%s\n", errorFilename);
-    printf("%s\n", fullFilename);
 
     FILE* input = fopen("perft.txt", "r");
     FILE* info = fopen(strncat(infoFilename, date, 24), "w+");
@@ -103,7 +103,7 @@ int perftHub (int argc, int **argv) {
         return 1;
 
     int lines = 0;
-    int depth;
+    int maxDepth;
     char hehe[5];
     int tests;
     char buf[256];
@@ -114,10 +114,10 @@ int perftHub (int argc, int **argv) {
     rewind(input);
 
     while (1) {
-        printf("please provide the depth of the test (2-7)\n");
-        scanf(" %d", &depth);
+        printf("please provide the maxDepth of the test (2-7)\n");
+        scanf(" %d", &maxDepth);
 
-        if (depth < 2 || depth > 7) {
+        if (maxDepth < 2 || maxDepth > 7) {
             printf("please provide a valid number\n");
             clearStdin();
         }
@@ -146,11 +146,11 @@ int perftHub (int argc, int **argv) {
     }
 
     fprintf(info, "---PERFTHUB SHORT TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\n\n",
-            date, tests, depth);
+            date, tests, maxDepth);
     fprintf(error, "---PERFTHUB ERROR TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\n\n",
-            date, tests, depth);
+            date, tests, maxDepth);
     fprintf(full, "---PERFTHUB FULL TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\n\nstarting the test...\n",
-            date, tests, depth);
+            date, tests, maxDepth);
 
     BOARD board[1];
     int failed = 0;
@@ -165,28 +165,39 @@ int perftHub (int argc, int **argv) {
         token = strtok(NULL, "");
         token = strtok(token, ",");
 
-        for (int j = 0; token != NULL && j < depth; ++j) {
+        for (int j = 0; token != NULL && j < maxDepth; ++j) {
             expectedValues[j + 1] = strtoull(token, NULL, 10);
             token = strtok(NULL, ",");
         }
 
-        for (int j = 2; j <= depth; ++j) {
-            U64 result = perftTest(board, j);
+        for (int currentDepth = 2; currentDepth <= maxDepth; ++currentDepth) {
+            clock_t start, end;
+            U64 result;
 
-            if (result != expectedValues[j]) {
-                fprintf(error, "error: perft test failed for\n%s\nwith depth %d: expected %llu leaf nodes, got %llu\n\n",
-                        fen, depth, expectedValues[j], result);
+            fprintf(full, "Starting perft test for %s with depth %d\n\n", fen, currentDepth);
+            printf("Starting perft test for %s with maxDepth %d\n\n", fen, currentDepth);
+
+            start = clock();
+            result = perftTest(board, currentDepth, full);
+            end = clock();
+
+            if (result != expectedValues[currentDepth]) {
+                fprintf(error, "error: perft test failed in %ldd for\n%s\nwith maxDepth %d: expected %llu leaf nodes, got %llu\n\n",
+                        (long) end - start / CLOCKS_PER_SEC, fen, currentDepth, expectedValues[currentDepth], result);
+                fprintf(full, "error: perft test failed in %ldd for\n%s\nwith maxDepth %d: expected %llu leaf nodes, got %llu\n\n",
+                         (long) end - start / CLOCKS_PER_SEC, fen, currentDepth, expectedValues[currentDepth], result);
                 failed++;
             }
             else {
-                fprintf(full, "success: perft test passed for\n%s\nwith depth %d, got %llu\n\n",
-                        fen, depth, result);
+                fprintf(full, "success: perft test passed for\n%s\nwith maxDepth %d, got %llu\n\n",
+                        fen, maxDepth, result);
             }
         }
 
         resetBoard(board);
         fgets(buf, sizeof(buf), input);
     }
+
 
     if (failed == 0)
         fprintf(error, "all tests passed, congrats!\n");

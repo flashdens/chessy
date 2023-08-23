@@ -19,6 +19,6 @@ void perft (BOARD *pos, int depth, U64 *leafNodes);
  * @param pos
  * @param depth
  */
-U64 perftTest (BOARD *pos, int depth);
+U64 perftTest (BOARD *pos, int depth, FILE *phubOut);
 
 #endif //MILOCHESS_PERFT_H

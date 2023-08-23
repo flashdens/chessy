@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <perfthub.h>
 
 #include "utils.h"
 #include "perft.h"
@@ -30,20 +31,16 @@ void perft (BOARD *pos, int depth, U64 *leafNodes) {
     }
 }
 
-U64 perftTest (BOARD *pos, int depth) {
+U64 perftTest (BOARD *pos, int depth, FILE *phubOut) {
 
     ASSERT(checkBoard(pos));
 
-    clock_t startTime, endTime;
     MOVELIST movelist[1];
     movelist[0].count = 0;
     U64 leafNodes = 0;
     U64 cumNodes;
     U64 oldNodes;
     int move;
-
-    printf("Starting perft test with depth %d\n\n", depth);
-    startTime = clock();
 
     generateAllMoves(pos, movelist);
 
@@ -56,11 +53,9 @@ U64 perftTest (BOARD *pos, int depth) {
         perft(pos, depth - 1, &leafNodes);
         takeBackMove(pos);
         oldNodes = leafNodes - cumNodes;
-        printf("Move %d: %s: %llu\n", i + 1, printMove(move), oldNodes);
+        fprintf(phubOut, "Move %d: %s: %llu\n", i + 1, printMove(move), oldNodes);
     }
 
-    endTime = clock();
-    // printf("Test complete - found %ld nodes in %f s\n", leafNodes, ((double)(endTime - startTime) / CLOCKS_PER_SEC));
     return leafNodes;
 }
 

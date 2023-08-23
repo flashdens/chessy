@@ -15,9 +15,10 @@ add_executable(milochess
         src/makemove.c
         include/makemove.h
         src/perft.c
-        include/perft.h)
-include/perft.h
-src/perfthub.c
-include/perfthub.h)
+        include/perft.h
+        include/perft.h
+        src/perfthub.c
+        include/perfthub.h
+        src/perfthub.c)
 
 target_include_directories(milochess PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
