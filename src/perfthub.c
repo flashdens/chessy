@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <unistd.h>
 #include <sys/stat.h>
 
 #include "perfthub.h"
@@ -109,26 +110,26 @@ int perfthub (int argc, char **argv) {
     int argTests = 0;
 
     for (int i = 1; i < argc; ++i) {
-        if (strncmp(argv[i], "-s", 2) == 0 || strncmp(argv[i], "--skip", 6) == 0 ) {
+        if (strcmp(argv[i], "-s") == 0 || strcmp(argv[i], "--skip") == 0 ) {
             flags |= S_FLAG;
         }
 
-        else if (strncmp(argv[i], "-h", 2) == 0 || strncmp(argv[i], "--help", 6) == 0 ) {
+        else if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0 ) {
             flags |= H_FLAG;
             printHelp();
             if (argc == 2)
                 return EXIT_SUCCESS;
         }
 
-        else if (strncmp(argv[i], "-l", 2) == 0 || strncmp(argv[i], "--loose", 7) == 0) {
+        else if (strcmp(argv[i], "-l") == 0 || strcmp(argv[i], "--loose") == 0) {
             flags |= L_FLAG;
         }
 
-        else if (strncmp(argv[i], "-e", 2) == 0 || strncmp(argv[i], "--error-to-stdout", 17) == 0) {
+        else if (strcmp(argv[i], "-e") == 0 || strcmp(argv[i], "--error-to-stdout") == 0) {
             flags |= E_FLAG;
         }
 
-        else if (strncmp(argv[i], "-f", 2) == 0 || strncmp(argv[i], "--files", 7) == 0 && i + 1 < argc) {
+        else if (strcmp(argv[i], "-f") == 0 || strcmp(argv[i], "--files") == 0 && i + 1 < argc) {
             i++;
             char *endptr;
             long int val = strtol(argv[i], &endptr, 10);
@@ -143,7 +144,7 @@ int perfthub (int argc, char **argv) {
             }
         }
 
-        else if (strncmp(argv[i], "-d", 2) == 0 || strncmp(argv[i], "--depth", 7) == 0 && i + 1 < argc) {
+        else if (strcmp(argv[i], "-d") == 0 || strcmp(argv[i], "--depth") == 0 && i + 1 < argc) {
             i++;
             char *endptr;
             long int val = strtol(argv[i], &endptr, 10);
@@ -159,7 +160,7 @@ int perfthub (int argc, char **argv) {
             }
         }
 
-        else if (strncmp(argv[i], "-t", 2) == 0 || strncmp(argv[i], "--tests", 7) == 0 && i + 1 < argc) {
+        else if (strcmp(argv[i], "-t") == 0 || strcmp(argv[i], "--tests") == 0 && i + 1 < argc) {
             i++;
             char *endptr;
             long int val = strtol(argv[i], &endptr, 10);
@@ -311,6 +312,7 @@ int perfthub (int argc, char **argv) {
         }
     }
 
+
     fprintf(info, "---PERFTHUB SHORT TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\n\n",
             date, tests, maxDepth);
     fprintf(error, "---PERFTHUB ERROR TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\n\n",
@@ -361,7 +363,7 @@ int perfthub (int argc, char **argv) {
             }
             else {
                 fprintf(full, "success: perft test passed for\n%s\ndepth %d, got %llu\n\n",
-                        fen, maxDepth, result);
+                        fen, currentDepth, result);
             }
             totalTests++;
         }
@@ -379,10 +381,13 @@ int perfthub (int argc, char **argv) {
     fprintf(full, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %fs\n",
             totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) / (float) totalTests, (double) ((totalEnd - totalStart)) / CLOCKS_PER_SEC);
 
+    printf("tests finished. see the %s/%s directory for results\n", (getcwd(buf, sizeof(buf))), subDirName);
+
     if (failedTests == 0) {
         fprintf(info, "all tests passed, congrats!\n");
         fprintf(error, "all tests passed, congrats!\n");
         fprintf(full, "all tests passed, congrats!\n");
+        printf("by the way, all passed! congrats!\n");
     }
 
     return EXIT_SUCCESS;

@@ -11,7 +11,6 @@
 #define D_FLAG (1 << 5)
 #define T_FLAG (1 << 6)
 
-
 int perfthub (int argc, char **argv);
 
 #endif //MILOCHESS_PERFTHUB_H

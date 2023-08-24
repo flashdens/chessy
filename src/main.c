@@ -29,7 +29,7 @@ int main() {
 
     char *simulated_argv[] = {
             "perfthub",
-            "-s",
+            "-sdfdf",
     };
     char** argv = (char **) malloc(sizeof(char *) * 2);
 
