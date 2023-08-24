@@ -9,6 +9,11 @@ by default, 3 .log files are generated for each test run:
 
 they are stored in {milochess_executable_path}/perfthub/{test_time} directories (the perfthub directory is created if it doesn't exist under the current path, test run directories are created dynamically).
 
+perfthub requires you to provide "perft.txt" in the exe path, which includes the FEN positions alongside expected values.
+if you don't have the file present, perfthub will download it for you from https://wierzba.wzks.uj.edu.pl/~21_bogacz/milochess/perft.txt.
+you can also look up the link as a reference to how the file should look like (if you want only fens to be parsed, look up the -l flag).
+
+phub started with no flags will first handle perft.txt, then ask for test depth and amount, afterwards proceeding with the tests.
 
 OPTIONS
 
@@ -17,7 +22,6 @@ WITHOUT ARGUMENTS
 -h, --help
 
 print help (this very document).
-
 
 -l, --loose
 
@@ -28,20 +32,21 @@ omit testing against expected values, outputting the results the files anyway. b
 
 write error logs to stdout instead of a file
 
+
 WITH ARGUMENTS
 
--f --files
+-f --files (0-7)
 
 specify which log files to generate after the flag. each file has a numeric value (see above) which lets you choose the files in the chmod manner.
-for example, 0 means generate no log files, 4 means generate only perfthub_info, 7 means generate all.
+for example, 0 means generate no log files, 4 means generate only perfthub_info, 7 means generate all (which is the default option).
 
 
--d, --depth
+-d, --depth (2-7)
 
 pass the maximum depth of the test after the flag, skipping being prompted to do so later.
 
 
--t, --tests 
+-t, --tests (0-num of lines of perft.txt)
 
 pass the amount of positions to be tested after the flag, skipping being prompted to do so later.
 first x positions from the file will be tested.

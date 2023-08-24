@@ -42,6 +42,10 @@ void clearStdin () {
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
+void printHelp () {
+    printf("help\n");
+}
+
 /**
  *
  * @brief perft-test against a set of results stored in a text file.
@@ -55,29 +59,31 @@ void clearStdin () {
 int perftHub (int argc, char **argv) {
 
     int flags = 0;
-    int fileValue = 0;
-    int depth = 0;
-    int tests = 0;
+    int argFileValue = 0;
+    int argDepth = 0;
+    int argTests = 0;
 
     for (int i = 1; i < argc; ++i) {
-
-        if (strncmp(argv[i], "-h", 2) == 0) {
+        if (strncmp(argv[i], "-h", 2) == 0 || strncmp(argv[i], "--help", 6) == 0 ) {
             flags |= H_FLAG;
         }
-        else if (strncmp(argv[i], "-l", 2) == 0) {
+
+        else if (strncmp(argv[i], "-l", 2) == 0 || strncmp(argv[i], "--loose", 7) == 0) {
             flags |= L_FLAG;
         }
-        else if (strncmp(argv[i], "-e", 2) == 0) {
+
+        else if (strncmp(argv[i], "-e", 2) == 0 || strncmp(argv[i], "--error-to-stdout", 17) == 0) {
             flags |= E_FLAG;
         }
 
-        else if (strncmp(argv[i], "-f", 2) && i + 1 < argc) {
+        else if (strncmp(argv[i], "-f", 2) == 0 || strncmp(argv[i], "--files", 7) == 0 && i + 1 < argc) {
             i++;
             char *endptr;
             long int val = strtol(argv[i], &endptr, 10);
 
             if (*endptr == '\0' && val > 0 && val < 8) {
-                fileValue = (int) val;
+                argFileValue = (int) val;
+                flags |= F_FLAG;
             }
             else {
                 printf("invaild argument passed! see phub -h for help\n");
@@ -85,13 +91,15 @@ int perftHub (int argc, char **argv) {
             }
         }
 
-        else if (strncmp(argv[i], "-d", 2) && i + 1 < argc) {
+        else if (strncmp(argv[i], "-d", 2) == 0 || strncmp(argv[i], "--depth", 7) == 0 && i + 1 < argc) {
             i++;
             char *endptr;
             long int val = strtol(argv[i], &endptr, 10);
 
-            if (*endptr == '\0' && val > 0 && val < 8) {
-                depth = (int) val;
+            if (*endptr == '\0' && val > 1 && val < 8) {
+                argDepth = (int) val;
+                flags |= D_FLAG;
+
             }
             else {
                 printf("invaild argument passed! see phub -h for help\n");
@@ -99,13 +107,14 @@ int perftHub (int argc, char **argv) {
             }
         }
 
-        else if (strncmp(argv[i], "-t", 2) && i + 1 < argc) {
+        else if (strncmp(argv[i], "-t", 2) == 0 || strncmp(argv[i], "--tests", 7) == 0 && i + 1 < argc) {
             i++;
             char *endptr;
             long int val = strtol(argv[i], &endptr, 10);
 
-            if (*endptr == '\0' && val > 0 && val < 8) {
-                tests = (int) val;
+            if (*endptr == '\0' && val > 0) {
+                argTests = (int) val;
+                flags |= T_FLAG;
             }
             else {
                 printf("invaild argument passed! see phub -h for help\n");
@@ -117,8 +126,6 @@ int perftHub (int argc, char **argv) {
             printf("error processing command line arguments! see phub -h for help\n");
             return EXIT_FAILURE;
         }
-
-
     }
 
     char date[24];
@@ -156,17 +163,20 @@ int perftHub (int argc, char **argv) {
     snprintf(fullFilename + 28, sizeof(infoFilename), "/perfthub_full_%s", date);
 
     FILE* input = fopen("perft.txt", "r");
-    FILE* info = fopen(strncat(infoFilename, date, 24), "w+");
-    FILE* error = fopen(strncat(errorFilename, date, 24), "w+");
-    FILE* full = fopen(strncat(fullFilename, date, 24), "w+");
 
-    printf("welcome to perfthub!\nenter a command below or type help for help\n");
+        FILE *info = fopen(strncat(infoFilename, date, 24), "w+");
+        FILE *error = fopen(strncat(errorFilename, date, 24), "w+");
+        FILE *full = fopen(strncat(fullFilename, date, 24), "w+");
+
+        printf("welcome to perfthub!\nenter a command below or type help for help\n");
 
     if (!input && getInput() != 0)
         return EXIT_FAILURE;
 
+
     int lines = 0;
-    int maxDepth;
+    int maxDepth = argDepth;
+    int tests = argTests;
     char dBuf[5];
     char buf[256];
 
@@ -189,7 +199,7 @@ int perftHub (int argc, char **argv) {
     }
     clearStdin();
 
-    while (1) {
+    while (!(flags & T_FLAG) && tests > lines) {
         printf("how many positions do you want to test against? (max %d, leave empty to test for that amount)\n", lines);
         fgets(dBuf, 5, stdin);
 
