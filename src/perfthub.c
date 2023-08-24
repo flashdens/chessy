@@ -15,7 +15,7 @@ int getInput () {
 
     if (choice != 'y' && choice != 'Y') {
         printf("file download rejected. exiting perfthub...\n");
-        return 1;
+        return EXIT_FAILURE;
     }
 
     int result;
@@ -31,7 +31,7 @@ int getInput () {
     }
     else {
         printf("failed to download perft.txt. exiting perfthub...");
-        return 1;
+        return EXIT_FAILURE;
     }
 
     return 0;
@@ -50,9 +50,76 @@ void clearStdin () {
  * @param argv arguments
  *
  * @return 0 on success
- * @return 1 on failure, alongside relevant information
+ * @return EXIT_FAILURE on failure, alongside relevant information
  */
-int perftHub (int argc, int **argv) {
+int perftHub (int argc, char **argv) {
+
+    int flags = 0;
+    int fileValue = 0;
+    int depth = 0;
+    int tests = 0;
+
+    for (int i = 1; i < argc; ++i) {
+
+        if (strncmp(argv[i], "-h", 2) == 0) {
+            flags |= H_FLAG;
+        }
+        else if (strncmp(argv[i], "-l", 2) == 0) {
+            flags |= L_FLAG;
+        }
+        else if (strncmp(argv[i], "-e", 2) == 0) {
+            flags |= E_FLAG;
+        }
+
+        else if (strncmp(argv[i], "-f", 2) && i + 1 < argc) {
+            i++;
+            char *endptr;
+            long int val = strtol(argv[i], &endptr, 10);
+
+            if (*endptr == '\0' && val > 0 && val < 8) {
+                fileValue = (int) val;
+            }
+            else {
+                printf("invaild argument passed! see phub -h for help\n");
+                return EXIT_FAILURE;
+            }
+        }
+
+        else if (strncmp(argv[i], "-d", 2) && i + 1 < argc) {
+            i++;
+            char *endptr;
+            long int val = strtol(argv[i], &endptr, 10);
+
+            if (*endptr == '\0' && val > 0 && val < 8) {
+                depth = (int) val;
+            }
+            else {
+                printf("invaild argument passed! see phub -h for help\n");
+                return EXIT_FAILURE;
+            }
+        }
+
+        else if (strncmp(argv[i], "-t", 2) && i + 1 < argc) {
+            i++;
+            char *endptr;
+            long int val = strtol(argv[i], &endptr, 10);
+
+            if (*endptr == '\0' && val > 0 && val < 8) {
+                tests = (int) val;
+            }
+            else {
+                printf("invaild argument passed! see phub -h for help\n");
+                return EXIT_FAILURE;
+            }
+        }
+
+        else {
+            printf("error processing command line arguments! see phub -h for help\n");
+            return EXIT_FAILURE;
+        }
+
+
+    }
 
     char date[24];
     time_t now = time(NULL);
@@ -67,12 +134,12 @@ int perftHub (int argc, int **argv) {
     if (stat("perfthub", &st) != 0 || !S_ISDIR(st.st_mode))
         if (mkdir("perfthub", 0755) != 0) {
             printf("error creating the perfthub directory\n");
-            return 1;
+            return EXIT_FAILURE;
         }
 
     if (mkdir(subDirName, 0755) != 0) {
         printf("error creating the perfthub subdirectory\n");
-        return 1;
+        return EXIT_FAILURE;
     }
 
     char infoFilename[256];
@@ -96,12 +163,11 @@ int perftHub (int argc, int **argv) {
     printf("welcome to perfthub!\nenter a command below or type help for help\n");
 
     if (!input && getInput() != 0)
-        return 1;
+        return EXIT_FAILURE;
 
     int lines = 0;
     int maxDepth;
     char dBuf[5];
-    int tests;
     char buf[256];
 
     while (fgets(buf, sizeof(buf), input) != NULL) {
@@ -145,7 +211,7 @@ int perftHub (int argc, int **argv) {
             date, tests, maxDepth);
     fprintf(error, "---PERFTHUB ERROR TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\n\n",
             date, tests, maxDepth);
-    fprintf(full, "---PERFTHUB FULL TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\n\nstarting the test...\n",
+    fprintf(full, "---PERFTHUB FULL TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\n\n---STARTING THE TEST---\n",
             date, tests, maxDepth);
 
     BOARD board[1];
@@ -156,7 +222,6 @@ int perftHub (int argc, int **argv) {
     int totalTests = 0;
 
     for (int i = 0; i < tests; ++i) {
-
         U64 expectedValues[13];
         char *token = strtok(buf, ",");
         char *fen = token;
@@ -215,5 +280,5 @@ int perftHub (int argc, int **argv) {
         fprintf(full, "all tests passed, congrats!\n");
     } else
 
-    return 0;
+    return EXIT_SUCCESS;
 }
