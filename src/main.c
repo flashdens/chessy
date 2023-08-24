@@ -1,14 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "move.h"
-#include "makemove.h"
 #include "utils.h"
 #include "init.h"
-#include "enums.h"
 #include "board.h"
 #include "generate.h"
-#include "perft.h"
 #include "perfthub.h"
 
 #define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
@@ -29,8 +27,18 @@ int main() {
     BOARD board[1];
     MOVELIST movelist[1];
 
-    perftHub();
+    char *simulated_argv[] = {
+            "perfthub",
+            "-h"
+    };
+    char** argv = malloc(sizeof(char *) * 2);
 
+    for (int i = 0; i < 2; ++i) {
+        argv[i] = (char *)malloc(strlen(simulated_argv[i]) + 1);
+        strcpy(argv[i], simulated_argv[i]);
+    }
+
+    perfthub(2, argv);
 
     return 0;
 }

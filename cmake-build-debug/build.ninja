@@ -105,13 +105,6 @@ build CMakeFiles/milochess.dir/src/move.c.o: C_COMPILER__milochess_unscanned_Deb
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
-build CMakeFiles/milochess.dir/src/main.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/main.c || cmake_object_order_depends_target_milochess
-  DEP_FILE = CMakeFiles/milochess.dir/src/main.c.o.d
-  FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
-  OBJECT_DIR = CMakeFiles/milochess.dir
-  OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
-
 build CMakeFiles/milochess.dir/src/io.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/io.c || cmake_object_order_depends_target_milochess
   DEP_FILE = CMakeFiles/milochess.dir/src/io.c.o.d
   FLAGS = -g -fdiagnostics-color=always
@@ -140,6 +133,13 @@ build CMakeFiles/milochess.dir/src/makemove.c.o: C_COMPILER__milochess_unscanned
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
+build CMakeFiles/milochess.dir/src/perfthub.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/perfthub.c || cmake_object_order_depends_target_milochess
+  DEP_FILE = CMakeFiles/milochess.dir/src/perfthub.c.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
+  OBJECT_DIR = CMakeFiles/milochess.dir
+  OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
+
 build CMakeFiles/milochess.dir/src/perft.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/perft.c || cmake_object_order_depends_target_milochess
   DEP_FILE = CMakeFiles/milochess.dir/src/perft.c.o.d
   FLAGS = -g -fdiagnostics-color=always
@@ -147,8 +147,8 @@ build CMakeFiles/milochess.dir/src/perft.c.o: C_COMPILER__milochess_unscanned_De
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
-build CMakeFiles/milochess.dir/src/perfthub.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/perfthub.c || cmake_object_order_depends_target_milochess
-  DEP_FILE = CMakeFiles/milochess.dir/src/perfthub.c.o.d
+build CMakeFiles/milochess.dir/src/main.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/main.c || cmake_object_order_depends_target_milochess
+  DEP_FILE = CMakeFiles/milochess.dir/src/main.c.o.d
   FLAGS = -g -fdiagnostics-color=always
   INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
@@ -162,7 +162,7 @@ build CMakeFiles/milochess.dir/src/perfthub.c.o: C_COMPILER__milochess_unscanned
 #############################################
 # Link the executable milochess
 
-build milochess: C_EXECUTABLE_LINKER__milochess_Debug CMakeFiles/milochess.dir/src/init.c.o CMakeFiles/milochess.dir/src/bitboards.c.o CMakeFiles/milochess.dir/src/hashkeys.c.o CMakeFiles/milochess.dir/src/utils.c.o CMakeFiles/milochess.dir/src/board.c.o CMakeFiles/milochess.dir/src/data.c.o CMakeFiles/milochess.dir/src/attack.c.o CMakeFiles/milochess.dir/src/move.c.o CMakeFiles/milochess.dir/src/main.c.o CMakeFiles/milochess.dir/src/io.c.o CMakeFiles/milochess.dir/src/generate.c.o CMakeFiles/milochess.dir/src/validate.c.o CMakeFiles/milochess.dir/src/makemove.c.o CMakeFiles/milochess.dir/src/perft.c.o CMakeFiles/milochess.dir/src/perfthub.c.o
+build milochess: C_EXECUTABLE_LINKER__milochess_Debug CMakeFiles/milochess.dir/src/init.c.o CMakeFiles/milochess.dir/src/bitboards.c.o CMakeFiles/milochess.dir/src/hashkeys.c.o CMakeFiles/milochess.dir/src/utils.c.o CMakeFiles/milochess.dir/src/board.c.o CMakeFiles/milochess.dir/src/data.c.o CMakeFiles/milochess.dir/src/attack.c.o CMakeFiles/milochess.dir/src/move.c.o CMakeFiles/milochess.dir/src/io.c.o CMakeFiles/milochess.dir/src/generate.c.o CMakeFiles/milochess.dir/src/validate.c.o CMakeFiles/milochess.dir/src/makemove.c.o CMakeFiles/milochess.dir/src/perfthub.c.o CMakeFiles/milochess.dir/src/perft.c.o CMakeFiles/milochess.dir/src/main.c.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/milochess.dir
   POST_BUILD = :

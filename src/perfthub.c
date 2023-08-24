@@ -43,7 +43,50 @@ void clearStdin () {
 }
 
 void printHelp () {
-    printf("help\n");
+    printf("PERFTHUB\n\n"
+
+           "perfthub is a tool that lets you perft test the milochess chess engine. you can use flags to modify its behaviour.\n\n"
+
+           "by default, 3 .log files are generated for each test run:\n"
+           "- perfthub_info -  basic information about the test (4)\n"
+           "- perfthub_error -  detailed information about failed tests (2)\n"
+           "- perfthub_full -  all information about each test (1)\n\n"
+
+           "they are stored in {milochess_executable_path}/perfthub/{test_time} directories."
+           "(the perfthub directory is created if it doesn't exist under the current path, test run directories are created dynamically).\n\n"
+
+           "perfthub requires you to provide \"perft.txt\" in the exe path, which includes the FEN positions alongside expected values.\n"
+           "if you don't have the file present, perfthub will download it for you from https://wierzba.wzks.uj.edu.pl/~21_bogacz/milochess/perft.txt.\n"
+           "you can also look up the link as a reference to how the file should look like (if you want only fens to be parsed, look up the -l flag).\n\n"
+
+           "perfthub started with no flags will first handle perft.txt, then ask for test depth and amount, afterwards proceeding with the tests.\n\n"
+
+           "OPTIONS\n\n"
+
+           "WITHOUT ARGUMENTS\n\n"
+
+           "-h, --help\n"
+           "print help (this very document).\n\n"
+
+           "-l, --loose\n"
+           "omit testing against expected values, outputting the results the files anyway. be sure to pass the flag if your perft.txt file doesn't include expected values of the test to avoid errors\n\n"
+
+           "-e --error-to-stdout\n"
+           "write error logs to stdout instead of a file\n\n"
+
+           "WITH ARGUMENTS\n\n"
+
+           "-f --files (0-7)\n"
+           "specify which log files to generate after the flag. each file has a numeric value (see above) which lets you choose the files in the chmod manner.\n"
+           "for example, 0 means generate no log files, 4 means generate only perfthub_info, 7 means generate all (which is the default option).\n\n"
+
+           "-d, --depth (2-7)\n"
+           "pass the maximum depth of the test after the flag, skipping being prompted to do so later.\n\n"
+
+           "-t, --tests (0-num of lines of perft.txt)\n"
+           "pass the amount of positions to be tested after the flag, skipping being prompted to do so later.\n"
+           "first x positions from the file will be tested.\n\n"
+           "EXAMPLE USAGE");
 }
 
 /**
@@ -56,16 +99,19 @@ void printHelp () {
  * @return 0 on success
  * @return EXIT_FAILURE on failure, alongside relevant information
  */
-int perftHub (int argc, char **argv) {
+int perfthub (int argc, char **argv) {
 
     int flags = 0;
-    int argFileValue = 0;
+    int argFileValue = 7;
     int argDepth = 0;
     int argTests = 0;
 
     for (int i = 1; i < argc; ++i) {
         if (strncmp(argv[i], "-h", 2) == 0 || strncmp(argv[i], "--help", 6) == 0 ) {
             flags |= H_FLAG;
+            printHelp();
+            if (argc == 2)
+                return EXIT_SUCCESS;
         }
 
         else if (strncmp(argv[i], "-l", 2) == 0 || strncmp(argv[i], "--loose", 7) == 0) {
@@ -164,15 +210,21 @@ int perftHub (int argc, char **argv) {
 
     FILE* input = fopen("perft.txt", "r");
 
-        FILE *info = fopen(strncat(infoFilename, date, 24), "w+");
-        FILE *error = fopen(strncat(errorFilename, date, 24), "w+");
-        FILE *full = fopen(strncat(fullFilename, date, 24), "w+");
+        FILE *info = NULL;
+        FILE *error = NULL;
+        FILE *full = NULL;
+
+        if ((argFileValue -= 4) > 0)
+            info = fopen(strncat(infoFilename, date, 24), "w+");
+        if ((argFileValue -= 2) > 0)
+            error = fopen(strncat(errorFilename, date, 24), "w+");
+        if ((argFileValue -= 1) == 0)
+            full = fopen(strncat(fullFilename, date, 24), "w+");
 
         printf("welcome to perfthub!\nenter a command below or type help for help\n");
 
     if (!input && getInput() != 0)
         return EXIT_FAILURE;
-
 
     int lines = 0;
     int maxDepth = argDepth;
@@ -275,7 +327,6 @@ int perftHub (int argc, char **argv) {
         resetBoard(board);
         fgets(buf, sizeof(buf), input);
     }
-
 
     fprintf(info, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %fs",
             totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) * 100 / (float) totalTests, (double) ((clock() - totalStart)) / CLOCKS_PER_SEC);
