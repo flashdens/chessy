@@ -30,7 +30,7 @@ int getInput () {
         printf("perft.txt downloaded successfully\n");
     }
     else {
-        printf("failed to download perft.txt. exiting perfthub...");
+        printf("failed to download perft.txt. exiting perfthub...\n");
         return EXIT_FAILURE;
     }
 
@@ -86,7 +86,8 @@ void printHelp () {
            "-t, --tests (0-num of lines of perft.txt)\n"
            "pass the amount of positions to be tested after the flag, skipping being prompted to do so later.\n"
            "first x positions from the file will be tested.\n\n"
-           "EXAMPLE USAGE");
+           "EXAMPLE USAGE\n"
+           "\n");
 }
 
 /**
@@ -96,8 +97,9 @@ void printHelp () {
  * @param argc argument count
  * @param argv arguments
  *
+ *
  * @return 0 on success
- * @return EXIT_FAILURE on failure, alongside relevant information
+ * @return 1 on failure, alongside relevant information
  */
 int perfthub (int argc, char **argv) {
 
@@ -107,7 +109,11 @@ int perfthub (int argc, char **argv) {
     int argTests = 0;
 
     for (int i = 1; i < argc; ++i) {
-        if (strncmp(argv[i], "-h", 2) == 0 || strncmp(argv[i], "--help", 6) == 0 ) {
+        if (strncmp(argv[i], "-s", 2) == 0 || strncmp(argv[i], "--skip", 6) == 0 ) {
+            flags |= S_FLAG;
+        }
+
+        else if (strncmp(argv[i], "-h", 2) == 0 || strncmp(argv[i], "--help", 6) == 0 ) {
             flags |= H_FLAG;
             printHelp();
             if (argc == 2)
@@ -174,6 +180,33 @@ int perfthub (int argc, char **argv) {
         }
     }
 
+    char choice;
+    while (!(flags & S_FLAG)) {
+        printf("welcome to perfthub!\n"
+               "press enter to proceed\n"
+               "h to print help\n"
+               "q to quit\n");
+
+        choice = (char) fgetc(stdin);
+
+        if (strncmp(&choice, "\n", 1) == 0) {
+            break;
+        }
+        if (strncmp(&choice, "h", 1) == 0) {
+            printHelp();
+            clearStdin();
+            continue;
+        }
+        else if (strncmp(&choice, "q", 1) == 0) {
+            printf("exiting...\n");
+            return EXIT_SUCCESS;
+        }
+        else {
+            printf("please provide a valid option\n");
+            clearStdin();
+        }
+    }
+
     char date[24];
     time_t now = time(NULL);
     struct tm *t = localtime(&now);
@@ -199,14 +232,14 @@ int perfthub (int argc, char **argv) {
     char errorFilename[256];
     char fullFilename[256];
 
-    snprintf(infoFilename, sizeof(infoFilename), "%s", subDirName);
-    snprintf(infoFilename + 28, sizeof(infoFilename), "/perfthub_%s", date);
+    snprintf(infoFilename, 29, "%s", subDirName);
+    snprintf(infoFilename + 28, 29, "/perfthub_%s", date);
 
-    snprintf(errorFilename, sizeof(infoFilename), "%s", subDirName);
-    snprintf(errorFilename + 28, sizeof(infoFilename), "/perfthub_error_%s", date);
+    snprintf(errorFilename, 29, "%s", subDirName);
+    snprintf(errorFilename + 28, 29, "/perfthub_error_%s", date);
 
-    snprintf(fullFilename, sizeof(infoFilename), "%s", subDirName);
-    snprintf(fullFilename + 28, sizeof(infoFilename), "/perfthub_full_%s", date);
+    snprintf(fullFilename, 29, "%s", subDirName);
+    snprintf(fullFilename + 28, 29, "/perfthub_full_%s", date);
 
     FILE* input = fopen("perft.txt", "r");
 
@@ -214,17 +247,26 @@ int perfthub (int argc, char **argv) {
         FILE *error = NULL;
         FILE *full = NULL;
 
-        if ((argFileValue -= 4) > 0)
+        if ((argFileValue - 4) > 0) {
             info = fopen(strncat(infoFilename, date, 24), "w+");
-        if ((argFileValue -= 2) > 0)
+            argFileValue -= 4;
+        }
+        if ((argFileValue - 2) > 0) {
             error = fopen(strncat(errorFilename, date, 24), "w+");
-        if ((argFileValue -= 1) == 0)
+            argFileValue -= 2;
+        }
+        if (argFileValue - 1 == 0) {
             full = fopen(strncat(fullFilename, date, 24), "w+");
-
-        printf("welcome to perfthub!\nenter a command below or type help for help\n");
+            argFileValue -= 1;
+        }
+        if (argFileValue != 0) {
+            printf("error processing file arguments\n");
+            return EXIT_FAILURE;
+        }
 
     if (!input && getInput() != 0)
         return EXIT_FAILURE;
+
 
     int lines = 0;
     int maxDepth = argDepth;
@@ -251,7 +293,7 @@ int perfthub (int argc, char **argv) {
     }
     clearStdin();
 
-    while (!(flags & T_FLAG) && tests > lines) {
+    while (!(flags & T_FLAG) || tests > lines) {
         printf("how many positions do you want to test against? (max %d, leave empty to test for that amount)\n", lines);
         fgets(dBuf, 5, stdin);
 
@@ -277,8 +319,8 @@ int perfthub (int argc, char **argv) {
             date, tests, maxDepth);
 
     BOARD board[1];
-
     time_t totalStart = clock();
+    time_t totalEnd;
 
     int failedTests = 0;
     int totalTests = 0;
@@ -328,18 +370,20 @@ int perfthub (int argc, char **argv) {
         fgets(buf, sizeof(buf), input);
     }
 
-    fprintf(info, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %fs",
-            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) * 100 / (float) totalTests, (double) ((clock() - totalStart)) / CLOCKS_PER_SEC);
-    fprintf(error, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %fs",
-            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) / (float) totalTests, (double) ((clock() - totalStart)) / CLOCKS_PER_SEC);
-    fprintf(full, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %fs",
-            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) / (float) totalTests, (double) ((clock() - totalStart)) / CLOCKS_PER_SEC);
+    totalEnd = clock();
+
+    fprintf(info, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %fs\n",
+            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) * 100 / (float) totalTests, (double) ((totalEnd - totalStart)) / CLOCKS_PER_SEC);
+    fprintf(error, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %fs\n",
+            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) / (float) totalTests, (double) ((totalEnd - totalStart)) / CLOCKS_PER_SEC);
+    fprintf(full, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %fs\n",
+            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) / (float) totalTests, (double) ((totalEnd - totalStart)) / CLOCKS_PER_SEC);
 
     if (failedTests == 0) {
         fprintf(info, "all tests passed, congrats!\n");
         fprintf(error, "all tests passed, congrats!\n");
         fprintf(full, "all tests passed, congrats!\n");
-    } else
+    }
 
     return EXIT_SUCCESS;
 }
