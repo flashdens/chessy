@@ -105,7 +105,7 @@ void printHelp () {
 int perfthub (int argc, char **argv) {
 
     int flags = 0;
-    int argFileValue = 7;
+    int argFiles = 7;
     int argDepth = 0;
     int argTests = 0;
 
@@ -125,7 +125,7 @@ int perfthub (int argc, char **argv) {
             flags |= L_FLAG;
         }
 
-        else if (strcmp(argv[i], "-e") == 0 || strcmp(argv[i], "--fError-to-stdout") == 0) {
+        else if (strcmp(argv[i], "-e") == 0 || strcmp(argv[i], "--error-to-stdout") == 0) {
             flags |= E_FLAG;
         }
 
@@ -135,7 +135,7 @@ int perfthub (int argc, char **argv) {
             long int val = strtol(argv[i], &endptr, 10);
 
             if (*endptr == '\0' && val > 0 && val < 8) {
-                argFileValue = (int) val;
+                argFiles = (int) val;
                 flags |= F_FLAG;
             }
             else {
@@ -176,7 +176,7 @@ int perfthub (int argc, char **argv) {
         }
 
         else {
-            printf("fError processing command line arguments! see phub -h for help\n");
+            printf("error processing command line arguments! see phub -h for help\n");
             return EXIT_FAILURE;
         }
     }
@@ -248,20 +248,20 @@ int perfthub (int argc, char **argv) {
         FILE *fError = NULL;
         FILE *fFull = NULL;
 
-        if ((argFileValue - 4) > 0) {
+        if ((argFiles - 4) >= 0) {
             fInfo = fopen(strncat(infoFilename, date, 24), "w+");
-            argFileValue -= 4;
+            argFiles -= 4;
         }
-        if ((argFileValue - 2) > 0) {
+        if ((argFiles - 2) >= 0) {
             fError = fopen(strncat(errorFilename, date, 24), "w+");
-            argFileValue -= 2;
+            argFiles -= 2;
         }
-        if (argFileValue - 1 == 0) {
+        if (argFiles - 1 == 0) {
             fFull = fopen(strncat(fullFilename, date, 24), "w+");
-            argFileValue -= 1;
+            argFiles -= 1;
         }
-        if (argFileValue != 0) {
-            printf("fError processing file arguments\n");
+        if (argFiles != 0) {
+            printf("error processing file arguments, see phub -h for help\n");
             return EXIT_FAILURE;
         }
 
@@ -280,7 +280,7 @@ int perfthub (int argc, char **argv) {
     }
     rewind(input);
 
-    while (1) {
+    while (!(flags & D_FLAG)) {
         printf("please provide the depth of the test (1-7)\n");
         scanf(" %d", &maxDepth);
 
@@ -292,9 +292,9 @@ int perfthub (int argc, char **argv) {
             break;
         }
     }
-    clearStdin();
 
     while (!(flags & T_FLAG) || tests > lines) {
+    clearStdin();
         printf("how many positions do you want to test against? (max %d, leave empty to test for that amount)\n", lines);
         fgets(dBuf, 5, stdin);
 
