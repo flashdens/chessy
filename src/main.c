@@ -30,15 +30,16 @@ int main() {
     char *simulated_argv[] = {
             "perfthub",
             "-s",
+            "-e"
     };
-    char** argv = (char **) malloc(sizeof(char *) * 2);
+    char** argv = (char **) malloc(sizeof(char *) * 3);
 
-    for (int i = 0; i < 2; ++i) {
+    for (int i = 0; i < 3; ++i) {
         argv[i] = (char *)malloc(strlen(simulated_argv[i]) + 1);
         strcpy(argv[i], simulated_argv[i]);
     }
 
-    perfthub(2, argv);
+    perfthub(3, argv);
 
     free(argv);
 
