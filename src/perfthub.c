@@ -313,12 +313,15 @@ int perfthub (int argc, char **argv) {
     }
 
 
-    fprintf(info, "---PERFTHUB SHORT TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\n\n",
+    fprintf(info, "---PERFTHUB SHORT TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\nCALLED WITH: ",
             date, tests, maxDepth);
-    fprintf(error, "---PERFTHUB ERROR TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\n\n",
+    for (int i = 1; i < argc; ++i) { fprintf(info, "%s ", argv[i]);} fprintf(info, "\n\n");
+    fprintf(error, "---PERFTHUB ERROR TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\nCALLED WITH: ",
             date, tests, maxDepth);
-    fprintf(full, "---PERFTHUB FULL TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\n\n---STARTING THE TEST---\n",
+    for (int i = 1; i < argc; ++i) { fprintf(error, "%s ", argv[i]);} fprintf(error, "\n\n");
+    fprintf(full, "---PERFTHUB FULL TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\nCALLED WITH: ",
             date, tests, maxDepth);
+    for (int i = 1; i < argc; ++i) { fprintf(full, "%s ", argv[i]);} fprintf(full, "\n\n");
 
     BOARD board[1];
     time_t totalStart = clock();
@@ -342,30 +345,38 @@ int perfthub (int argc, char **argv) {
             token = strtok(NULL, ",");
         }
 
+        printf("Starting perft test for %s depth %d\n\n", fen, maxDepth);
         for (int currentDepth = 2; currentDepth <= maxDepth; ++currentDepth) {
             clock_t testStart;
             clock_t testEnd;
             U64 result;
 
             fprintf(full, "Starting perft test for %s with depth %d\n\n", fen, currentDepth);
-            printf("Starting perft test for %s depth %d\n\n", fen, currentDepth);
 
             testStart = clock();
             result = perftTest(board, currentDepth, full);
             testEnd = clock();
+            totalTests++;
 
-            if (result != expectedValues[currentDepth]) {
+            if (result != expectedValues[currentDepth] && !(flags & L_FLAG)) {
+                failedTests++;
                 fprintf(error, "error: perft test failed in %ldd for\n%s\ndepth %d: expected %llu leaf nodes, got %llu\n\n",
                         (long) testEnd - testStart / CLOCKS_PER_SEC, fen, currentDepth, expectedValues[currentDepth], result);
                 fprintf(full, "error: perft test failed in %ldd for\n%s\ndepth %d: expected %llu leaf nodes, got %llu\n\n",
                          (long) testEnd - testStart / CLOCKS_PER_SEC, fen, currentDepth, expectedValues[currentDepth], result);
-                failedTests++;
+
+                if (flags & E_FLAG)
+                    printf("error: perft test failed in %ldd for\n%s\ndepth %d: expected %llu leaf nodes, got %llu\n\n",
+                        (long) testEnd - testStart / CLOCKS_PER_SEC, fen, currentDepth, expectedValues[currentDepth], result);
             }
-            else {
+            else if (result == expectedValues[currentDepth]){
                 fprintf(full, "success: perft test passed for\n%s\ndepth %d, got %llu\n\n",
                         fen, currentDepth, result);
             }
-            totalTests++;
+            else if (flags & L_FLAG) {
+                fprintf(full, "info: perft test ended in %ldd for\n%s\ndepth %d: got %llu leaf nodes\n\n",
+                        (long) testEnd - testStart / CLOCKS_PER_SEC, fen, currentDepth, result);
+            }
         }
 
         resetBoard(board);
@@ -377,11 +388,11 @@ int perfthub (int argc, char **argv) {
     fprintf(info, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %fs\n",
             totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) * 100 / (float) totalTests, (double) ((totalEnd - totalStart)) / CLOCKS_PER_SEC);
     fprintf(error, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %fs\n",
-            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) / (float) totalTests, (double) ((totalEnd - totalStart)) / CLOCKS_PER_SEC);
+            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) * 100 / (float) totalTests, (double) ((totalEnd - totalStart)) / CLOCKS_PER_SEC);
     fprintf(full, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %fs\n",
-            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) / (float) totalTests, (double) ((totalEnd - totalStart)) / CLOCKS_PER_SEC);
+            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) * 100 / (float) totalTests, (double) ((totalEnd - totalStart)) / CLOCKS_PER_SEC);
 
-    printf("tests finished. see the %s/%s directory for results\n", (getcwd(buf, sizeof(buf))), subDirName);
+    printf("tests finished. see %s/%s for results\n", (getcwd(buf, sizeof(buf))), subDirName);
 
     if (failedTests == 0) {
         fprintf(info, "all tests passed, congrats!\n");
