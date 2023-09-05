@@ -201,14 +201,19 @@ __attribute__((unused)) void showAttacks (const int side, const BOARD *pos) {
     int square;
 
     for (int rank = RANK_8; rank >= RANK_1; --rank) {
+        printf("%d ", rank + 1);
         for (int file = FILE_A; file <= FILE_H; ++file) {
             square = FR2SQ(file, rank);
             if (isSquareAttacked(square, side, pos))
-                printf("X");
+                printf("  X");
             else
-                printf("-");
+                printf("  -");
         }
         printf("\n");
+    }
+    printf("  ");
+    for (int file = FILE_A; file <= FILE_H; ++file) {
+        printf("%3c",'a' + file);
     }
         printf("\n\n");
 }

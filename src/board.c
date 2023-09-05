@@ -401,7 +401,6 @@ bool checkBoard (const BOARD *pos) {
     ASSERT(!(pos->sideToMove == WHITE) != !(pos->sideToMove == BLACK));
 
 
-
     // en passant square
     ASSERT((pos->enPassant == SQ_NONE) ||
             ((boardRanks[pos->enPassant] == RANK_6 && pos->sideToMove == WHITE)||

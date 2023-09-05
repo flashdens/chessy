@@ -5,7 +5,9 @@
 #include "move.h"
 #include "utils.h"
 #include "init.h"
+#include "attack.h"
 #include "board.h"
+#include "enums.h"
 #include "generate.h"
 #include "perfthub.h"
 
@@ -19,7 +21,7 @@
 #define BISHOPS "6k1/1b6/4n3/8/1n4B1/1B3N2/1N6/2b3K1 b - - 0 1"
 #define WCASTLE "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1"
 #define BCASTLE "r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1"
-#define TEST1 "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
+#define KIWIPETE "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
 
 int main() {
     initAll();
@@ -27,27 +29,25 @@ int main() {
     BOARD board[1];
     MOVELIST movelist[1];
 
+    parseFen(KIWIPETE, board);
+
     char *simulated_argv[] = {
             "perfthub",
             "-s",
             "-t",
-            "7",
+            "2",
             "-d",
             "3",
-            "-f",
-            "5",
-            "--files",
-            "1",
             "-e"
     };
-    char** argv = (char **) malloc(sizeof(char *) * 11);
+    char** argv = (char **) malloc(sizeof(char *) * 7);
 
-    for (int i = 0; i < 11; ++i) {
+    for (int i = 0; i < 7; ++i) {
         argv[i] = (char *)malloc(strlen(simulated_argv[i]) + 1);
         strcpy(argv[i], simulated_argv[i]);
     }
 
-    perfthub(11, argv);
+    perfthub(7, argv);
 
     free(argv);
 

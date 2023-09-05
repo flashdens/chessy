@@ -8,6 +8,14 @@
 #include "perft.h"
 #include "board.h"
 
+/**
+ * @brief utility function to download input for perfthub from a server.
+ *
+ * TODO: pass an url to download from and ensure it's safe
+ *
+ * @return 0 on success
+ * @return 1 on failure alongside relevant information
+ */
 int getInput () {
     printf("perft.txt not found. do you wish to download it (y/n)?\n");
 
@@ -38,11 +46,21 @@ int getInput () {
     return 0;
 }
 
+/**
+ * @brief utility function to clear stdin.
+ *
+ * @return void
+ */
 void clearStdin () {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
 }
 
+/**
+ * @brief print help regarding perfthub.
+ *
+ * @return void
+ */
 void printHelp () {
     printf("PERFTHUB\n\n"
 
@@ -98,6 +116,7 @@ void printHelp () {
  * @param argc argument count
  * @param argv arguments
  *
+ * @see printHelp() for more information
  *
  * @return 0 on success
  * @return 1 on failure, alongside relevant information
@@ -267,7 +286,7 @@ int perfthub (int argc, char **argv) {
 
     if (!input && getInput() != 0)
         return EXIT_FAILURE;
-
+    input = fopen("perft.txt", "r");
 
     int lines = 0;
     int maxDepth = argDepth;
@@ -275,10 +294,10 @@ int perfthub (int argc, char **argv) {
     char dBuf[5];
     char buf[256];
 
-    while (fgets(buf, sizeof(buf), input) != NULL) {
+    while (fgets(buf, sizeof(buf), input) != NULL && ( (flags & T_FLAG) && lines < argTests )) {
         lines++;
     }
-    rewind(input);
+    fseek(input, 0, SEEK_SET);
 
     while (!(flags & D_FLAG)) {
         printf("please provide the depth of the test (1-7)\n");
@@ -338,6 +357,7 @@ int perfthub (int argc, char **argv) {
 
     for (int i = 0; i < tests; ++i) {
         U64 expectedValues[13];
+        fgets(buf, sizeof(buf), input);
         char *token = strtok(buf, ",");
         char *fen = token;
 
@@ -359,7 +379,8 @@ int perfthub (int argc, char **argv) {
             clock_t testEnd;
             U64 result;
 
-            if (fFull) fprintf(fFull, "Starting perft test for %s with depth %d\n\n", fen, currentDepth);
+            if (fFull) fprintf(fFull, "Starting perft test for %s with depth %d, expecting %llu\n\n", \
+            fen, currentDepth, expectedValues[currentDepth]);
             testStart = clock();
             result = perftTest(board, currentDepth, fFull);
             testEnd = clock();
@@ -404,7 +425,6 @@ int perfthub (int argc, char **argv) {
         }
 
         resetBoard(board);
-        fgets(buf, sizeof(buf), input);
     }
 
     totalEnd = clock();
@@ -424,7 +444,8 @@ int perfthub (int argc, char **argv) {
             totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) * 100 / (float) totalTests, (double) ((totalEnd - totalStart)) / CLOCKS_PER_SEC);
     }
 
-    printf("tests finished. see %s/%s for results\n", (getcwd(buf, sizeof(buf))), subDirName);
+    printf("tests finished.\n");
+    printf("see %s/%s for results\n", (getcwd(buf, sizeof(buf))), subDirName);
 
     if (failedTests == 0 && !(flags & L_FLAG)) {
         if (fInfo) fprintf(fInfo, "all tests passed, congrats!\n");
