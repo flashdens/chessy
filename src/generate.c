@@ -357,7 +357,7 @@ static void generateWhiteCastlingMoves (const BOARD *pos, MOVELIST *list) {
         if (!isSquareAttacked(E1, BLACK, pos) &&
             (pos->pieces[D1] == EMPTY && !isSquareAttacked(D1, BLACK, pos)) &&
             (pos->pieces[C1] == EMPTY && !isSquareAttacked(C1, BLACK, pos)) &&
-            (pos->pieces[B1] == EMPTY && !isSquareAttacked(B1, BLACK, pos)))
+            (pos->pieces[B1] == EMPTY))
         {
             addQuietMove(pos, list, MOVE(E1, C1, EMPTY, EMPTY, FISCASTLE));
         }
@@ -386,7 +386,8 @@ static void generateBlackCastlingMoves (const BOARD *pos, MOVELIST *list) {
     if (pos->castlePerm & BQCA) {
         if (!isSquareAttacked(E8, WHITE, pos) &&
             (pos->pieces[D8] == EMPTY && !isSquareAttacked(D8, WHITE, pos)) &&
-            (pos->pieces[C8] == EMPTY && !isSquareAttacked(C8, WHITE, pos)))
+            (pos->pieces[C8] == EMPTY && !isSquareAttacked(C8, WHITE, pos)) &&
+            (pos->pieces[B8] == EMPTY))
             addQuietMove(pos, list, MOVE(E8, C8, EMPTY, EMPTY, FISCASTLE));
     }
 

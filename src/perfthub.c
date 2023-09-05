@@ -91,7 +91,7 @@ void printHelp () {
            "omit testing against expected values, outputting the results the files anyway. be sure to pass the flag if your perft.txt file doesn't include expected values of the test to avoid errors\n\n"
 
            "-e --error-to-stdout\n"
-           "write error logs to stdout instead of a file\n\n"
+           "write error logs to stdout alongside the files, therefore not printing information about test starts to stdout.\n\n"
 
            "WITH ARGUMENTS\n\n"
 
@@ -373,7 +373,8 @@ int perfthub (int argc, char **argv) {
             }
         }
 
-        printf("Starting perft test for %s depth %d\n\n", fen, maxDepth);
+        if (!(flags & E_FLAG)) printf("Starting perft test for %s depth %d\n\n", fen, maxDepth);
+
         for (int currentDepth = 1; currentDepth <= maxDepth; ++currentDepth) {
             clock_t testStart;
             clock_t testEnd;
