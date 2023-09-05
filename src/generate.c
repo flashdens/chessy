@@ -170,7 +170,7 @@ static void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list) {
         if (square + 9 == pos->enPassant)
             addCaptureMove(pos, list, MOVE(square, square + 9, EMPTY, EMPTY, FISENPASSANT));
 
-        if (square + 11 == pos->enPassant)
+        if (square + 11 == pos->enPassant && pos->enPassant != 99)
             addCaptureMove(pos, list, MOVE(square, square + 11, EMPTY, EMPTY, FISENPASSANT));
     }
 }
@@ -356,7 +356,8 @@ static void generateWhiteCastlingMoves (const BOARD *pos, MOVELIST *list) {
     if (pos->castlePerm & WQCA) {
         if (!isSquareAttacked(E1, BLACK, pos) &&
             (pos->pieces[D1] == EMPTY && !isSquareAttacked(D1, BLACK, pos)) &&
-            (pos->pieces[C1] == EMPTY && !isSquareAttacked(C1, BLACK, pos)))
+            (pos->pieces[C1] == EMPTY && !isSquareAttacked(C1, BLACK, pos)) &&
+            (pos->pieces[B1] == EMPTY && !isSquareAttacked(B1, BLACK, pos)))
         {
             addQuietMove(pos, list, MOVE(E1, C1, EMPTY, EMPTY, FISCASTLE));
         }

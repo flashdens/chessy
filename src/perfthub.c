@@ -168,7 +168,7 @@ int perfthub (int argc, char **argv) {
             char *endptr;
             long int val = strtol(argv[i], &endptr, 10);
 
-            if (*endptr == '\0' && val > 1 && val < 8) {
+            if (*endptr == '\0' && val > 0 && val < 8) {
                 argDepth = (int) val;
                 flags |= D_FLAG;
 
@@ -294,7 +294,7 @@ int perfthub (int argc, char **argv) {
     char dBuf[5];
     char buf[256];
 
-    while (fgets(buf, sizeof(buf), input) != NULL && ( (flags & T_FLAG) && lines < argTests )) {
+    while (fgets(buf, sizeof(buf), input) != NULL) { // TODO: add t flag handling
         lines++;
     }
     fseek(input, 0, SEEK_SET);
@@ -303,7 +303,7 @@ int perfthub (int argc, char **argv) {
         printf("please provide the depth of the test (1-7)\n");
         scanf(" %d", &maxDepth);
 
-        if (maxDepth < 2 || maxDepth > 7) {
+        if (maxDepth < 1 || maxDepth > 7) {
             printf("please provide a valid number\n");
             clearStdin();
         }
@@ -379,8 +379,9 @@ int perfthub (int argc, char **argv) {
             clock_t testEnd;
             U64 result;
 
-            if (fFull) fprintf(fFull, "Starting perft test for %s with depth %d, expecting %llu\n\n", \
+            if (fFull) fprintf(fFull, "Starting perft test for %s with depth %d, expecting %llu leaf nodes\n\n", \
             fen, currentDepth, expectedValues[currentDepth]);
+
             testStart = clock();
             result = perftTest(board, currentDepth, fFull);
             testEnd = clock();
@@ -423,7 +424,6 @@ int perfthub (int argc, char **argv) {
                 }
             }
         }
-
         resetBoard(board);
     }
 

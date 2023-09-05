@@ -9,6 +9,7 @@
 #define MAX_MOVES 2048
 #define MAX_POSITION_MOVES 256
 
+
 extern int Sq120ToSq64[BOARD_SQUARES];
 extern int Sq64ToSq120[64];
 

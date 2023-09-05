@@ -341,12 +341,14 @@ bool takeBackMove (BOARD *pos) {
 
     // handle en passant and castling flags
     if (move & FISENPASSANT) {
+        printf("EP move found!\n");
         (pos->sideToMove == WHITE)
         ? addPiece(pos, toSq - 10, p)
         : addPiece(pos, toSq + 10, P);
     }
     // note that this one moves the rook
     else if (move & FISCASTLE) {
+        printf("castling move found!\n");
         switch (toSq) {
             case C1:
                 movePiece(pos, D1, A1);
