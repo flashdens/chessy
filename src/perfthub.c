@@ -331,7 +331,7 @@ int perfthub (int argc, char **argv) {
         }
     }
 
-
+    printf("Starting a session of %d tests with depth %d\n\n", tests, maxDepth);
     if (fInfo) {
         fprintf(fInfo, "---PERFTHUB SHORT TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\nCALLED WITH: ",
                 date, tests, maxDepth);
