@@ -27,8 +27,11 @@ char *printMove (const int move) {
     }
 
     sprintf(moveString,"%c%c%c%c", 'a' + fileFrom, '1' + rankFrom, 'a' + fileTo, '1' + rankTo);
-    if (promoted)
-        strcat(moveString, &piece);
+
+    if (promoted) {
+        strncat(moveString, &piece, 1);
+        moveString[5] = '\0';
+    }
 
     return moveString;
 }

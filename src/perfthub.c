@@ -333,17 +333,17 @@ int perfthub (int argc, char **argv) {
 
     printf("Starting a session of %d tests with depth %d\n\n", tests, maxDepth);
     if (fInfo) {
-        fprintf(fInfo, "---PERFTHUB SHORT TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\nCALLED WITH: ",
+        fprintf(fInfo, "---PERFTHUB SHORT TEST LOG---\nDATE: %.19s\nNUMBER OF POSITIONS: %d\nDEPTH: %d\nCALLED WITH: ",
                 date, tests, maxDepth);
         for (int i = 1; i < argc; ++i) { fprintf(fInfo, "%s ", argv[i]); } fprintf(fInfo, "\n\n");
     }
     if (fError) {
-        fprintf(fError, "---PERFTHUB ERROR TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\nCALLED WITH: ",
+        fprintf(fError, "---PERFTHUB ERROR TEST LOG---\nDATE: %.19s\nNUMBER OF POSITIONS: %d\nDEPTH: %d\nCALLED WITH: ",
                 date, tests, maxDepth);
         for (int i = 1; i < argc; ++i) { fprintf(fError, "%s ", argv[i]); } fprintf(fError, "\n\n");
     }
     if (fFull) {
-        fprintf(fFull, "---PERFTHUB FULL TEST LOG---\nDATE: %.19s\nAMOUNT OF TESTS: %d\nDEPTH: %d\nCALLED WITH: ",
+        fprintf(fFull, "---PERFTHUB FULL TEST LOG---\nDATE: %.19s\nNUMBER OF POSITIONS: %d\nDEPTH: %d\nCALLED WITH: ",
                 date, tests, maxDepth);
         for (int i = 1; i < argc; ++i) { fprintf(fFull, "%s ", argv[i]);} fprintf(fFull, "\n\n");
     }
@@ -436,6 +436,7 @@ int perfthub (int argc, char **argv) {
     }
 
     if (fError) {
+        if (failedTests == 0) fprintf(fError, "NO ERRORS FOUND\n\n");
     fprintf(fError, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %f s\n",
             totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) * 100 / (float) totalTests, (double) ((totalEnd - totalStart)) / CLOCKS_PER_SEC);
     }
