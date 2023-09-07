@@ -10,6 +10,8 @@
 #include "enums.h"
 #include "generate.h"
 #include "perfthub.h"
+#include "makemove.h"
+#include "io.h"
 
 #define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 #define FEN4 "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
@@ -29,23 +31,52 @@ int main() {
     BOARD board[1];
     MOVELIST movelist[1];
 
-    parseFen(KIWIPETE, board);
+    parseFen(START_FEN, board);
 
-    char *simulated_argv[] = {
-            "perfthub",
-            "-s",
-            "-e"
-    };
-    char** argv = (char **) malloc(sizeof(char *) * 3);
+    char input[6];
+    int currentMove = 0;
 
-    for (int i = 0; i < 3; ++i) {
-        argv[i] = (char *)malloc(strlen(simulated_argv[i]) + 1);
-        strcpy(argv[i], simulated_argv[i]);
+    while (1) {
+        printBoard(board);
+        printf("provide a move\n");
+        fgets(input, sizeof(input),stdin);
+        fflush(stdin);
+
+        if (input[0] == 'q') {
+            break;
+        }
+        else if (input[0] == 't') {
+            takeBackMove(board);
+            continue;
+        }
+        else {
+            currentMove = parseMove(input, board);
+            if (currentMove != 0)
+                makeMove(board, currentMove);
+        }
+
     }
-
-    perfthub(3, argv);
-
-    free(argv);
+//
+//    BOARD board[1];
+//    MOVELIST movelist[1];
+//
+//    parseFen(KIWIPETE, board);
+//
+//    char *simulated_argv[] = {
+//            "perfthub",
+//            "-s",
+//            "-e"
+//    };
+//    char** argv = (char **) malloc(sizeof(char *) * 3);
+//
+//    for (int i = 0; i < 3; ++i) {
+//        argv[i] = (char *)malloc(strlen(simulated_argv[i]) + 1);
+//        strcpy(argv[i], simulated_argv[i]);
+//    }
+//
+//    perfthub(3, argv);
+//
+//    free(argv);
 
     return 0;
 }

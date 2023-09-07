@@ -1,6 +1,9 @@
 #ifndef MILOCHESS_ENUMS_H
 #define MILOCHESS_ENUMS_H
 
+/**
+ * @enum piece numbers
+ */
 enum {EMPTY, P, N, B, R, Q, K, p, n, b, r, q, k};
 
 enum {FILE_A, FILE_B, FILE_C, FILE_D, FILE_E, FILE_F, FILE_G, FILE_H, FILE_NONE};
@@ -16,8 +19,6 @@ enum {
     A7 = 81, B7, C7, D7, E7, F7, G7, H7,
     A8 = 91, B8, C8, D8, E8, F8, G8, H8, SQ_NONE, OFF_BOARD
 };
-
-enum {FALSE, TRUE};
 
 enum {WHITE, BLACK, BOTH};
 

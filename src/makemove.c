@@ -146,7 +146,7 @@ static void movePiece (BOARD *pos, const int fromSq, const int toSq) {
 
     int piece = pos->pieces[fromSq];
     int col = pieceCol[piece];
-    bool moved = FALSE;
+    bool moved = false;
 
     hashPiece(pos, piece, fromSq);
     pos->pieces[fromSq] = EMPTY;

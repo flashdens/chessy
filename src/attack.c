@@ -48,7 +48,7 @@ bool attackedByKnight (const int square, const int side, const BOARD *pos) {
 
     for (int i = 0; i < 8; ++i) {
         piece = pos->pieces[square + knightDir[i]];
-        if (piece != OFF_BOARD && isPieceKnight[piece] && pieceCol[piece] == side)
+        if (piece != OFF_BOARD && piece != EMPTY && isPieceKnight[piece] && pieceCol[piece] == side)
             return true;
     }
 
@@ -153,7 +153,7 @@ bool attackedByKing (const int square, const int side, const BOARD *pos) {
 
     for (int i = 0; i < 8; ++i) {
         piece = pos->pieces[square + kingDir[i]];
-        if (piece != OFF_BOARD && isPieceKing[piece] && pieceCol[piece] == side)
+        if (piece != OFF_BOARD && piece != EMPTY && isPieceKing[piece] && pieceCol[piece] == side)
             return true;
     }
 
