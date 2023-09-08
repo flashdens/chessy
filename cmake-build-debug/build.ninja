@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = /home/miloszek/CLionProjects/milochess/cmake-build-debug/
+cmake_ninja_workdir = /home/miloszek/projects/CLionProjects/milochess/cmake-build-debug/
 # =============================================================================
 # Object build statements for EXECUTABLE target milochess
 
@@ -49,108 +49,115 @@ cmake_ninja_workdir = /home/miloszek/CLionProjects/milochess/cmake-build-debug/
 
 build cmake_object_order_depends_target_milochess: phony || CMakeFiles/milochess.dir
 
-build CMakeFiles/milochess.dir/src/init.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/init.c || cmake_object_order_depends_target_milochess
+build CMakeFiles/milochess.dir/src/init.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/projects/CLionProjects/milochess/src/init.c || cmake_object_order_depends_target_milochess
   DEP_FILE = CMakeFiles/milochess.dir/src/init.c.o.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
-build CMakeFiles/milochess.dir/src/bitboards.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/bitboards.c || cmake_object_order_depends_target_milochess
+build CMakeFiles/milochess.dir/src/bitboards.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/projects/CLionProjects/milochess/src/bitboards.c || cmake_object_order_depends_target_milochess
   DEP_FILE = CMakeFiles/milochess.dir/src/bitboards.c.o.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
-build CMakeFiles/milochess.dir/src/hashkeys.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/hashkeys.c || cmake_object_order_depends_target_milochess
+build CMakeFiles/milochess.dir/src/hashkeys.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/projects/CLionProjects/milochess/src/hashkeys.c || cmake_object_order_depends_target_milochess
   DEP_FILE = CMakeFiles/milochess.dir/src/hashkeys.c.o.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
-build CMakeFiles/milochess.dir/src/utils.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/utils.c || cmake_object_order_depends_target_milochess
+build CMakeFiles/milochess.dir/src/utils.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/projects/CLionProjects/milochess/src/utils.c || cmake_object_order_depends_target_milochess
   DEP_FILE = CMakeFiles/milochess.dir/src/utils.c.o.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
-build CMakeFiles/milochess.dir/src/board.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/board.c || cmake_object_order_depends_target_milochess
+build CMakeFiles/milochess.dir/src/board.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/projects/CLionProjects/milochess/src/board.c || cmake_object_order_depends_target_milochess
   DEP_FILE = CMakeFiles/milochess.dir/src/board.c.o.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
-build CMakeFiles/milochess.dir/src/data.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/data.c || cmake_object_order_depends_target_milochess
+build CMakeFiles/milochess.dir/src/data.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/projects/CLionProjects/milochess/src/data.c || cmake_object_order_depends_target_milochess
   DEP_FILE = CMakeFiles/milochess.dir/src/data.c.o.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
-build CMakeFiles/milochess.dir/src/attack.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/attack.c || cmake_object_order_depends_target_milochess
+build CMakeFiles/milochess.dir/src/attack.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/projects/CLionProjects/milochess/src/attack.c || cmake_object_order_depends_target_milochess
   DEP_FILE = CMakeFiles/milochess.dir/src/attack.c.o.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
-build CMakeFiles/milochess.dir/src/move.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/move.c || cmake_object_order_depends_target_milochess
+build CMakeFiles/milochess.dir/src/move.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/projects/CLionProjects/milochess/src/move.c || cmake_object_order_depends_target_milochess
   DEP_FILE = CMakeFiles/milochess.dir/src/move.c.o.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
-build CMakeFiles/milochess.dir/src/io.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/io.c || cmake_object_order_depends_target_milochess
+build CMakeFiles/milochess.dir/src/io.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/projects/CLionProjects/milochess/src/io.c || cmake_object_order_depends_target_milochess
   DEP_FILE = CMakeFiles/milochess.dir/src/io.c.o.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
-build CMakeFiles/milochess.dir/src/generate.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/generate.c || cmake_object_order_depends_target_milochess
+build CMakeFiles/milochess.dir/src/generate.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/projects/CLionProjects/milochess/src/generate.c || cmake_object_order_depends_target_milochess
   DEP_FILE = CMakeFiles/milochess.dir/src/generate.c.o.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
-build CMakeFiles/milochess.dir/src/validate.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/validate.c || cmake_object_order_depends_target_milochess
+build CMakeFiles/milochess.dir/src/validate.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/projects/CLionProjects/milochess/src/validate.c || cmake_object_order_depends_target_milochess
   DEP_FILE = CMakeFiles/milochess.dir/src/validate.c.o.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
-build CMakeFiles/milochess.dir/src/makemove.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/makemove.c || cmake_object_order_depends_target_milochess
+build CMakeFiles/milochess.dir/src/makemove.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/projects/CLionProjects/milochess/src/makemove.c || cmake_object_order_depends_target_milochess
   DEP_FILE = CMakeFiles/milochess.dir/src/makemove.c.o.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
-build CMakeFiles/milochess.dir/src/perfthub.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/perfthub.c || cmake_object_order_depends_target_milochess
+build CMakeFiles/milochess.dir/src/perfthub.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/projects/CLionProjects/milochess/src/perfthub.c || cmake_object_order_depends_target_milochess
   DEP_FILE = CMakeFiles/milochess.dir/src/perfthub.c.o.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
-build CMakeFiles/milochess.dir/src/perft.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/perft.c || cmake_object_order_depends_target_milochess
+build CMakeFiles/milochess.dir/src/perft.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/projects/CLionProjects/milochess/src/perft.c || cmake_object_order_depends_target_milochess
   DEP_FILE = CMakeFiles/milochess.dir/src/perft.c.o.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
-build CMakeFiles/milochess.dir/src/main.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/CLionProjects/milochess/src/main.c || cmake_object_order_depends_target_milochess
+build CMakeFiles/milochess.dir/src/main.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/projects/CLionProjects/milochess/src/main.c || cmake_object_order_depends_target_milochess
   DEP_FILE = CMakeFiles/milochess.dir/src/main.c.o.d
   FLAGS = -g -fdiagnostics-color=always
-  INCLUDES = -I/home/miloszek/CLionProjects/milochess/include
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
+  OBJECT_DIR = CMakeFiles/milochess.dir
+  OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
+
+build CMakeFiles/milochess.dir/src/search.c.o: C_COMPILER__milochess_unscanned_Debug /home/miloszek/projects/CLionProjects/milochess/src/search.c || cmake_object_order_depends_target_milochess
+  DEP_FILE = CMakeFiles/milochess.dir/src/search.c.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  INCLUDES = -I/home/miloszek/projects/CLionProjects/milochess/include
   OBJECT_DIR = CMakeFiles/milochess.dir
   OBJECT_FILE_DIR = CMakeFiles/milochess.dir/src
 
@@ -162,7 +169,7 @@ build CMakeFiles/milochess.dir/src/main.c.o: C_COMPILER__milochess_unscanned_Deb
 #############################################
 # Link the executable milochess
 
-build milochess: C_EXECUTABLE_LINKER__milochess_Debug CMakeFiles/milochess.dir/src/init.c.o CMakeFiles/milochess.dir/src/bitboards.c.o CMakeFiles/milochess.dir/src/hashkeys.c.o CMakeFiles/milochess.dir/src/utils.c.o CMakeFiles/milochess.dir/src/board.c.o CMakeFiles/milochess.dir/src/data.c.o CMakeFiles/milochess.dir/src/attack.c.o CMakeFiles/milochess.dir/src/move.c.o CMakeFiles/milochess.dir/src/io.c.o CMakeFiles/milochess.dir/src/generate.c.o CMakeFiles/milochess.dir/src/validate.c.o CMakeFiles/milochess.dir/src/makemove.c.o CMakeFiles/milochess.dir/src/perfthub.c.o CMakeFiles/milochess.dir/src/perft.c.o CMakeFiles/milochess.dir/src/main.c.o
+build milochess: C_EXECUTABLE_LINKER__milochess_Debug CMakeFiles/milochess.dir/src/init.c.o CMakeFiles/milochess.dir/src/bitboards.c.o CMakeFiles/milochess.dir/src/hashkeys.c.o CMakeFiles/milochess.dir/src/utils.c.o CMakeFiles/milochess.dir/src/board.c.o CMakeFiles/milochess.dir/src/data.c.o CMakeFiles/milochess.dir/src/attack.c.o CMakeFiles/milochess.dir/src/move.c.o CMakeFiles/milochess.dir/src/io.c.o CMakeFiles/milochess.dir/src/generate.c.o CMakeFiles/milochess.dir/src/validate.c.o CMakeFiles/milochess.dir/src/makemove.c.o CMakeFiles/milochess.dir/src/perfthub.c.o CMakeFiles/milochess.dir/src/perft.c.o CMakeFiles/milochess.dir/src/main.c.o CMakeFiles/milochess.dir/src/search.c.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/milochess.dir
   POST_BUILD = :
@@ -175,7 +182,7 @@ build milochess: C_EXECUTABLE_LINKER__milochess_Debug CMakeFiles/milochess.dir/s
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/miloszek/CLionProjects/milochess/cmake-build-debug && /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+  COMMAND = cd /home/miloszek/projects/CLionProjects/milochess/cmake-build-debug && /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
@@ -186,7 +193,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/miloszek/CLionProjects/milochess/cmake-build-debug && /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/miloszek/CLionProjects/milochess -B/home/miloszek/CLionProjects/milochess/cmake-build-debug
+  COMMAND = cd /home/miloszek/projects/CLionProjects/milochess/cmake-build-debug && /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/miloszek/projects/CLionProjects/milochess -B/home/miloszek/projects/CLionProjects/milochess/cmake-build-debug
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -202,7 +209,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 
 #############################################
-# Folder: /home/miloszek/CLionProjects/milochess/cmake-build-debug
+# Folder: /home/miloszek/projects/CLionProjects/milochess/cmake-build-debug
 
 build all: phony milochess
 
@@ -213,14 +220,14 @@ build all: phony milochess
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeCInformation.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeCXXInformation.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeCommonLanguageInclude.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeGenericSystem.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeInitializeConfigs.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeLanguageInformation.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInformation.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInitialize.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Compiler/GNU-C.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Compiler/GNU-CXX.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Compiler/GNU.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/Linux-GNU-C.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/Linux-GNU-CXX.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/Linux-GNU.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/Linux.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/UnixPaths.cmake /home/miloszek/CLionProjects/milochess/CMakeLists.txt CMakeCache.txt CMakeFiles/3.26.4/CMakeCCompiler.cmake CMakeFiles/3.26.4/CMakeCXXCompiler.cmake CMakeFiles/3.26.4/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeCInformation.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeCXXInformation.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeCommonLanguageInclude.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeGenericSystem.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeInitializeConfigs.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeLanguageInformation.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInformation.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInitialize.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Compiler/GNU-C.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Compiler/GNU-CXX.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Compiler/GNU.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/Linux-GNU-C.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/Linux-GNU-CXX.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/Linux-GNU.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/Linux.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/UnixPaths.cmake /home/miloszek/projects/CLionProjects/milochess/CMakeLists.txt CMakeCache.txt CMakeFiles/3.26.4/CMakeCCompiler.cmake CMakeFiles/3.26.4/CMakeCXXCompiler.cmake CMakeFiles/3.26.4/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeCInformation.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeCXXInformation.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeCommonLanguageInclude.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeGenericSystem.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeInitializeConfigs.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeLanguageInformation.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInformation.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInitialize.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Compiler/GNU-C.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Compiler/GNU-CXX.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Compiler/GNU.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/Linux-GNU-C.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/Linux-GNU-CXX.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/Linux-GNU.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/Linux.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/UnixPaths.cmake /home/miloszek/CLionProjects/milochess/CMakeLists.txt CMakeCache.txt CMakeFiles/3.26.4/CMakeCCompiler.cmake CMakeFiles/3.26.4/CMakeCXXCompiler.cmake CMakeFiles/3.26.4/CMakeSystem.cmake: phony
+build /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeCInformation.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeCXXInformation.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeCommonLanguageInclude.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeGenericSystem.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeInitializeConfigs.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeLanguageInformation.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInformation.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/CMakeSystemSpecificInitialize.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Compiler/CMakeCommonCompilerMacros.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Compiler/GNU-C.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Compiler/GNU-CXX.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Compiler/GNU.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/Linux-GNU-C.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/Linux-GNU-CXX.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/Linux-GNU.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/Linux.cmake /home/miloszek/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/232.8660.186/bin/cmake/linux/x64/share/cmake-3.26/Modules/Platform/UnixPaths.cmake /home/miloszek/projects/CLionProjects/milochess/CMakeLists.txt CMakeCache.txt CMakeFiles/3.26.4/CMakeCCompiler.cmake CMakeFiles/3.26.4/CMakeCXXCompiler.cmake CMakeFiles/3.26.4/CMakeSystem.cmake: phony
 
 
 #############################################

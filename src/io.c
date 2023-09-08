@@ -19,14 +19,15 @@ int parseMove (char *move, BOARD *pos) {
     move[3] > '8' || move[3] < '1' )
         return false;
 
+    ASSERT(checkBoard(pos));
+
     int fromSquare = FR2SQ(move[0] - 'a', move[1] - '1');
     int toSquare = FR2SQ(move[2] - 'a', move[3] - '1');
-
-    printf("%s\n", move);
 
     ASSERT(isSquareOnBoard(fromSquare) && isSquareOnBoard(toSquare));
 
     MOVELIST movelist[1];
+    movelist[0].count = 0;
     generateAllMoves(pos, movelist);
 
     int currentMove = 0;
@@ -53,8 +54,6 @@ int parseMove (char *move, BOARD *pos) {
             return currentMove;
         }
 
-        return 0;
-
     }
-
+        return 0;
 }

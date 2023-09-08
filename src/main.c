@@ -11,6 +11,7 @@
 #include "generate.h"
 #include "perfthub.h"
 #include "makemove.h"
+#include "search.h"
 #include "io.h"
 
 #define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
@@ -24,6 +25,25 @@
 #define WCASTLE "r3k2r/8/8/8/8/8/8/R3K2R w KQkq - 0 1"
 #define BCASTLE "r3k2r/8/8/8/8/8/8/R3K2R b KQkq - 0 1"
 #define KIWIPETE "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
+#define PROMOTION "8/3P4/8/k3K3/8/8/1p6/8 w - - 0 1"
+
+/**
+ * @brief check if a move is a repetition, based on the position key history.
+ *
+ * @param pos the current position
+ *
+ * @return (bool) true if the move is a repetition
+ * @return (bool) false otherwise
+ */
+bool isRepetition (BOARD *pos) {
+
+    for (int i = pos->hisPly - pos->fiftyMove; i < pos->hisPly - 1; ++i) {
+        if (pos->posKey == pos->history[i].posKey)
+            return true;
+    }
+
+    return false;
+}
 
 int main() {
     initAll();
@@ -31,7 +51,7 @@ int main() {
     BOARD board[1];
     MOVELIST movelist[1];
 
-    parseFen(START_FEN, board);
+    parseFen(PROMOTION, board);
 
     char input[6];
     int currentMove = 0;
@@ -51,8 +71,13 @@ int main() {
         }
         else {
             currentMove = parseMove(input, board);
-            if (currentMove != 0)
+            if (currentMove != 0) {
                 makeMove(board, currentMove);
+                if (isRepetition(board))
+                    printf("repetition detected\n");
+            }
+            else
+                printf("invalid move\n");
         }
 
     }
