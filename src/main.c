@@ -27,23 +27,7 @@
 #define KIWIPETE "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
 #define PROMOTION "8/3P4/8/k3K3/8/8/1p6/8 w - - 0 1"
 
-/**
- * @brief check if a move is a repetition, based on the position key history.
- *
- * @param pos the current position
- *
- * @return (bool) true if the move is a repetition
- * @return (bool) false otherwise
- */
-bool isRepetition (BOARD *pos) {
 
-    for (int i = pos->hisPly - pos->fiftyMove; i < pos->hisPly - 1; ++i) {
-        if (pos->posKey == pos->history[i].posKey)
-            return true;
-    }
-
-    return false;
-}
 
 int main() {
     initAll();
