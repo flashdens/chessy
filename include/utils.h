@@ -15,6 +15,11 @@
  */
 #define U64 unsigned long long
 
+/**
+ * for clarity. idk if it's a good place to put the definition - TODO
+ */
+#define NOMOVE 0
+
 #include "globals.h"
 #include "init.h"
 

@@ -1,7 +1,6 @@
 #include <string.h>
 
 #include "move.h"
-#include "board.h"
 #include "globals.h"
 
 char *printMove (const int move) {

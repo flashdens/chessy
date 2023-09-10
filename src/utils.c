@@ -34,7 +34,7 @@
  *
  * @return the corresponding 120-based square.
  */
-extern int FR2SQ (int f, int r) {
+int FR2SQ (int f, int r) {
     return (( 21 + f ) + ( 10 * r ));
 }
 

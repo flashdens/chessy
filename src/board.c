@@ -5,8 +5,9 @@
 
 #include <stdbool.h>
 
-#include "board.h"
 #include "globals.h"
+#include "pvtable.h"
+#include "board.h"
 #include "enums.h"
 #include "hashkeys.h"
 #include "bitboards.h"
@@ -55,6 +56,8 @@ void resetBoard (BOARD *pos) {
     pos->castlePerm = 0;
 
     pos->posKey = 0ULL;
+
+    pos->pvTable = *pvtNew();
 
     //TODO: piece list
 }

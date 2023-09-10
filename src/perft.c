@@ -53,7 +53,8 @@ U64 perftTest (BOARD *pos, int depth, FILE *phubOut) {
         perft(pos, depth - 1, &leafNodes);
         takeBackMove(pos);
         oldNodes = leafNodes - cumNodes;
-        if (phubOut) fprintf(phubOut, "Move %d: %s: %llu\n", i + 1, printMove(move), oldNodes);
+        if (phubOut)
+            fprintf(phubOut, "Move %d: %s: %llu\n", i + 1, printMove(move), oldNodes);
     }
 
     return leafNodes;

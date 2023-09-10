@@ -27,7 +27,9 @@ add_executable(milochess
         src/search.c
         include/search.h
         src/pvtable.c
-        src/pvtable.h
+        include/pvtable.h
+        include/hashkeys.h
+        include/board.h
 )
 
 target_include_directories(milochess PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
