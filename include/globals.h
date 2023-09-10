@@ -8,7 +8,11 @@
 #define BOARD_SQUARES 120
 #define MAX_MOVES 2048
 #define MAX_POSITION_MOVES 256
-
+#define MAX_DEPTH 64
+/**
+ * no move found.
+ */
+#define NOMOVE 0
 
 extern int Sq120ToSq64[BOARD_SQUARES];
 extern int Sq64ToSq120[64];

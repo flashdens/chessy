@@ -48,7 +48,7 @@ typedef struct {
 
     U64 posKey;
 
-    PVTABLE pvTable;
+    PVTABLE *pvTable;
 }
 BOARD;
 
