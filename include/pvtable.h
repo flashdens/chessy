@@ -4,6 +4,8 @@
 #include "utils.h"
 #include "board.h"
 
+// TODO: deanonymize 
+
 struct BOARD;
 
 typedef struct {
@@ -26,5 +28,7 @@ static void pvtDel (PVENTRY *e);
 void pvtClear (PVTABLE *t);
 
 int pvtProbe (struct BOARD *pos);
+
+int getPVLine (int depth, struct BOARD *pos);
 
 #endif //MILOCHESS_PVTABLE_H

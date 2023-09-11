@@ -36,40 +36,46 @@ int main() {
     BOARD board[1];
     MOVELIST movelist[1];
 
-    parseFen(PROMOTION, board);
+    parseFen(START_FEN, board);
 
     char input[6];
     int currentMove = 0;
-    board[0].pvTable;
-//    printf("%d", board[0].pvTable->count);
+    int pvIdx = 0;
+    int max = 0;
 
-    pvtProbe(board);
+    while (1) {
+        printBoard(board);
+        printf("provide a move\n");
+        fgets(input, sizeof(input),stdin);
+        fflush(stdin);
 
-//    while (1) {
-//        printBoard(board);
-//        printf("provide a move\n");
-//        fgets(input, sizeof(input),stdin);
-//        fflush(stdin);
-//
-//        if (input[0] == 'q') {
-//            break;
-//        }
-//        else if (input[0] == 't') {
-//            takeBackMove(board);
-//            continue;
-//        }
-//        else {
-//            currentMove = parseMove(input, board);
-//            if (currentMove != 0) {
-//                makeMove(board, currentMove);
-//                if (isRepetition(board))
-//                    printf("repetition detected\n");
-//            }
-//            else
-//                printf("invalid move\n");
-//        }
-//
-//    }
+        if (input[0] == 'q') {
+            break;
+        }
+        else if (input[0] == 't') {
+            takeBackMove(board);
+            continue;
+        }
+        else if (input[0] == 'p') {
+            max = getPVLine(4, board);
+            printf("found pvline of %d moves:", max);
+            for (int i = 0; i < max; ++i) {
+                printf("%d: %s", i, printMove(board[0].pvArray[i]));
+            }
+            printf("\n");
+        }
+        else {
+            currentMove = parseMove(input, board);
+            if (currentMove != 0) {
+                makeMove(board, currentMove);
+                if (isRepetition(board))
+                    printf("repetition detected\n");
+            }
+            else
+                printf("invalid move\n");
+        }
+
+    }
 //
 //    BOARD board[1];
 //    MOVELIST movelist[1];
