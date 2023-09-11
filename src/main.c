@@ -35,14 +35,13 @@ int main() {
 
     BOARD board[1];
     MOVELIST movelist[1];
-    PVTABLE table[1];
 
     parseFen(PROMOTION, board);
 
     char input[6];
     int currentMove = 0;
 
-    pvtProbe(table, board);
+    pvtProbe(board);
 
 //    while (1) {
 //        printBoard(board);

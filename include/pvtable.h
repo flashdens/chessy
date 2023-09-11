@@ -2,7 +2,8 @@
 #define MILOCHESS_PVTABLE_H
 
 #include "utils.h"
-#include "board.h"
+
+typedef struct BOARD;
 
 typedef struct {
     U64 posKey;
@@ -16,15 +17,14 @@ typedef struct {
 } PVTABLE;
 
 
-
 PVTABLE* pvtNew ();
 
-void pvtInsert (PVTABLE *t, BOARD *pos, int move);
+void pvtInsert (PVTABLE *t, struct BOARD *pos, int move);
 
 static void pvtDel (PVENTRY *e);
 
 void pvtClear (PVTABLE *t);
 
-int pvtProbe (PVTABLE *t, BOARD *pos);
+int pvtProbe (struct BOARD *pos);
 
 #endif //MILOCHESS_PVTABLE_H

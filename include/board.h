@@ -10,8 +10,11 @@
 
 #include "globals.h"
 #include "utils.h"
+#include "pvtable.h"
 
-struct PVTABLE;
+/**
+ * a declaration to avoid circular dependency with pvtable.h
+ */
 
 typedef struct {
     int move;
@@ -49,7 +52,7 @@ typedef struct {
 
     U64 posKey;
 
-    struct PVTABLE *pvTable;
+    PVTABLE *pvTable;
 }
 BOARD;
 

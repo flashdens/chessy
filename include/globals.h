@@ -9,6 +9,7 @@
 #define MAX_MOVES 2048
 #define MAX_POSITION_MOVES 256
 #define MAX_DEPTH 64
+
 /**
  * no move found.
  */
