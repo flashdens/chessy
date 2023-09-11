@@ -13,6 +13,7 @@
 #include "makemove.h"
 #include "search.h"
 #include "io.h"
+#include "pvtable.h"
 
 #define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 #define FEN4 "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
@@ -34,37 +35,40 @@ int main() {
 
     BOARD board[1];
     MOVELIST movelist[1];
+    PVTABLE table[1];
 
     parseFen(PROMOTION, board);
 
     char input[6];
     int currentMove = 0;
 
-    while (1) {
-        printBoard(board);
-        printf("provide a move\n");
-        fgets(input, sizeof(input),stdin);
-        fflush(stdin);
+    pvtProbe(table, board);
 
-        if (input[0] == 'q') {
-            break;
-        }
-        else if (input[0] == 't') {
-            takeBackMove(board);
-            continue;
-        }
-        else {
-            currentMove = parseMove(input, board);
-            if (currentMove != 0) {
-                makeMove(board, currentMove);
-                if (isRepetition(board))
-                    printf("repetition detected\n");
-            }
-            else
-                printf("invalid move\n");
-        }
-
-    }
+//    while (1) {
+//        printBoard(board);
+//        printf("provide a move\n");
+//        fgets(input, sizeof(input),stdin);
+//        fflush(stdin);
+//
+//        if (input[0] == 'q') {
+//            break;
+//        }
+//        else if (input[0] == 't') {
+//            takeBackMove(board);
+//            continue;
+//        }
+//        else {
+//            currentMove = parseMove(input, board);
+//            if (currentMove != 0) {
+//                makeMove(board, currentMove);
+//                if (isRepetition(board))
+//                    printf("repetition detected\n");
+//            }
+//            else
+//                printf("invalid move\n");
+//        }
+//
+//    }
 //
 //    BOARD board[1];
 //    MOVELIST movelist[1];

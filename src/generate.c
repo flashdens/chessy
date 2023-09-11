@@ -418,3 +418,6 @@ void generateAllMoves (const BOARD *pos, MOVELIST *list) {
         generateBlackCastlingMoves(pos, list);
     }
 }
+
+
+

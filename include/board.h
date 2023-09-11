@@ -10,7 +10,8 @@
 
 #include "globals.h"
 #include "utils.h"
-#include "pvtable.h"
+
+struct PVTABLE;
 
 typedef struct {
     int move;
@@ -48,7 +49,7 @@ typedef struct {
 
     U64 posKey;
 
-    PVTABLE *pvTable;
+    struct PVTABLE *pvTable;
 }
 BOARD;
 

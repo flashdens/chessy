@@ -2,6 +2,7 @@
 #define MILOCHESS_MOVE_H
 
 #include "globals.h"
+#include "board.h"
 
 // macros to help reading the bits from MOVE->move.
 
@@ -70,6 +71,17 @@ typedef struct {
     MOVE moves[MAX_POSITION_MOVES];
     int count;
 } MOVELIST;
+
+/**
+ * @brief check if a move exists on a movelist.
+ *
+ * @param pos (*BOARD) the current position
+ * @param searchedFor the move to be checked
+ *
+ * @return (bool) true if a move exists on a movelist
+ * @return (bool) false otherwise
+ */
+bool moveExists (BOARD *pos, int searchedFor);
 
 
 /**

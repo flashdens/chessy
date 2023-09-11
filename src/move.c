@@ -2,6 +2,9 @@
 
 #include "move.h"
 #include "globals.h"
+#include "generate.h"
+#include "board.h"
+#include "makemove.h"
 
 char *printMove (const int move) {
 
@@ -34,8 +37,32 @@ char *printMove (const int move) {
 
     return moveString;
 }
+/**
+ * @brief check if a move exists on a movelist.
+ *
+ * @param pos (*BOARD) the current position
+ * @param searchedFor the move to be checked
+ *
+ * @return (bool) true if a move exists on a movelist
+ * @return (bool) false otherwise
+ */
+bool moveExists (BOARD *pos, const int searchedFor) {
+    MOVELIST *movelist = NULL;
+    movelist->count = 0;
+    generateAllMoves(pos, movelist);
 
+    for (int i = 0; i < movelist->count; ++i) {
+        int analyzedMove = movelist->moves[i].move;
 
+        if (!makeMove(pos, analyzedMove))
+            continue;
+        takeBackMove(pos);
+        if (analyzedMove == searchedFor)
+            return true;
+    }
+
+    return false;
+}
 
 /**
  * @brief print a move list.
