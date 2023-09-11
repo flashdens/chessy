@@ -2,12 +2,14 @@ cmake_minimum_required(VERSION 3.23)
 project(milochess LANGUAGES C CXX)
 set(CMAKE_C_STANDARD 17)
 
+
 add_executable(milochess
+        include/board.h
+        src/board.c
         src/init.c
         src/bitboards.c
         src/hashkeys.c
         src/utils.c
-        src/board.c
         src/data.c
         src/attack.c
         src/move.c
@@ -26,7 +28,6 @@ add_executable(milochess
         src/main.c
         src/search.c
         include/search.h
-        include/board.h
         include/hashkeys.h
         include/pvtable.h
         src/pvtable.c

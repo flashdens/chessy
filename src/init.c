@@ -5,6 +5,7 @@
 #include "utils.h"
 #include "init.h"
 #include "enums.h"
+#include "board.h"
 
 int Sq64ToSq120[64];
 int Sq120ToSq64[BOARD_SQUARES];

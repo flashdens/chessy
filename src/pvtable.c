@@ -1,9 +1,7 @@
 #include <stdlib.h>
 
-#include "board.h"
 #include "pvtable.h"
 #include "utils.h"
-
 
 PVTABLE* pvtNew () {
     PVTABLE *table = malloc(sizeof(PVTABLE));
@@ -13,7 +11,6 @@ PVTABLE* pvtNew () {
     printf("table initialized at address %p", &table);
     return table;
 }
-
 
 static void pvtDel (PVENTRY *e) {
     free(e);
@@ -51,7 +48,7 @@ int pvtProbe (struct BOARD *pos) {
 //    return NOMOVE;
 }
 
-int getPVLine (const int depth, BOARD *pos) {
+int getPVLine (const int depth, struct BOARD *pos) {
 
     ASSERT(depth < MAX_DEPTH)
 

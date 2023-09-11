@@ -40,6 +40,8 @@ int main() {
 
     char input[6];
     int currentMove = 0;
+    board[0].pvTable;
+//    printf("%d", board[0].pvTable->count);
 
     pvtProbe(board);
 

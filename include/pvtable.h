@@ -2,20 +2,20 @@
 #define MILOCHESS_PVTABLE_H
 
 #include "utils.h"
+#include "board.h"
 
-typedef struct BOARD;
+struct BOARD;
 
 typedef struct {
     U64 posKey;
     int move;
 } PVENTRY;
 
-typedef struct {
+typedef struct PVTABLE {
     PVENTRY *items;
     int itemsNum;
     int size;
 } PVTABLE;
-
 
 PVTABLE* pvtNew ();
 
