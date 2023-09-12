@@ -16,16 +16,16 @@ typedef struct {
 typedef struct PVTABLE {
     PVENTRY *items;
     int itemsNum;
-    int size;
 } PVTABLE;
 
 PVTABLE* pvtNew ();
 
-void pvtInsert (PVTABLE *t, struct BOARD *pos, int move);
+void pvtInsert (struct BOARD *pos, int move);
+
 
 static void pvtDel (PVENTRY *e);
 
-void pvtClear (PVTABLE *t);
+void pvtClear (struct BOARD *pos);
 
 int pvtProbe (struct BOARD *pos);
 

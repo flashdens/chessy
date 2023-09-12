@@ -7,11 +7,11 @@
 #include "board.h"
 
 PVTABLE* pvtNew () {
+    const int pvSize = 0x100000 * 2;
     PVTABLE *table = malloc(sizeof(PVTABLE));
-    table->size = 64;
-    table->itemsNum = 0;
-    table->items = calloc((size_t)table->size, sizeof(PVENTRY));
-    printf("table initialized at address %p", &table);
+    table->itemsNum = pvSize / sizeof (PVENTRY) - 2;
+    table->items = calloc((size_t)table->itemsNum, sizeof(PVENTRY));
+    printf("table initialized with %d entries\n", table->itemsNum);
     return table;
 }
 
@@ -19,25 +19,25 @@ static void pvtDel (PVENTRY *e) {
     free(e);
 }
 
-void pvtClear (PVTABLE *t) {
-    for (int i = 0; i < t->size; ++i) {
-        PVENTRY item = t->items[i];
+void pvtClear (struct BOARD *pos) {
+    for (int i = 0; i < pos->pvTable->itemsNum; ++i) {
+        PVENTRY item = pos->pvTable->items[i];
         if (item.posKey != 0)
             pvtDel(&item);
     }
 
-    free(t);
+    free(pos->pvTable);
 }
 
-void pvtInsert (PVTABLE *t, struct BOARD *pos, int move) {
-    int index = pos->posKey % t->itemsNum;
+void pvtInsert (struct BOARD *pos, int move) {
+    int index = pos->posKey % pos->pvTable->itemsNum;
 
-    ASSERT(index >= 0 && index <= t->itemsNum - 1);
+    ASSERT(index >= 0 && index <= pos->pvTable->itemsNum - 1);
 
     PVENTRY *e = malloc(sizeof(PVENTRY));
 
-    t->items[index].move = move;
-    t->items[index].posKey = pos->posKey;
+    pos->pvTable->items[index].move = move;
+    pos->pvTable->items[index].posKey = pos->posKey;
 }
 
 int pvtProbe (struct BOARD *pos) {
