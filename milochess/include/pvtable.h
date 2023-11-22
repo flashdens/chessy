@@ -1,4 +1,4 @@
-#ifndef MILOCHESS_PVTABLE_H
+    #ifndef MILOCHESS_PVTABLE_H
 #define MILOCHESS_PVTABLE_H
 
 #include "utils.h"
@@ -21,7 +21,6 @@ typedef struct PVTABLE {
 PVTABLE* pvtNew ();
 
 void pvtInsert (struct BOARD *pos, int move);
-
 
 static void pvtDel (PVENTRY *e);
 

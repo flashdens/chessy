@@ -5,6 +5,7 @@
 #include "generate.h"
 #include "board.h"
 #include "makemove.h"
+#include "validate.h"
 
 char *printMove (const int move) {
 
@@ -12,9 +13,16 @@ char *printMove (const int move) {
     char piece;
 
     int fileFrom = boardFiles[FROMSQ(move)];
+    ASSERT(isFileRankValid(fileFrom));
+
     int rankFrom = boardRanks[FROMSQ(move)];
+    ASSERT(isFileRankValid(rankFrom));
+
     int fileTo = boardFiles[TOSQ(move)];
+    ASSERT(isFileRankValid(fileTo));
+
     int rankTo = boardRanks[TOSQ(move)];
+    ASSERT(isFileRankValid(rankTo));
 
     int promoted = PROMOTED(move);
 
@@ -47,7 +55,7 @@ char *printMove (const int move) {
  * @return (bool) false otherwise
  */
 bool moveExists (BOARD *pos, const int searchedFor) {
-    MOVELIST *movelist = NULL;
+    MOVELIST movelist[1];
     movelist->count = 0;
     generateAllMoves(pos, movelist);
 

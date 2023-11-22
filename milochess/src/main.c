@@ -36,51 +36,49 @@ int main() {
     BOARD board[1];
     MOVELIST movelist[1];
 
-//    parseFen(START_FEN, board);
-    char **argv = malloc(strlen("perthub -t 5"));
-    argv[0] = "perfthub";
-//    argv[1] = "-f";
-//    argv[2] = "5";
-    perfthub(1, argv);
-    free(argv);
-//    char input[6];
-//    int currentMove = 0;
-//    int pvIdx = 0;
-//    int max = 0;
-//
-//    while (1) {
-//        printBoard(board);
-//        printf("provide a move\n");
-//        fgets(input, sizeof(input),stdin);
-//        fflush(stdin);
-//
-//        if (input[0] == 'q') {
-//            break;
-//        }
-//        else if (input[0] == 't') {
-//            takeBackMove(board);
-//            continue;
-//        }
-//        else if (input[0] == 'p') {
-//            max = getPVLine(4, board);
-//            printf("found pvline of %d moves:", max);
-//            for (int i = 0; i < max; ++i) {
-//                printf("%d: %s", i, printMove(board[0].pvArray[i]));
-//            }
-//            printf("\n");
-//        }
-//        else {
-//            currentMove = parseMove(input, board);
-//            if (currentMove != 0) {
-//                makeMove(board, currentMove);
-//                if (isRepetition(board))
-//                    printf("repetition detected\n");
-//            }
-//            else
-//                printf("invalid move\n");
-//        }
-//
-//    }
+    parseFen(START_FEN, board);
+
+
+    char input[6];
+    int currentMove = 0;
+    int pvIdx = 0;
+    int max = 0;
+
+    while (1) {
+        printBoard(board);
+        printf("provide a move\n");
+        fgets(input, sizeof(input),stdin);
+        fflush(stdin);
+
+        if (input[0] == 'q') {
+            break;
+        }
+        else if (input[0] == 't') {
+            takeBackMove(board);
+            continue;
+        }
+        else if (input[0] == 'p') {
+            max = getPVLine(4, board);
+            printf("found pvline of %d moves: ", max);
+            for (int i = 0; i < max; ++i) {
+                printf(" %d: %s |", i+1, printMove(board[0].pvArray[i]));
+            }
+            printf("\n");
+        }
+        else {
+            currentMove = parseMove(input, board);
+            if (currentMove != 0) {
+                printf("%s", printMove(currentMove));
+                pvtInsert(board, currentMove);
+                makeMove(board, currentMove);
+                if (isRepetition(board))
+                    printf("repetition detected\n\n");
+            }
+            else
+                printf("invalid move\n\n");
+        }
+
+    }
 //
 //    BOARD board[1];
 //    MOVELIST movelist[1];

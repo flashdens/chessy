@@ -50,7 +50,7 @@ typedef struct BOARD {
     U64 posKey;
 
     struct PVTABLE *pvTable;
-    int pvArray[MAX_DEPTH]
+    int pvArray[MAX_DEPTH];
 }
 BOARD;
 
