@@ -1,0 +1,25 @@
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+.ninja_log
+.cmake
+
+# Test cache
+Testing
+lib
+
+# Compiler-specific files
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+
+# the actual executable
+milochess
+
+# perfthub files
+perft*
