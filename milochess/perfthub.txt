@@ -1,0 +1,51 @@
+PERFTHUB
+
+perfthub is a tool that lets you perft test the milochess chess engine. you can use flags to modify its behaviour.
+
+by default, 3 .log files are generated for each test run:
+- perfthub_info -  basic information about the test (4)
+- perfthub_error -  detailed information about failed tests (2)
+- perfthub_full -  all information about each test (1)
+
+they are stored in {milochess_executable_path}/perfthub/{test_time} directories (the perfthub directory is created if it doesn't exist under the current path, test run directories are created dynamically).
+
+perfthub requires you to provide "perft.txt" in the exe path, which includes the FEN positions alongside expected values.
+if you don't have the file present, perfthub will download it for you from https://wierzba.wzks.uj.edu.pl/~21_bogacz/milochess/perft.txt.
+you can also look up the link as a reference to how the file should look like (if you want only fens to be parsed, look up the -l flag).
+
+perfthub started with no flags will first handle perft.txt, then ask for test depth and amount, afterwards proceeding with the tests.
+
+OPTIONS
+
+WITHOUT ARGUMENTS
+
+-s, --skip
+skip the welcome screen. best used with -d and -t for immediate testing
+
+-h, --help
+print help (this very document). if this is the only option, perfthub will exit.
+
+-l, --loose
+omit testing against expected values, outputting the results the files anyway. be sure to pass the flag if your perft.txt file doesn't include expected values of the test to avoid errors
+
+-e --error-to-stdout
+write error logs to stdout alongside the files, therefore not printing information about test starts to stdout.
+
+
+WITH ARGUMENTS
+
+-f --files (0-7)
+specify which log files to generate after the flag. each file has a numeric value (see above) which lets you choose the files in the chmod manner.
+for example, 0 means generate no log files, 4 means generate only perfthub_info, 7 means generate all (which is the default option).
+
+
+-d, --depth (2-7)
+pass the maximum depth of the test after the flag, skipping being prompted to do so later.
+
+
+-t, --tests (0-num of lines of perft.txt)
+pass the amount of positions to be tested after the flag, skipping being prompted to do so later.
+first x positions from the file will be tested.
+
+EXAMPLE USAGE
+

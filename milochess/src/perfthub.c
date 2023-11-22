@@ -8,6 +8,14 @@
 #include "perft.h"
 #include "board.h"
 
+#define S_FLAG (1 << 0)
+#define H_FLAG (1 << 1)
+#define L_FLAG (1 << 2)
+#define E_FLAG (1 << 3)
+#define F_FLAG (1 << 4)
+#define D_FLAG (1 << 5)
+#define T_FLAG (1 << 6)
+
 /**
  * @brief utility function to download input for perfthub from a server.
  *
@@ -21,6 +29,7 @@ int getInput () {
     printf("perft.txt not found. do you wish to download it (y/n)?\n");
     char choice;
     scanf(" %c", &choice);
+    clearStdin();
 
     if (choice != 'y' && choice != 'Y') {
         printf("file download rejected. exiting perfthub...\n");
@@ -35,12 +44,12 @@ int getInput () {
 
     if (result == 0) {
         printf("perft.txt downloaded successfully\n");
+        return 0;
     }
     else {
         printf("failed to download perft.txt. exiting perfthub...\n");
         return EXIT_FAILURE;
     }
-    return 0;
 }
 
 /**
@@ -229,34 +238,34 @@ int perfthub (int argc, char **argv) {
     struct tm *t = localtime(&now);
     strftime(date, 24, "%d-%m-%Y_%H:%M:%S.log", t);
 
-    char subDirName[57] = "perfthub/";
+    char subDirName[29] = "perfthub/";
     strncat(subDirName, date, 19);
 
     struct stat st;
 
     if (stat("perfthub", &st) != 0 || !S_ISDIR(st.st_mode))
         if (mkdir("perfthub", 0755) != 0) {
-            printf("fError creating the perfthub directory\n");
+            printf("error creating the perfthub directory\n");
             return EXIT_FAILURE;
         }
 
     if (mkdir(subDirName, 0755) != 0) {
-        printf("fError creating the perfthub subdirectory\n");
+        printf("error creating the test subdirectory\n");
         return EXIT_FAILURE;
     }
 
-    char infoFilename[57];
-    char errorFilename[57];
-    char fullFilename[57];
+    char infoFilename[62];
+    char errorFilename[68];
+    char fullFilename[67];
 
     snprintf(infoFilename, 29, "%s", subDirName);
-    snprintf(infoFilename + 28, 29, "/perfthub_%s", date);
+    snprintf(infoFilename + 28, 34, "/perfthub_%s", date);
 
     snprintf(errorFilename, 29, "%s", subDirName);
-    snprintf(errorFilename + 28, 29, "/perfthub_error_%s", date);
+    snprintf(errorFilename + 28, 40, "/perfthub_error_%s", date);
 
     snprintf(fullFilename, 29, "%s", subDirName);
-    snprintf(fullFilename + 28, 29, "/perfthub_full_%s", date);
+    snprintf(fullFilename + 28, 39, "/perfthub_full_%s", date);
 
     FILE* input = fopen("perft.txt", "r");
 
@@ -264,34 +273,41 @@ int perfthub (int argc, char **argv) {
     FILE *fError = NULL;
     FILE *fFull = NULL;
 
-        if ((argFiles - 4) >= 0) {
-            fInfo = fopen(strncat(infoFilename, date, 24), "w+");
-            argFiles -= 4;
-        }
-        if ((argFiles - 2) >= 0) {
-            fError = fopen(strncat(errorFilename, date, 24), "w+");
-            argFiles -= 2;
-        }
-        if (argFiles - 1 == 0) {
-            fFull = fopen(strncat(fullFilename, date, 24), "w+");
-            argFiles -= 1;
-        }
-        if (argFiles != 0) {
-            printf("error processing file arguments, see phub -h for help\n");
-            return EXIT_FAILURE;
-        }
-
-    if (!input && getInput() != 0)
+    if (argFiles < 0 || argFiles > 7) {
+        printf("error processing file arguments, see phub -h for help\n");
         return EXIT_FAILURE;
+    }
+
+    if (argFiles - 4 >= 0) {
+        fInfo = fopen(infoFilename, "w+"); // TODO fopen returns null and filenames double
+        argFiles -= 4;
+    }
+
+    if (argFiles - 2 >= 0) {
+        fError = fopen(errorFilename, "w+");
+        argFiles -= 2;
+    }
+
+    if (argFiles - 1 == 0) {
+        fFull = fopen(fullFilename, "w+");
+        argFiles -= 1;
+    }
+
+    if (!input && getInput() != 0) {
+        if (fInfo)  fclose(fInfo);
+        if (fError)  fclose(fError);
+        if (fFull)  fclose(fFull);
+        return EXIT_FAILURE;
+    }
+
     input = fopen("perft.txt", "r");
 
     int lines = 0;
     int maxDepth = argDepth;
     int tests = argTests;
-    char dBuf[5];
     char buf[256];
 
-    while (fgets(buf, sizeof(buf), input) != NULL) { // TODO: add t flag handling TODO use wc instead?
+    while (fgets(buf, sizeof(buf), input) != NULL && !(flags & T_FLAG)) {
         lines++;
     }
     fseek(input, 0, SEEK_SET);
@@ -310,7 +326,8 @@ int perfthub (int argc, char **argv) {
     }
 
     while (!(flags & T_FLAG) || tests > lines) {
-    clearStdin();
+        char dBuf[5];
+        clearStdin();
         printf("how many positions do you want to test against? (max %d, leave empty to test for that amount)\n", lines);
         fgets(dBuf, 5, stdin);
 
@@ -358,7 +375,11 @@ int perfthub (int argc, char **argv) {
         char *token = strtok(buf, ",");
         char *fen = token;
 
-        parseFen(fen, board);
+        if (parseFen(fen, board) != 0) {
+            if (fInfo)  fclose(fInfo);
+            if (fError)  fclose(fError);
+            if (fFull)  fclose(fFull);
+        }
 
         token = strtok(NULL, "");
         token = strtok(token, ",");
@@ -452,6 +473,10 @@ int perfthub (int argc, char **argv) {
         if (fFull) fprintf(fFull, "all tests passed, congrats!\n");
         printf("by the way, all passed! congrats!\n");
     }
+
+    if (fInfo)  fclose(fInfo);
+    if (fError)  fclose(fError);
+    if (fFull)  fclose(fFull);
 
     return EXIT_SUCCESS;
 }
