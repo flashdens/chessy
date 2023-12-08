@@ -4,12 +4,14 @@
 #include "data.h"
 #include "enums.h"
 
-char pieceChar[] = ".PNBRQKpnbrqk";
-char sideChar[] = "wb-";
-char rankChar[] = "12345678";
-char fileChar[] = "abcdefgh";
+//TODO make these consts
 
-bool isPieceMin[13] = {false,
+const char pieceChar[] = ".PNBRQKpnbrqk";
+const char sideChar[] = "wb-";
+const char rankChar[] = "12345678";
+const char fileChar[] = "abcdefgh";
+
+const bool isPieceMin[13] = {false,
                     false,
                     true, true,
                     false, false, false,
@@ -17,23 +19,23 @@ bool isPieceMin[13] = {false,
                     true, true,
                     false, false, false};
 
-bool isPieceBig[13] = {false,
+const bool isPieceBig[13] = {false,
                     false,
                     true, true, true, true, true,
                     false,
                     true, true, true, true, true};
 
-bool isPieceMaj[13] = {false,
+const bool isPieceMaj[13] = {false,
                     false, false, false,
                     true, true, true,
                     false, false, false,
                     true, true, true};
 
-int pieceVal[13] = {0,
+const int pieceVal[13] = {0,
                     100, 325, 325, 550, 1000, 50000,
                     100, 325, 325, 550, 1000, 50000};
 
-int pieceCol[13] = {BOTH,
+const int pieceCol[13] = {BOTH,
                     WHITE, WHITE, WHITE, WHITE, WHITE, WHITE,
                     BLACK, BLACK, BLACK, BLACK, BLACK, BLACK};
 
@@ -43,13 +45,13 @@ const int bishopDir[4] = { -9, -11, 11, 9 };
 const int kingDir[8] = { -1, -10,	1, 10, -9, -11, 11, 9 };
 
 
-bool isPiecePawn[13] = { false,
+const bool isPiecePawn[13] = { false,
                       true,
                       false, false, false, false, false,
                       true,
                       false, false, false, false, false };
 
-bool isPieceKnight[13] = { false, false,
+const bool isPieceKnight[13] = { false, false,
                         true,
                         false, false, false, false,
                         false,
@@ -57,7 +59,7 @@ bool isPieceKnight[13] = { false, false,
                         false, false, false, false };
 
 
-bool isPieceRookOrQueen[13] = { false,
+const bool isPieceRookOrQueen[13] = { false,
                              false, false, false,
                              true, true,
                              false,
@@ -65,7 +67,7 @@ bool isPieceRookOrQueen[13] = { false,
                              true, true,
                              false };
 
-bool isPieceBishopOrQueen[13] = { false,
+const bool isPieceBishopOrQueen[13] = { false,
                                  false, false,
                                  true,
                                  false,
@@ -77,10 +79,10 @@ bool isPieceBishopOrQueen[13] = { false,
                                  true,
                                  false };
 
-bool isPieceKing[13] = { false,
+const bool isPieceKing[13] = { false,
                       false, false, false, false, false,
                       true,
                       false, false, false, false, false,
                       true};
 
-bool doesPieceSlide[13] = { false, false, false, true, true, true, false, false, false, true, true, true, false };
+const bool doesPieceSlide[13] = { false, false, false, true, true, true, false, false, false, true, true, true, false };

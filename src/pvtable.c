@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 
 #include "pvtable.h"
 #include "utils.h"
@@ -8,8 +9,9 @@
 
 PVTABLE* pvtNew () {
     const int pvSize = 0x100000 * 2;
-    PVTABLE *table = malloc(sizeof(PVTABLE));
-    table->itemsNum = pvSize / sizeof (PVENTRY) - 2;
+    PVTABLE *table = malloc(pvSize);
+    table->itemsNum = (pvSize / sizeof (PVENTRY)) - 2;
+    free(table->items);
     table->items = calloc((size_t)table->itemsNum, sizeof(PVENTRY));
     printf("table initialized with %d entries\n", table->itemsNum);
     return table;
@@ -20,24 +22,18 @@ static void pvtDel (PVENTRY *e) {
 }
 
 void pvtClear (struct BOARD *pos) {
-    for (int i = 0; i < pos->pvTable->itemsNum; ++i) {
-        PVENTRY item = pos->pvTable->items[i];
-        if (item.posKey != 0)
-            pvtDel(&item);
-    }
-
+    memset(pos->pvTable, 0, sizeof(PVTABLE));
     free(pos->pvTable);
+    pos->pvTable = NULL;
 }
 
 void pvtInsert (struct BOARD *pos, int move) {
-    int index = pos->posKey % pos->pvTable->itemsNum;
+    int i = pos->posKey % pos->pvTable->itemsNum;
 
-    ASSERT(index >= 0 && index <= pos->pvTable->itemsNum - 1);
+    ASSERT(i >= 0 && i <= pos->pvTable->itemsNum - 1);
 
-    PVENTRY *e = malloc(sizeof(PVENTRY));
-
-    pos->pvTable->items[index].move = move;
-    pos->pvTable->items[index].posKey = pos->posKey;
+    pos->pvTable->items[i].move = move;
+    pos->pvTable->items[i].posKey = pos->posKey;
 }
 
 int pvtProbe (struct BOARD *pos) {
@@ -47,27 +43,25 @@ int pvtProbe (struct BOARD *pos) {
 
     if (pos->pvTable->items[index].posKey == pos->posKey)
         return pos->pvTable->items[index].move;
-
-    return NOMOVE;
+    else
+        return NOMOVE;
 }
 
-int getPVLine (const int depth, struct BOARD *pos) {
-
+int getPVLine(const int depth, struct BOARD *pos) {
     ASSERT(depth < MAX_DEPTH)
 
     int move = pvtProbe(pos);
     int moveCount = 0;
 
-    for (moveCount; moveCount < depth && move != NOMOVE; ++moveCount) {
+    while (moveCount < depth && moveExists(pos, move)) {
         ASSERT(moveCount < MAX_DEPTH);
 
-        if (moveExists(pos, move)) {
-            makeMove(pos, move);
-            moveCount++;
-            pos->pvArray[moveCount] = move;
-        }
+        makeMove(pos, move);
+        pos->pvArray[moveCount++] = move;
 
         move = pvtProbe(pos);
+        if (move == NOMOVE)
+            break;
     }
 
     while (pos->ply > 0) {
@@ -76,8 +70,3 @@ int getPVLine (const int depth, struct BOARD *pos) {
 
     return moveCount;
 }
-
-//int pvtRetrieve () {
-//
-//
-//}

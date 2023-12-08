@@ -25,16 +25,16 @@ extern U64 pieceKeys[13][120];
 extern U64 sideKey;
 extern U64 castleKeys[16];
 
-extern char pieceChar[];
-extern char sideChar[];
-extern char rankChar[];
-extern char fileChar[];
+extern const char pieceChar[];
+extern const char sideChar[];
+extern const char rankChar[];
+extern const char fileChar[];
 
-extern bool isPieceMin[13];
-extern bool isPieceBig[13];
-extern bool isPieceMaj[13];
-extern int pieceVal[13];
-extern int pieceCol[13];
+extern const bool isPieceMin[13];
+extern const bool isPieceBig[13];
+extern const bool isPieceMaj[13];
+extern const int pieceVal[13];
+extern const int pieceCol[13];
 
 extern int boardFiles[BOARD_SQUARES];
 extern int boardRanks[BOARD_SQUARES];
@@ -44,15 +44,17 @@ extern const int rookDir[4];
 extern const int bishopDir[4];
 extern const int kingDir[8];
 
-extern bool isPiecePawn[13];
-extern bool isPieceKnight[13];
-extern bool isPieceKing[13];
-extern bool isPieceBishopOrQueen[13];
-extern bool isPieceRookOrQueen[13];
-extern bool doesPieceSlide[13];
+extern const bool isPiecePawn[13];
+extern const bool isPieceKnight[13];
+extern const bool isPieceKing[13];
+extern const bool isPieceBishopOrQueen[13];
+extern const bool isPieceRookOrQueen[13];
+extern const bool doesPieceSlide[13];
 
 /** @file makemove.c */
 extern const int castlePerms[120];
+
+// TODO do these functions belong here?
 
 /**
  * @brief print the coordinates of a square.

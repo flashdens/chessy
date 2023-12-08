@@ -8,6 +8,14 @@
 #include "perft.h"
 #include "board.h"
 
+#define S_FLAG (1 << 0)
+#define H_FLAG (1 << 1)
+#define L_FLAG (1 << 2)
+#define E_FLAG (1 << 3)
+#define F_FLAG (1 << 4)
+#define D_FLAG (1 << 5)
+#define T_FLAG (1 << 6)
+
 /**
  * @brief utility function to download input for perfthub from a server.
  *
@@ -17,10 +25,11 @@
  * @return 1 on failure alongside relevant information
  */
 int getInput () {
-    printf("perft.txt not found. do you wish to download it (y/n)?\n");
 
+    printf("perft.txt not found. do you wish to download it (y/n)?\n");
     char choice;
     scanf(" %c", &choice);
+    clearStdin();
 
     if (choice != 'y' && choice != 'Y') {
         printf("file download rejected. exiting perfthub...\n");
@@ -28,22 +37,19 @@ int getInput () {
     }
 
     int result;
-    char command[100] = "wget ";
-    const char *url = "https://wierzba.wzks.uj.edu.pl/~21_bogacz/milochess/perft.txt";
+    char command[67] = "wget https://wierzba.wzks.uj.edu.pl/~21_bogacz/milochess/perft.txt";
 
-    strncat(command, url, strlen(url));
     result = system(command);
     printf("%s\n", command);
 
     if (result == 0) {
         printf("perft.txt downloaded successfully\n");
+        return 0;
     }
     else {
         printf("failed to download perft.txt. exiting perfthub...\n");
         return EXIT_FAILURE;
     }
-
-    return 0;
 }
 
 /**
@@ -114,7 +120,7 @@ void printHelp () {
  * @brief perft-test against a set of results stored in a text file.
  *
  * @param argc argument count
- * @param argv arguments
+ * @param argv (**char) argument array
  *
  * @see printHelp() for more information
  *
@@ -232,69 +238,76 @@ int perfthub (int argc, char **argv) {
     struct tm *t = localtime(&now);
     strftime(date, 24, "%d-%m-%Y_%H:%M:%S.log", t);
 
-    char subDirName[256] = "perfthub/";
+    char subDirName[29] = "perfthub/";
     strncat(subDirName, date, 19);
 
     struct stat st;
 
     if (stat("perfthub", &st) != 0 || !S_ISDIR(st.st_mode))
         if (mkdir("perfthub", 0755) != 0) {
-            printf("fError creating the perfthub directory\n");
+            printf("error creating the perfthub directory\n");
             return EXIT_FAILURE;
         }
 
     if (mkdir(subDirName, 0755) != 0) {
-        printf("fError creating the perfthub subdirectory\n");
+        printf("error creating the test subdirectory\n");
         return EXIT_FAILURE;
     }
 
-    char infoFilename[256];
-    char errorFilename[256];
-    char fullFilename[256];
+    char infoFilename[62];
+    char errorFilename[68];
+    char fullFilename[67];
 
     snprintf(infoFilename, 29, "%s", subDirName);
-    snprintf(infoFilename + 28, 29, "/perfthub_%s", date);
+    snprintf(infoFilename + 28, 34, "/perfthub_%s", date);
 
     snprintf(errorFilename, 29, "%s", subDirName);
-    snprintf(errorFilename + 28, 29, "/perfthub_error_%s", date);
+    snprintf(errorFilename + 28, 40, "/perfthub_error_%s", date);
 
     snprintf(fullFilename, 29, "%s", subDirName);
-    snprintf(fullFilename + 28, 29, "/perfthub_full_%s", date);
+    snprintf(fullFilename + 28, 39, "/perfthub_full_%s", date);
 
     FILE* input = fopen("perft.txt", "r");
 
-        FILE *fInfo = NULL;
-        FILE *fError = NULL;
-        FILE *fFull = NULL;
+    FILE *fInfo = NULL;
+    FILE *fError = NULL;
+    FILE *fFull = NULL;
 
-        if ((argFiles - 4) >= 0) {
-            fInfo = fopen(strncat(infoFilename, date, 24), "w+");
-            argFiles -= 4;
-        }
-        if ((argFiles - 2) >= 0) {
-            fError = fopen(strncat(errorFilename, date, 24), "w+");
-            argFiles -= 2;
-        }
-        if (argFiles - 1 == 0) {
-            fFull = fopen(strncat(fullFilename, date, 24), "w+");
-            argFiles -= 1;
-        }
-        if (argFiles != 0) {
-            printf("error processing file arguments, see phub -h for help\n");
-            return EXIT_FAILURE;
-        }
-
-    if (!input && getInput() != 0)
+    if (argFiles < 0 || argFiles > 7) {
+        printf("error processing file arguments, see phub -h for help\n");
         return EXIT_FAILURE;
+    }
+
+    if (argFiles - 4 >= 0) {
+        fInfo = fopen(infoFilename, "w+"); // TODO fopen returns null and filenames double
+        argFiles -= 4;
+    }
+
+    if (argFiles - 2 >= 0) {
+        fError = fopen(errorFilename, "w+");
+        argFiles -= 2;
+    }
+
+    if (argFiles - 1 == 0) {
+        fFull = fopen(fullFilename, "w+");
+        argFiles -= 1;
+    }
+
+    if (!input && getInput() != 0) {
+        if (fInfo)  fclose(fInfo);
+        if (fError)  fclose(fError);
+        if (fFull)  fclose(fFull);
+        return EXIT_FAILURE;
+    }
+
     input = fopen("perft.txt", "r");
 
     int lines = 0;
     int maxDepth = argDepth;
     int tests = argTests;
-    char dBuf[5];
     char buf[256];
 
-    while (fgets(buf, sizeof(buf), input) != NULL) { // TODO: add t flag handling
+    while (fgets(buf, sizeof(buf), input) != NULL && !(flags & T_FLAG)) {
         lines++;
     }
     fseek(input, 0, SEEK_SET);
@@ -313,7 +326,8 @@ int perfthub (int argc, char **argv) {
     }
 
     while (!(flags & T_FLAG) || tests > lines) {
-    clearStdin();
+        char dBuf[5];
+        clearStdin();
         printf("how many positions do you want to test against? (max %d, leave empty to test for that amount)\n", lines);
         fgets(dBuf, 5, stdin);
 
@@ -361,7 +375,11 @@ int perfthub (int argc, char **argv) {
         char *token = strtok(buf, ",");
         char *fen = token;
 
-        parseFen(fen, board);
+        if (parseFen(fen, board) != 0) {
+            if (fInfo)  fclose(fInfo);
+            if (fError)  fclose(fError);
+            if (fFull)  fclose(fFull);
+        }
 
         token = strtok(NULL, "");
         token = strtok(token, ",");
@@ -393,34 +411,34 @@ int perfthub (int argc, char **argv) {
 
                 if (fError) {
                     fprintf(fError,
-                            "error: perft test failed in %f s for\n%s\ndepth %d: expected %llu leaf nodes, got %llu\n\n",
-                            ((double) (testEnd - testStart)) / CLOCKS_PER_SEC, fen, currentDepth,
+                            "error: perft test failed in %ld s for\n%s\ndepth %d: expected %llu leaf nodes, got %llu\n\n",
+                            ((testEnd - testStart)) / CLOCKS_PER_SEC, fen, currentDepth,
                             expectedValues[currentDepth], result);
                 }
 
                 if (fFull) {
                     fprintf(fFull,
-                            "\nerror: perft test failed in %f s for\n%s\ndepth %d: expected %llu leaf nodes, got %llu\n\n",
-                            ((double) (testEnd - testStart)) / CLOCKS_PER_SEC, fen, currentDepth,
+                            "\nerror: perft test failed in %ld s for\n%s\ndepth %d: expected %llu leaf nodes, got %llu\n\n",
+                            ((testEnd - testStart)) / CLOCKS_PER_SEC, fen, currentDepth,
                             expectedValues[currentDepth], result);
                 }
 
                 if (flags & E_FLAG)
-                    printf("error: perft test failed in %f s for\n%s\ndepth %d: expected %llu leaf nodes, got %llu\n\n",
-                           ((double) (testEnd - testStart)) / CLOCKS_PER_SEC, fen, currentDepth, expectedValues[currentDepth], result);
+                    printf("error: perft test failed in %ld s for\n%s\ndepth %d: expected %llu leaf nodes, got %llu\n\n",
+                           (testEnd - testStart) / CLOCKS_PER_SEC, fen, currentDepth, expectedValues[currentDepth], result);
             }
 
             else if (result == expectedValues[currentDepth]){
                 if (fFull) {
-                    fprintf(fFull, "\nsuccess: perft test passed in %f s for\n%s\ndepth %d, got %llu\n\n",
-                            ((double ) testEnd - testStart) / CLOCKS_PER_SEC, fen, currentDepth, result);
+                    fprintf(fFull, "\nsuccess: perft test passed in %ld s for\n%s\ndepth %d, got %llu\n\n",
+                            (testEnd - testStart) / CLOCKS_PER_SEC, fen, currentDepth, result);
                 }
             }
 
             else if (flags & L_FLAG) {
                 if (fFull) {
-                    fprintf(fFull, "\ninfo: perft test ended in %f seconds for\n%s\ndepth %d: got %llu leaf nodes\n\n",
-                            ((double) testEnd - testStart) / CLOCKS_PER_SEC, fen, currentDepth, result);
+                    fprintf(fFull, "\ninfo: perft test ended in %ld seconds for\n%s\ndepth %d: got %llu leaf nodes\n\n",
+                            (testEnd - testStart) / CLOCKS_PER_SEC, fen, currentDepth, result);
 
                 }
             }
@@ -431,19 +449,19 @@ int perfthub (int argc, char **argv) {
     totalEnd = clock();
 
     if (fInfo) {
-    fprintf(fInfo, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %f s\n",
-            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) * 100 / (float) totalTests, (double) ((totalEnd - totalStart)) / CLOCKS_PER_SEC);
+    fprintf(fInfo, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %ld s\n",
+            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) * 100 / (float) totalTests, ((totalEnd - totalStart)) / CLOCKS_PER_SEC);
     }
 
     if (fError) {
         if (failedTests == 0) fprintf(fError, "NO ERRORS FOUND\n\n");
-    fprintf(fError, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %f s\n",
-            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) * 100 / (float) totalTests, (double) ((totalEnd - totalStart)) / CLOCKS_PER_SEC);
+    fprintf(fError, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %ld s\n",
+            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) * 100 / (float) totalTests, ((totalEnd - totalStart)) / CLOCKS_PER_SEC);
     }
 
     if (fFull) {
-    fprintf(fFull, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %f s\n",
-            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) * 100 / (float) totalTests, (double) ((totalEnd - totalStart)) / CLOCKS_PER_SEC);
+    fprintf(fFull, "ALL TESTS COMPLETE\n\nTOTAL: %d\nPASSED: %d\nFAILED: %d\nACCURACY: %3f%%\nTOTAL TIME ELAPSED: %ld s\n",
+            totalTests, totalTests - failedTests, failedTests, (float) (totalTests - failedTests) * 100 / (float) totalTests, ((totalEnd - totalStart)) / CLOCKS_PER_SEC);
     }
 
     printf("tests finished.\n");
@@ -455,6 +473,10 @@ int perfthub (int argc, char **argv) {
         if (fFull) fprintf(fFull, "all tests passed, congrats!\n");
         printf("by the way, all passed! congrats!\n");
     }
+
+    if (fInfo)  fclose(fInfo);
+    if (fError)  fclose(fError);
+    if (fFull)  fclose(fFull);
 
     return EXIT_SUCCESS;
 }

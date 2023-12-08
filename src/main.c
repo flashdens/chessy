@@ -38,6 +38,7 @@ int main() {
 
     parseFen(START_FEN, board);
 
+
     char input[6];
     int currentMove = 0;
     int pvIdx = 0;
@@ -58,21 +59,23 @@ int main() {
         }
         else if (input[0] == 'p') {
             max = getPVLine(4, board);
-            printf("found pvline of %d moves:", max);
+            printf("found pvline of %d moves: ", max);
             for (int i = 0; i < max; ++i) {
-                printf("%d: %s", i, printMove(board[0].pvArray[i]));
+                printf(" %d: %s |", i+1, printMove(board[0].pvArray[i]));
             }
             printf("\n");
         }
         else {
             currentMove = parseMove(input, board);
             if (currentMove != 0) {
+                printf("%s", printMove(currentMove));
+                pvtInsert(board, currentMove);
                 makeMove(board, currentMove);
                 if (isRepetition(board))
-                    printf("repetition detected\n");
+                    printf("repetition detected\n\n");
             }
             else
-                printf("invalid move\n");
+                printf("invalid move\n\n");
         }
 
     }

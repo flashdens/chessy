@@ -150,7 +150,7 @@ int parseFen (const char *fen, BOARD *pos) {
                 continue;
 
             default:
-                printf("FEN error!\n");
+                printf("error while parsing fen!\n");
                 return 1;
         }
 

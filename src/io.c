@@ -55,5 +55,5 @@ int parseMove (char *move, BOARD *pos) {
         }
 
     }
-        return 0;
+    return 0;
 }
