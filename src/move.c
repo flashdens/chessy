@@ -49,13 +49,13 @@ char *printMove (const int move) {
  * @brief check if a move exists on a movelist.
  *
  * @param pos (*BOARD) the current position
- * @param searchedFor the move to be checked
+ * @param move the move to be checked
  *
  * @return (bool) true if a move exists on a movelist
  * @return (bool) false otherwise
  */
-bool moveExists (BOARD *pos, const int searchedFor) {
-    MOVELIST movelist[1];
+bool moveExists (BOARD *pos, const int move) {
+    S_MOVELIST movelist[1];
     movelist->count = 0;
     generateAllMoves(pos, movelist);
 
@@ -65,7 +65,7 @@ bool moveExists (BOARD *pos, const int searchedFor) {
         if (!makeMove(pos, analyzedMove))
             continue;
         takeBackMove(pos);
-        if (analyzedMove == searchedFor)
+        if (analyzedMove == move)
             return true;
     }
 
@@ -75,11 +75,11 @@ bool moveExists (BOARD *pos, const int searchedFor) {
 /**
  * @brief print a move list.
  *
- * @param list (const *MOVELIST) the move list to be printed
+ * @param list (const *S_MOVELIST) the move list to be printed
  *
  * @return void
  */
-void printMoveList (const MOVELIST *list) {
+void printMoveList (const S_MOVELIST *list) {
 
     int move = 0;
     int score = 0;

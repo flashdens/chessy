@@ -28,12 +28,12 @@
  * a move is considered quiet if it's not a capture, not a check or not a significant threat to the opponent.
  *
  * @param pos (const *BOARD) the position
- * @param list (*MOVELIST) the move list to append the move
+ * @param list (*S_MOVELIST) the move list to append the move
  * @param move the move to be added to the move list
  *
  * @return static void
  */
-static void addQuietMove (const BOARD *pos, MOVELIST *list, int move);
+static void addQuietMove (const BOARD *pos, S_MOVELIST *list, int move);
 
 /**
  * @brief add a static move to the move list.
@@ -41,12 +41,12 @@ static void addQuietMove (const BOARD *pos, MOVELIST *list, int move);
  * a move is considered quiet if it's not a capture, not a check or not a significant threat to the opponent.
  *
  * @param pos (const *BOARD) the position
- * @param list (*MOVELIST) the move list to append the move
+ * @param list (*S_MOVELIST) the move list to append the move
  * @param move the move to be added to the move list
  *
  * @return static void
  */
-static void addCaptureMove (const BOARD *pos, MOVELIST *list, int move);
+static void addCaptureMove (const BOARD *pos, S_MOVELIST *list, int move);
 
 /**
  * @brief add an en passant move to the move list.
@@ -54,12 +54,12 @@ static void addCaptureMove (const BOARD *pos, MOVELIST *list, int move);
  * a move is considered quiet if it's not a capture, not a check or not a significant threat to the opponent.
  *
  * @param pos (const *BOARD) the position
- * @param list (*MOVELIST) the move list to append the move
+ * @param list (*S_MOVELIST) the move list to append the move
  * @param move the move to be added to the move list
  *
  * @return static void
  */
-static void addEnPassantMove (const BOARD *pos, MOVELIST *list, int move);
+static void addEnPassantMove (const BOARD *pos, S_MOVELIST *list, int move);
 
 /**
  * @brief add a pawn move to the move list.
@@ -68,11 +68,11 @@ static void addEnPassantMove (const BOARD *pos, MOVELIST *list, int move);
  * @param from  the square from which a move is made
  * @param to  the square to which a move is made
  * @param capture  the captured piece (if so)
- * @param list (*MOVELIST) the list append the move to
+ * @param list (*S_MOVELIST) the list append the move to
  *
  * @return static void
  */
-static void addPawnMove (const BOARD *pos, int from, int to, MOVELIST *list);
+static void addPawnMove (const BOARD *pos, int from, int to, S_MOVELIST *list);
 
 /**
  * @brief add a pawn capture move the the move list.
@@ -81,80 +81,80 @@ static void addPawnMove (const BOARD *pos, int from, int to, MOVELIST *list);
  * @param from  the square from which a move is made
  * @param to  the square to which a move is made
  * @param capture  the captured piece (if so)
- * @param list (*MOVELIST) the list append the move to
+ * @param list (*S_MOVELIST) the list append the move to
  *
  * @return static void
  */
-static void addPawnCaptureMove (const BOARD *pos, int from, int to, int capture, MOVELIST *list);
+static void addPawnCaptureMove (const BOARD *pos, int from, int to, int capture, S_MOVELIST *list);
 
 /**
  * @brief generate moves for white pawns.
  *
  * @param pos (const *BOARD) the position to generate the moves for
- * @param list (*MOVELIST) the list append the moves to
+ * @param list (*S_MOVELIST) the list append the moves to
  *
  * @return static void
  */
-static void generateWhitePawnMoves (const BOARD *pos, MOVELIST *list);
+static void generateWhitePawnMoves (const BOARD *pos, S_MOVELIST *list);
 
 /**
  * @brief generate moves for black pawns.
  *
  * @param pos (const *BOARD) the position to generate the moves for
- * @param list (*MOVELIST) the list append the moves to
+ * @param list (*S_MOVELIST) the list append the moves to
  *
  * @return static void
  */
-static void generateBlackPawnMoves (const BOARD *pos, MOVELIST *list);
+static void generateBlackPawnMoves (const BOARD *pos, S_MOVELIST *list);
 
 /**
  * @brief generate moves for sliding pieces of the side to make a move.
  *
  * @param pos (const *BOARD) the position to generate the moves for
- * @param list (*MOVELIST) the list append the moves to
+ * @param list (*S_MOVELIST) the list append the moves to
  *
  * @return static void
  */
-static void generateSlidingPieceMoves (const BOARD *pos, MOVELIST *list);
+static void generateSlidingPieceMoves (const BOARD *pos, S_MOVELIST *list);
 
 /**
  * @brief generate moves for non-sliding pieces of the side to make a move.
  *
  * @param pos (const *BOARD) the position to generate the moves for
- * @param list (*MOVELIST) the list append the moves to
+ * @param list (*S_MOVELIST) the list append the moves to
  *
  * @return static void
  */
-static void generateNonSlidingPieceMoves (const BOARD *pos, MOVELIST *list);
+static void generateNonSlidingPieceMoves (const BOARD *pos, S_MOVELIST *list);
 
 /**
  * @brief generate castling moves for white.
  *
  * @param pos (const *BOARD) the position to generate the moves for
- * @param list (*MOVELIST) the list append the moves to
+ * @param list (*S_MOVELIST) the list append the moves to
  *
  * @return static void
  */
-static void generateWhiteCastlingMoves (const BOARD *pos, MOVELIST *list);
+static void generateWhiteCastlingMoves (const BOARD *pos, S_MOVELIST *list);
 
 /**
  * @brief generate castling moves for black.
  *
  * @param pos (const *BOARD) the position to generate the moves for
- * @param list (*MOVELIST) the list append the moves to
+ * @param list (*S_MOVELIST) the list append the moves to
  *
  * @return static void
  */
-static void generateBlackCastlingMoves (const BOARD *pos, MOVELIST *list);
+static void generateBlackCastlingMoves (const BOARD *pos, S_MOVELIST *list);
 
 /**
  * @brief driver function for move generation. generate moves for the side to make a move.
  *
  * @param pos (const *BOARD) the position to generate the moves for
- * @param list (*MOVELIST) the list append the moves to
+ * @param list (*S_MOVELIST) the list append the moves to
  *
  * @return void
  */
-void generateAllMoves (const BOARD *pos, MOVELIST *list);
+void generateAllMoves (const BOARD *pos, S_MOVELIST *list);
 
 #endif //MILOCHESS_GENERATE_H

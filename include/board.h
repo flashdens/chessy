@@ -1,6 +1,6 @@
 /**
  * @file board.h
- * @brief contains the BOARD and HISTORY structure and functions which modify them.
+ * @brief contains the BOARD and S_HISTORY structure and functions which modify them.
  */
 
 #ifndef MILOCHESS_BOARD_H
@@ -19,11 +19,10 @@ typedef struct {
     int enPassant;
     int fiftyMove;
     U64 posKey;
-}
-HISTORY;
+}S_HISTORY;
 
 typedef struct BOARD {
-    HISTORY history[MAX_MOVES];
+    S_HISTORY history[MAX_MOVES];
     int pieces[BOARD_SQUARES];
 
     int kingSquare[2];
@@ -51,6 +50,9 @@ typedef struct BOARD {
 
     struct PVTABLE *pvTable;
     int pvArray[MAX_DEPTH];
+
+    int searchHistory[13][BOARD_SQUARES];
+    int searchKillers[2][MAX_DEPTH];
 }
 BOARD;
 

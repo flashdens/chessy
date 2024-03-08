@@ -68,7 +68,7 @@ extern char* printSquare (int sq);
 /**
  * @brief print information about a move.
  *
- * @param move the move to be printed @see move.h->MOVE
+ * @param move the move to be printed @see move.h->S_MOVE
  *
  * @return (*char) the move string to be printed
  */

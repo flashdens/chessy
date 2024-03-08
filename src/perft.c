@@ -18,7 +18,7 @@ void perft (BOARD *pos, int depth, U64 *leafNodes) {
         return;
     }
 
-    MOVELIST movelist[1];
+    S_MOVELIST movelist[1];
     movelist[0].count = 0;
 
     generateAllMoves(pos, movelist);
@@ -35,7 +35,7 @@ U64 perftTest (BOARD *pos, int depth, FILE *phubOut) {
 
     ASSERT(checkBoard(pos));
 
-    MOVELIST movelist[1];
+    S_MOVELIST movelist[1];
     movelist[0].count = 0;
     U64 leafNodes = 0;
     U64 cumNodes;

@@ -4,7 +4,7 @@
 #include "globals.h"
 #include "board.h"
 
-// macros to help reading the bits from MOVE->move.
+// macros to help reading the bits from S_MOVE->move.
 
 /** @brief from square */
 #define FROMSQ(m) ((m) & 0x7F)
@@ -35,14 +35,14 @@
 
 
 /**
- * @struct MOVE
+ * @struct S_MOVE
  *
  * @brief a structure representing moves.
  *
  * @param move the information about the move is stored as a 32-bit integer, though only 25 bits are used.
  * @param score the score of the move.
  *
- * the MOVE->move bits correspond to:
+ * the S_MOVE->move bits correspond to:
  *
  * 0000 0000 0000 0000 0000 0000 0|111 1111| - the square FROM which a move is made (0x7F, bits 1-7)
  * 0000 0000 0000 0000 00|11 1111 1|000 0000 - the square TO which a move is made (7 >> 0x7F, bits 8-14)
@@ -56,41 +56,41 @@
 typedef struct {
     int move;
     int score;
-} MOVE;
+} S_MOVE;
 
 /**
- * @struct MOVELIST
+ * @struct S_MOVELIST
  *
- * @param moves (MOVE[MAX_POSITION_MOVES]) the moves available in a position
+ * @param moves (S_MOVE[MAX_POSITION_MOVES]) the moves available in a position
  * @param count the number of moves in the movelist
  *
  * the list of possible moves.
  *
  */
 typedef struct {
-    MOVE moves[MAX_POSITION_MOVES];
+    S_MOVE moves[MAX_POSITION_MOVES];
     int count;
-} MOVELIST;
+} S_MOVELIST;
 
 /**
  * @brief check if a move exists on a movelist.
  *
  * @param pos (*BOARD) the current position
- * @param searchedFor the move to be checked
+ * @param move the move to be checked
  *
  * @return (bool) true if a move exists on a movelist
  * @return (bool) false otherwise
  */
-bool moveExists (BOARD *pos, int searchedFor);
+bool moveExists (BOARD *pos, int move);
 
 
 /**
  * @brief print a move list.
  *
- * @param list (const *MOVELIST) the move list to be printed
+ * @param list (const *S_MOVELIST) the move list to be printed
  *
  * @return void
  */
-void printMoveList (const MOVELIST *list);
+void printMoveList (const S_MOVELIST *list);
 
 #endif //MILOCHESS_MOVE_H

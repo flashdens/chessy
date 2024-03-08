@@ -11,10 +11,10 @@ struct BOARD;
 typedef struct {
     U64 posKey;
     int move;
-} PVENTRY;
+} S_PVENTRY;
 
 typedef struct PVTABLE {
-    PVENTRY *items;
+    S_PVENTRY *items;
     int itemsNum;
 } PVTABLE;
 
@@ -22,7 +22,7 @@ PVTABLE* pvtNew ();
 
 void pvtInsert (struct BOARD *pos, int move);
 
-static void pvtDel (PVENTRY *e);
+static void pvtDel (S_PVENTRY *e);
 
 void pvtClear (struct BOARD *pos);
 

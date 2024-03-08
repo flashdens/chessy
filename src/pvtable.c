@@ -10,14 +10,14 @@
 PVTABLE* pvtNew () {
     const int pvSize = 0x100000 * 2;
     PVTABLE *table = malloc(pvSize);
-    table->itemsNum = (pvSize / sizeof (PVENTRY)) - 2;
+    table->itemsNum = (pvSize / sizeof (S_PVENTRY)) - 2;
     free(table->items);
-    table->items = calloc((size_t)table->itemsNum, sizeof(PVENTRY));
+    table->items = calloc((size_t)table->itemsNum, sizeof(S_PVENTRY));
     printf("table initialized with %d entries\n", table->itemsNum);
     return table;
 }
 
-static void pvtDel (PVENTRY *e) {
+static void pvtDel (S_PVENTRY *e) {
     free(e);
 }
 

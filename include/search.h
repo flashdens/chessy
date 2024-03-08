@@ -7,6 +7,22 @@
 
 #include "board.h"
 
-bool isRepetition (BOARD *pos);
+typedef struct {
+    int startTime;
+    int stopTime;
+    int depth;
+    int depthset;
+    int timeset;
+    int movesToGo;
+
+    long nodes;
+
+    bool infinite;
+    bool quit;
+    bool stopped;
+
+} S_SEARCHINFO;
+
+static bool isRepetition (BOARD *pos);
 
 #endif //MILOCHESS_SEARCH_H

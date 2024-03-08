@@ -44,7 +44,7 @@ static void movePiece (BOARD *pos, int fromSq, int toSq);
 * @brief make a move from one square to another.
 *
 * @param pos (*BOARD) the board to be processed
-* @param move the move to be processed @see move.h MOVE->move
+* @param move the move to be processed @see move.h S_MOVE->move
 *
 * @return true if the move is valid
 * @return false if the move is invalid (it doesn't prevent an enemy check or caused it)
@@ -52,7 +52,7 @@ static void movePiece (BOARD *pos, int fromSq, int toSq);
 bool makeMove (BOARD *pos, int move);
 
 /**
- * @brief take back a move (load the previous one from the HISTORY).
+ * @brief take back a move (load the previous one from the S_HISTORY).
  *
  * @param pos (*BOARD) the board to be processed
  *

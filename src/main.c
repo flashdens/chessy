@@ -2,18 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "move.h"
-#include "utils.h"
-#include "init.h"
-#include "attack.h"
-#include "board.h"
-#include "enums.h"
-#include "generate.h"
-#include "perfthub.h"
-#include "makemove.h"
-#include "search.h"
-#include "io.h"
-#include "pvtable.h"
+#include "milochess.h"
 
 #define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 #define FEN4 "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
@@ -34,7 +23,7 @@ int main() {
     initAll();
 
     BOARD board[1];
-    MOVELIST movelist[1];
+    S_MOVELIST movelist[1];
 
     parseFen(START_FEN, board);
 
@@ -81,7 +70,7 @@ int main() {
     }
 //
 //    BOARD board[1];
-//    MOVELIST movelist[1];
+//    S_MOVELIST movelist[1];
 //
 //    parseFen(KIWIPETE, board);
 //

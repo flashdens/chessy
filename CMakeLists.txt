@@ -31,6 +31,9 @@ add_executable(milochess
         include/hashkeys.h
         include/pvtable.h
         src/pvtable.c
+        src/evaluate.c
+        include/evaluate.h
+        include/milochess.h
 )
 
 target_include_directories(milochess PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

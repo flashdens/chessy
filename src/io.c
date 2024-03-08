@@ -26,7 +26,7 @@ int parseMove (char *move, BOARD *pos) {
 
     ASSERT(isSquareOnBoard(fromSquare) && isSquareOnBoard(toSquare));
 
-    MOVELIST movelist[1];
+    S_MOVELIST movelist[1];
     movelist[0].count = 0;
     generateAllMoves(pos, movelist);
 
