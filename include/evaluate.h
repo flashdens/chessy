@@ -9,4 +9,4 @@
 
 #endif //MILOCHESS_EVALUATE_H
 
-int evalPosition(const BOARD *pos) {}
+int evalPosition(const BOARD *pos);

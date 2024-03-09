@@ -23,6 +23,17 @@ typedef struct {
 
 } S_SEARCHINFO;
 
-static bool isRepetition (BOARD *pos);
+static void checkUp() {}
+
+static bool isRepetition(BOARD *pos);
+
+static void clearForSearch(BOARD *pos, S_SEARCHINFO *info);
+
+static void searchPosition(BOARD *pos, S_SEARCHINFO *info);
+
+static int quiescence(int a, int b, BOARD *pos, S_SEARCHINFO *info);
+
+static int alphaBeta(int a, int b, int depth, BOARD *pos, S_SEARCHINFO *info, int doNull);
+
 
 #endif //MILOCHESS_SEARCH_H

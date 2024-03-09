@@ -13,7 +13,6 @@
  * @return (bool) false otherwise
  */
 static bool isRepetition (BOARD *pos) {
-
     for (int i = pos->hisPly - pos->fiftyMove; i < pos->hisPly - 1; ++i) {
         ASSERT(i >= 0 && i < MAX_MOVES);
         if (pos->posKey == pos->history[i].posKey)

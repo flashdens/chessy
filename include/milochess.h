@@ -11,12 +11,12 @@
 #include "generate.h"
 #include "perfthub.h"
 #include "makemove.h"
-#include "search.h"
 #include "io.h"
 #include "pvtable.h"
 #include "bitboards.h"
 #include "data.h"
 #include "hashkeys.h"
 #include "validate.h"
+#include "search.h"
 
 #endif //MILOCHESS_MILOCHESS_H
