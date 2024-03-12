@@ -61,7 +61,7 @@ int mirror64[64] = {
 };
 
 
-int evaluatePosition(const BOARD *pos) {
+int evalPosition(const BOARD *pos) {
     int sq;
     int score = pos->material[WHITE] - pos->material[BLACK];
 
