@@ -33,7 +33,7 @@ void searchPosition(BOARD *pos, S_SEARCHINFO *info);
 
 static int quiescence(int a, int b, BOARD *pos, S_SEARCHINFO *info);
 
-static int alphaBeta(int a, int b, int depth, BOARD *pos, S_SEARCHINFO *info, int doNull);
+static int alphaBeta(int a, int b, int depth, BOARD *pos, S_SEARCHINFO *info, bool doNull);
 
 
 #endif //MILOCHESS_SEARCH_H

@@ -2,6 +2,8 @@
 
 #include "milochess.h"
 
+#define INFINITE 30000
+
 /**
  * @brief check if a move is a repetition, based on the position key history.
  *
@@ -20,6 +22,14 @@ bool isRepetition (BOARD *pos) {
     return false;
 }
 
+/**
+ * @brief prepare the BOARD and SEARCHINFO structures for search .
+ *
+ * @param  pos (*BOARD) the current position
+ * @param info (*S_SEARCHINFO) search informations
+ *
+ * @return void
+ */
 static void clearForSearch(BOARD *pos, S_SEARCHINFO *info) {
     for (int i = 0; i < 13; ++i) {
         for (int j = 0; j < BOARD_SQUARES; ++j) {
@@ -44,12 +54,43 @@ static void clearForSearch(BOARD *pos, S_SEARCHINFO *info) {
 }
 
 void searchPosition(BOARD *pos, S_SEARCHINFO *info) {
-    return;
+    int bestMove = NOMOVE;
+    int bestScore = -INFINITE;
+    int pvMoves = 0;
+    clearForSearch(pos, info);
+
+    for (int depth = 1; depth <= info->depth; depth++) {
+        bestScore = alphaBeta(-INFINITE,
+                              INFINITE,
+                              depth,
+                              pos,
+                              info,
+                              true);
+
+        pvMoves = getPVLine(depth, pos);
+        bestMove = pos->pvArray[0];
+
+        printf("depth: %d, score %d, move: %s, nodes: %ld",
+               depth,
+               bestScore,
+               printMove(bestMove),
+               info->nodes);
+
+        printf("pv:");
+        for (int i = 0; i < pvMoves; ++i) {
+            printf(" %s", printMove(pos->pvArray[i]));
+        }
+        printf("\n");
+
+
+    }
+
+
 }
 static int quiescence(int a, int b, BOARD *pos, S_SEARCHINFO *info) {
     return 0;
 }
 
-static int alphaBeta(int a, int b, int depth, BOARD *pos, S_SEARCHINFO *info, int doNull) {
+static int alphaBeta(int a, int b, int depth, BOARD *pos, S_SEARCHINFO *info, bool doNull) {
     return 0;
 }
