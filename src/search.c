@@ -44,7 +44,7 @@ static void clearForSearch(BOARD *pos, S_SEARCHINFO *info) {
 }
 
 void searchPosition(BOARD *pos, S_SEARCHINFO *info) {
-    
+    return;
 }
 static int quiescence(int a, int b, BOARD *pos, S_SEARCHINFO *info) {
     return 0;
