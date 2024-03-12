@@ -1,6 +1,11 @@
+/**
+ * @file milochess.h
+ *
+ * @brief the one header file to rule them all!
+ */
+
 #ifndef MILOCHESS_MILOCHESS_H
 #define MILOCHESS_MILOCHESS_H
-
 
 #include "move.h"
 #include "utils.h"
@@ -18,5 +23,6 @@
 #include "hashkeys.h"
 #include "validate.h"
 #include "search.h"
+#include "evaluate.h"
 
 #endif //MILOCHESS_MILOCHESS_H

@@ -7,6 +7,8 @@
 
 #include "board.h"
 
+#define INFINITE 30000
+
 typedef struct {
     long startTime;
     long stopTime;
