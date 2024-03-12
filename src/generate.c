@@ -3,11 +3,7 @@
  * @brief contains function definitions for move generation.
  */
 
-#include "generate.h"
-#include "globals.h"
-#include "enums.h"
-#include "attack.h"
-#include "validate.h"
+#include "milochess.h"
 
 /**
  * @brief add a quiet move to the move list.

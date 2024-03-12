@@ -4,10 +4,7 @@
  */
 #include <stdbool.h>
 
-#include "attack.h"
-#include "board.h"
-#include "enums.h"
-#include "validate.h"
+#include "milochess.h"
 
 /**
  * @brief check the square for pawn attacks.

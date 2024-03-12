@@ -64,8 +64,4 @@ void printBinaryNumber (int num) {
     printf("\n");
 }
 
-
-
-
-
 #endif //MILOCHESS_UTILS_H

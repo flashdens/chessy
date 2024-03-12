@@ -5,8 +5,7 @@
 #include <sys/stat.h>
 
 #include "perfthub.h"
-#include "perft.h"
-#include "board.h"
+#include "milochess.h"
 
 #define S_FLAG (1 << 0)
 #define H_FLAG (1 << 1)

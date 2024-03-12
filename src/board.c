@@ -5,11 +5,7 @@
 
 #include <stdbool.h>
 
-#include "board.h"
-#include "globals.h"
-#include "pvtable.h"
-#include "hashkeys.h"
-#include "bitboards.h"
+#include "milochess.h"
 
 /**
  * @brief reset the board to its default state.

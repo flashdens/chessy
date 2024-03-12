@@ -5,9 +5,7 @@
 
 #include <stdbool.h>
 
-#include "validate.h"
-#include "globals.h"
-#include "enums.h"
+#include "milochess.h"
 
 /**
  * @brief check if a square is on the board.

@@ -1,11 +1,6 @@
 #include <string.h>
 
-#include "move.h"
-#include "globals.h"
-#include "generate.h"
-#include "board.h"
-#include "makemove.h"
-#include "validate.h"
+#include "milochess.h"
 
 char *printMove (const int move) {
 

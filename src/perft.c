@@ -3,12 +3,7 @@
 #include <stdlib.h>
 #include <perfthub.h>
 
-#include "utils.h"
-#include "perft.h"
-#include "board.h"
-#include "move.h"
-#include "makemove.h"
-#include "generate.h"
+#include "milochess.h"
 
 void perft (BOARD *pos, int depth, U64 *leafNodes) {
     ASSERT(checkBoard(pos));

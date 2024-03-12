@@ -1,11 +1,6 @@
 #include <stdio.h>
 
-#include "globals.h"
-#include "hashkeys.h"
-#include "utils.h"
-#include "init.h"
-#include "enums.h"
-#include "board.h"
+#include "milochess.h"
 
 int Sq64ToSq120[64];
 int Sq120ToSq64[BOARD_SQUARES];

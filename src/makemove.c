@@ -6,15 +6,7 @@
 
 #include <stdbool.h>
 
-#include "makemove.h"
-#include "board.h"
-#include "move.h"
-#include "bitboards.h"
-#include "enums.h"
-#include "hashkeys.h"
-#include "utils.h"
-#include "attack.h"
-#include "validate.h"
+#include "milochess.h"
 
 /**
  *  @var (int*) castlePerms[120]

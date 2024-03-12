@@ -1,9 +1,6 @@
 #include <stdlib.h>
 
-#include "hashkeys.h"
-#include "globals.h"
-#include "board.h"
-#include "enums.h"
+#include "milochess.h"
 
 /**
  * @param pos

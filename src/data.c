@@ -1,8 +1,6 @@
 #include <stdbool.h>
 
-#include "globals.h"
-#include "data.h"
-#include "enums.h"
+#include "milochess.h"
 
 //TODO make these consts
 

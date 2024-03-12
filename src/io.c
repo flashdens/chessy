@@ -1,14 +1,6 @@
 #include "string.h"
 
-#include "io.h"
-#include "data.h"
-#include "validate.h"
-#include "globals.h"
-#include "move.h"
-#include "board.h"
-#include "enums.h"
-#include "generate.h"
-#include "utils.h"
+#include "milochess.h"
 
 // todo segfaults
 int parseMove (char *move, BOARD *pos) {

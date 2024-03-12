@@ -1,11 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "pvtable.h"
-#include "utils.h"
-#include "move.h"
-#include "makemove.h"
-#include "board.h"
+#include "milochess.h"
 
 PVTABLE* pvtNew () {
     const int pvSize = 0x100000 * 2;
