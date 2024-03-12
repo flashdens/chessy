@@ -8,8 +8,8 @@
 #include "board.h"
 
 typedef struct {
-    int startTime;
-    int stopTime;
+    long startTime;
+    long stopTime;
     int depth;
     int depthset;
     int timeset;
@@ -25,11 +25,11 @@ typedef struct {
 
 static void checkUp() {}
 
-static bool isRepetition(BOARD *pos);
+bool isRepetition(BOARD *pos);
 
 static void clearForSearch(BOARD *pos, S_SEARCHINFO *info);
 
-static void searchPosition(BOARD *pos, S_SEARCHINFO *info);
+void searchPosition(BOARD *pos, S_SEARCHINFO *info);
 
 static int quiescence(int a, int b, BOARD *pos, S_SEARCHINFO *info);
 
