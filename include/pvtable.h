@@ -22,7 +22,7 @@ PVTABLE* pvtNew ();
 
 void pvtInsert (struct BOARD *pos, int move);
 
-static void pvtDel (S_PVENTRY *e);
+static void pvtDelEntry (S_PVENTRY *e);
 
 void pvtClear (struct BOARD *pos);
 

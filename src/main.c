@@ -23,7 +23,10 @@ int main() {
     initAll();
 
     BOARD board[1];
+    resetBoard(board);
     S_MOVELIST movelist[1];
+    S_SEARCHINFO info[1];
+    clearForSearch(board, info);
 
     parseFen(START_FEN, board);
 
@@ -46,13 +49,9 @@ int main() {
             takeBackMove(board);
             continue;
         }
-        else if (input[0] == 'p') {
-            max = getPVLine(4, board);
-            printf("found pvline of %d moves: ", max);
-            for (int i = 0; i < max; ++i) {
-                printf(" %d: %s |", i+1, printMove(board[0].pvArray[i]));
-            }
-            printf("\n");
+        else if (input[0] == 's') {
+            info->depth = 4;
+            searchPosition(board, info);
         }
         else {
             currentMove = parseMove(input, board);

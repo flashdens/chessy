@@ -23,13 +23,16 @@ typedef struct {
     bool quit;
     bool stopped;
 
+    float fh;
+    float fhf;
+
 } S_SEARCHINFO;
 
 static void checkUp() {}
 
 bool isRepetition(BOARD *pos);
 
-static void clearForSearch(BOARD *pos, S_SEARCHINFO *info);
+void clearForSearch(BOARD *pos, S_SEARCHINFO *info);
 
 void searchPosition(BOARD *pos, S_SEARCHINFO *info);
 

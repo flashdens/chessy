@@ -7,20 +7,19 @@ PVTABLE* pvtNew () {
     const int pvSize = 0x100000 * 2;
     PVTABLE *table = malloc(pvSize);
     table->itemsNum = (pvSize / sizeof (S_PVENTRY)) - 2;
-    free(table->items);
     table->items = calloc((size_t)table->itemsNum, sizeof(S_PVENTRY));
     printf("table initialized with %d entries\n", table->itemsNum);
     return table;
 }
 
-static void pvtDel (S_PVENTRY *e) {
+static void pvtDelEntry (S_PVENTRY *e) {
     free(e);
 }
 
 void pvtClear (struct BOARD *pos) {
     memset(pos->pvTable, 0, sizeof(PVTABLE));
     free(pos->pvTable);
-    pos->pvTable = NULL;
+    pos->pvTable = pvtNew();
 }
 
 void pvtInsert (struct BOARD *pos, int move) {

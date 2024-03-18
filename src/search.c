@@ -24,12 +24,12 @@ bool isRepetition (BOARD *pos) {
 /**
  * @brief prepare the BOARD and SEARCHINFO structures for search .
  *
- * @param  pos (*BOARD) the current position
+ * @param pos (*BOARD) the current position
  * @param info (*S_SEARCHINFO) search informations
  *
  * @return void
  */
-static void clearForSearch(BOARD *pos, S_SEARCHINFO *info) {
+void clearForSearch(BOARD *pos, S_SEARCHINFO *info) {
     for (int i = 0; i < 13; ++i) {
         for (int j = 0; j < BOARD_SQUARES; ++j) {
             pos->searchHistory[i][j] = 0;
@@ -50,6 +50,9 @@ static void clearForSearch(BOARD *pos, S_SEARCHINFO *info) {
     info->startTime = t.tv_sec * 1000 + t.tv_usec / 1000;
     info->nodes = 0;
     info->stopped = false;
+
+    info->fh = 0;
+    info->fhf = 0;
 }
 
 void searchPosition(BOARD *pos, S_SEARCHINFO *info) {
@@ -69,28 +72,26 @@ void searchPosition(BOARD *pos, S_SEARCHINFO *info) {
         pvMoves = getPVLine(depth, pos);
         bestMove = pos->pvArray[0];
 
-        printf("depth: %d, score %d, move: %s, nodes: %ld",
+        printf("depth: %d, score %d, move: %s, nodes: %ld ",
                depth,
                bestScore,
                printMove(bestMove),
                info->nodes);
 
-        printf("pv:\n");
+        printf("pv:");
         for (int i = 0; i < pvMoves; ++i) {
             printf(" %s", printMove(pos->pvArray[i]));
         }
-        printf("\n");
-
-
+        printf(" ordering: %.2f\n", info->fhf / info->fh);
     }
 
-
 }
+
 static int quiescence(int a, int b, BOARD *pos, S_SEARCHINFO *info) {
     return 0;
 }
 
-static int alphaBeta(int a, int b, int depth, BOARD *pos, S_SEARCHINFO *info, bool doNull) {
+int alphaBeta(int a, int b, int depth, BOARD *pos, S_SEARCHINFO *info, bool doNull) {
     ASSERT(checkBoard(pos));
 
     if (depth == 0) {
@@ -130,6 +131,10 @@ static int alphaBeta(int a, int b, int depth, BOARD *pos, S_SEARCHINFO *info, bo
 
         if (moveScore > a) {
             if (moveScore >= b) {
+                if (legalMoves == 1) {
+                    info->fhf++;
+                }
+                info->fh++;
                 return b;
             }
             a = moveScore;
@@ -139,8 +144,9 @@ static int alphaBeta(int a, int b, int depth, BOARD *pos, S_SEARCHINFO *info, bo
 
     // if there are no legal moves for a side, then the position is a stale- or checkmate
     if (!legalMoves)
-        return isSquareAttacked(pos->kingSquare[pos->sideToMove],pos->sideToMove ^ 1, pos) ? -INFINITE + pos->hisPly : 0;
-
+        isSquareAttacked(pos->kingSquare[pos->sideToMove],pos->sideToMove ^ 1, pos)
+        ? -INFINITE + pos->hisPly
+        : 0;
 
     if (a != oldA)
         pvtInsert(pos, bestMove);

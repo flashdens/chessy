@@ -95,7 +95,7 @@ int evalPosition(const BOARD *pos) {
                     score -= rookTable[SQ64(sq)];
                     break;
                 default:
-                    printf("The rest is yet to implement");
+//                    printf("The rest is yet to implement\n");
                     break;
             }
         }
