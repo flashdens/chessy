@@ -26,6 +26,7 @@ void perft (BOARD *pos, int depth, U64 *leafNodes) {
     }
 }
 
+
 U64 perftTest (BOARD *pos, int depth, FILE *phubOut) {
 
     ASSERT(checkBoard(pos));

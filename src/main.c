@@ -5,7 +5,7 @@
 #include "milochess.h"
 
 #define START_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-#define WAC1 "r1b1k2r/ppppnppp/2n2q2/2b5/3NP3/2P1B3/PP3PPP/RN1QKB1R w KQkq - 0 1"
+#define WAC1 "2rr3k/pp3pp1/1nnqbN1p/3pN3/2pP4/2P3Q1/PPB4P/R4RK1 w - -"
 #define FEN4 "r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq - 0 1"
 #define FEN5 "rnbqkb1r/pp1p1pPp/8/2p1pP2/1P1P4/3P3P/P1P1P3/RNBQKBNR w KQkq e6 0 1"
 #define FEN6 "rnbqkbnr/p1p1p3/3p3p/1p1p4/2P1Pp2/8/PP1P1PpP/RNBQKB1R b KQkq e3 0 1"
@@ -27,42 +27,44 @@ int main() {
     S_MOVELIST movelist[1];
     S_SEARCHINFO info[1];
 
-    parseFen(START_FEN, board);
+    parseFen(WAC1, board);
 
     char input[6];
     int currentMove = 0;
     int pvIdx = 0;
     int max = 0;
 
-    while (1) {
-        printBoard(board);
-        printf("provide a move\n");
-        fgets(input, sizeof(input),stdin);
-        fflush(stdin);
-
-        if (input[0] == 'q') {
-            break;
-        }
-        else if (input[0] == 't') {
-            takeBackMove(board);
-            continue;
-        }
-        else if (input[0] == 's') {
-            info->depth = 4;
-            searchPosition(board, info);
-        }
-        else {
-            currentMove = parseMove(input, board);
-            if (currentMove != 0) {
-                printf("%s", printMove(currentMove));
-                pvtInsert(board, currentMove);
-                makeMove(board, currentMove);
-                if (isRepetition(board))
-                    printf("repetition detected\n\n");
-            }
-            else
-                printf("invalid move\n\n");
-        }
-    }
+    char *argv[] = {"perfthub", "-e"};
+    perfthub(2, argv);
+//    while (1) {
+//        printBoard(board);
+//        printf("provide a move\n");
+//        fgets(input, sizeof(input),stdin);
+//        fflush(stdin);
+//
+//        if (input[0] == 'q') {
+//            break;
+//        }
+//        else if (input[0] == 't') {
+//            takeBackMove(board);
+//            continue;
+//        }
+//        else if (input[0] == 's') {
+//            info->depth = 4;
+//            searchPosition(board, info);
+//        }
+//        else {
+//            currentMove = parseMove(input, board);
+//            if (currentMove != 0) {
+//                printf("%s", printMove(currentMove));
+//                pvtInsert(board, currentMove);
+//                makeMove(board, currentMove);
+//                if (isRepetition(board))
+//                    printf("repetition detected\n\n");
+//            }
+//            else
+//                printf("invalid move\n\n");
+//        }
+//    }
     return 0;
 }

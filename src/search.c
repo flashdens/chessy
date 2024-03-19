@@ -150,10 +150,14 @@ int alphaBeta(int a, int b, int depth, BOARD *pos, S_SEARCHINFO *info, bool doNu
     }
 
     // if there are no legal moves for a side, then the position is a stale- or checkmate
-    if (!legalMoves)
-        isSquareAttacked(pos->kingSquare[pos->sideToMove],pos->sideToMove ^ 1, pos)
-        ? -INFINITE + pos->hisPly
-        : 0;
+    if (!legalMoves) {
+        if (isSquareAttacked(pos->kingSquare[pos->sideToMove],
+                             pos->sideToMove ^ 1,
+                             pos))
+            return -INFINITE + pos->hisPly;
+        else
+            return 0;
+    }
 
     if (a != oldA)
         pvtInsert(pos, bestMove);
