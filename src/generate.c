@@ -17,6 +17,9 @@
  * @return static void
  */
 static void addQuietMove (const BOARD *pos, S_MOVELIST *list, int move) {
+    ASSERT(isSquareOnBoard(FROMSQ(move)));
+    ASSERT(isSquareOnBoard(TOSQ(move)));
+
     list->moves[list->count].move = move;
     list->moves[list->count].score = 0;
     list->count++;
@@ -34,6 +37,9 @@ static void addQuietMove (const BOARD *pos, S_MOVELIST *list, int move) {
  * @return static void
  */
 static void addCaptureMove (const BOARD *pos, S_MOVELIST *list, int move) {
+    ASSERT(isSquareOnBoard(FROMSQ(move)));
+    ASSERT(isSquareOnBoard(TOSQ(move)));
+
     list->moves[list->count].move = move;
     list->moves[list->count].score = 0;
     list->count++;
@@ -164,10 +170,10 @@ static void generateWhitePawnMoves (const BOARD *pos, S_MOVELIST *list) {
 
         // consider an en passant move
         if (square + 9 == pos->enPassant)
-            addCaptureMove(pos, list, MOVE(square, square + 9, EMPTY, EMPTY, FISENPASSANT));
+            addEnPassantMove(pos, list, MOVE(square, square + 9, EMPTY, EMPTY, FISENPASSANT));
 
         if (square + 11 == pos->enPassant && pos->enPassant != 99)
-            addCaptureMove(pos, list, MOVE(square, square + 11, EMPTY, EMPTY, FISENPASSANT));
+            addEnPassantMove(pos, list, MOVE(square, square + 11, EMPTY, EMPTY, FISENPASSANT));
     }
 }
 
@@ -208,10 +214,10 @@ static void generateBlackPawnMoves (const BOARD *pos, S_MOVELIST *list) {
 
         // consider an en passant move
         if (fromSquare - 9 == pos->enPassant)
-            addCaptureMove(pos, list, MOVE(fromSquare, fromSquare - 9, EMPTY, EMPTY, FISENPASSANT));
+            addEnPassantMove(pos, list, MOVE(fromSquare, fromSquare - 9, EMPTY, EMPTY, FISENPASSANT));
 
         if (fromSquare - 11 == pos->enPassant)
-            addCaptureMove(pos, list, MOVE(fromSquare, fromSquare - 11, EMPTY, EMPTY, FISENPASSANT));
+            addEnPassantMove(pos, list, MOVE(fromSquare, fromSquare - 11, EMPTY, EMPTY, FISENPASSANT));
     }
 }
 

@@ -34,6 +34,7 @@ add_executable(milochess
         src/evaluate.c
         include/evaluate.h
         include/milochess.h
+        include/moveorder.h
 )
 
 target_include_directories(milochess PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
