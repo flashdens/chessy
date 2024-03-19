@@ -74,25 +74,25 @@ int evalPosition(const BOARD *pos) {
                     score += pawnTable[SQ64(sq)];
                     break;
                 case p:
-                    score -= mirror64[SQ64(sq)];
+                    score -= pawnTable[mirror64[SQ64(sq)]];
                     break;
                 case N:
                     score += knightTable[SQ64(sq)];
                     break;
                 case n:
-                    score -= knightTable[SQ64(sq)];
+                    score -= knightTable[mirror64[SQ64(sq)]];
                     break;
                 case B:
                     score += bishopTable[SQ64(sq)];
                     break;
                 case b:
-                    score -= bishopTable[SQ64(sq)];
+                    score -= bishopTable[mirror64[SQ64(sq)]];
                     break;
                 case R:
                     score += rookTable[SQ64(sq)];
                     break;
                 case r:
-                    score -= rookTable[SQ64(sq)];
+                    score -= rookTable[mirror64[SQ64(sq)]];
                     break;
                 default:
 //                    printf("The rest is yet to implement\n");

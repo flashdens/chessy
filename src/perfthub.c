@@ -36,7 +36,7 @@ int getInput () {
     }
 
     int result;
-    char command[67] = "wget https://wierzba.wzks.uj.edu.pl/~21_bogacz/milochess/perft.txt";
+    char command[90] = "wget --no-check-certificate https://wierzba.wzks.uj.edu.pl/~21_bogacz/milochess/perft.txt";
 
     result = system(command);
     printf("%s\n", command);

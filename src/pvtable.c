@@ -17,7 +17,6 @@ static void pvtDelEntry (S_PVENTRY *e) {
 }
 
 void pvtClear (struct BOARD *pos) {
-    memset(pos->pvTable, 0, sizeof(PVTABLE));
     free(pos->pvTable);
     pos->pvTable = pvtNew();
 }
@@ -48,15 +47,19 @@ int getPVLine(const int depth, struct BOARD *pos) {
     int move = pvtProbe(pos);
     int moveCount = 0;
 
-    while (moveCount < depth && moveExists(pos, move)) {
+    while (moveCount < depth && move != NOMOVE) {
         ASSERT(moveCount < MAX_DEPTH);
 
-        makeMove(pos, move);
-        pos->pvArray[moveCount++] = move;
+        if (moveExists(pos, move)) {
+            makeMove(pos, move);
+            pos->pvArray[moveCount] = move;
+            moveCount++;
+        }
+        else {
+            break;
+        }
 
         move = pvtProbe(pos);
-        if (move == NOMOVE)
-            break;
     }
 
     while (pos->ply > 0) {

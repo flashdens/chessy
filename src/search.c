@@ -102,8 +102,9 @@ int alphaBeta(int a, int b, int depth, BOARD *pos, S_SEARCHINFO *info, bool doNu
     info->nodes++;
 
     // check for a draw
-    if (isRepetition(pos) || pos->fiftyMove >= 100)
+    if (isRepetition(pos) || pos->fiftyMove >= 100) {
         return 0;
+    }
 
     // check if the search is not off-limit
     if (pos->ply > MAX_DEPTH - 1) {
@@ -124,9 +125,15 @@ int alphaBeta(int a, int b, int depth, BOARD *pos, S_SEARCHINFO *info, bool doNu
         if (!makeMove(pos, movelist->moves[i].move)) {
             continue;
         }
+//        printf("%s\n", printMove( movelist->moves[i].move));
 
         legalMoves++;
-        moveScore = -alphaBeta(-b, -a, depth - 1, pos, info, true);
+        moveScore = -alphaBeta(-b,
+                               -a,
+                               depth - 1,
+                               pos,
+                               info,
+                               true);
         takeBackMove(pos);
 
         if (moveScore > a) {
