@@ -307,7 +307,8 @@ int perfthub (int argc, char **argv) {
     char buf[256];
 
     while (fgets(buf, sizeof(buf), input) != NULL && !(flags & T_FLAG)) {
-        lines++;
+        if (buf[0] != '#')
+            lines++;
     }
     fseek(input, 0, SEEK_SET);
 
@@ -371,6 +372,13 @@ int perfthub (int argc, char **argv) {
     for (int i = 0; i < tests; ++i) {
         U64 expectedValues[13];
         fgets(buf, sizeof(buf), input);
+
+        // comment detected
+        if (buf[0] == '#') {
+            i--;
+            continue;
+        }
+
         char *token = strtok(buf, ",");
         char *fen = token;
 

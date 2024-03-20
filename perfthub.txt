@@ -2,18 +2,24 @@ PERFTHUB
 
 perfthub is a tool that lets you perft test the milochess chess engine. you can use flags to modify its behaviour.
 
+perfthub requires you to provide "perft.txt" in the exe path, which includes the FEN positions alongside expected values.
+
+this is an example of how such entry should look like:
+rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -,20,400,8902,197281,4865609,119060324
+(FEN notation string)                              (expected test values, seperated with commas)
+
+perfthub started with no flags will first handle perft.txt, then ask for test depth and amount, afterwards proceeding with the tests.
+
+if you don't have the file present, perfthub will download it for you from https://wierzba.wzks.uj.edu.pl/~21_bogacz/milochess/perft.txt.
+
+if you want to omit a certain test case, insert a # to the BEGINNING of the line to "comment" it.
+
 by default, 3 .log files are generated for each test run:
 - perfthub_info -  basic information about the test (4)
 - perfthub_error -  detailed information about failed tests (2)
 - perfthub_full -  all information about each test (1)
 
-they are stored in {milochess_executable_path}/perfthub/{test_time} directories (the perfthub directory is created if it doesn't exist under the current path, test run directories are created dynamically).
-
-perfthub requires you to provide "perft.txt" in the exe path, which includes the FEN positions alongside expected values.
-if you don't have the file present, perfthub will download it for you from https://wierzba.wzks.uj.edu.pl/~21_bogacz/milochess/perft.txt.
-you can also look up the link as a reference to how the file should look like (if you want only fens to be parsed, look up the -l flag).
-
-perfthub started with no flags will first handle perft.txt, then ask for test depth and amount, afterwards proceeding with the tests.
+they are stored in {milochess_executable_path}/perfthub/{test_time} directories (created dynamically).
 
 OPTIONS
 
@@ -22,11 +28,14 @@ WITHOUT ARGUMENTS
 -s, --skip
 skip the welcome screen. best used with -d and -t for immediate testing
 
+
 -h, --help
 print help (this very document). if this is the only option, perfthub will exit.
 
+
 -l, --loose
 omit testing against expected values, outputting the results the files anyway. be sure to pass the flag if your perft.txt file doesn't include expected values of the test to avoid errors
+
 
 -e --error-to-stdout
 write error logs to stdout alongside the files, therefore not printing information about test starts to stdout.
